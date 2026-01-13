@@ -1,0 +1,13 @@
+import type { ReactElement } from "react";
+
+function Home(): ReactElement {
+  return (
+    <>
+      <section className="grow flex flex-col items-center justify-center">
+        <h1 className="text-2xl text-slate-400">Home</h1>
+      </section>
+    </>
+  );
+}
+
+export default Home;
