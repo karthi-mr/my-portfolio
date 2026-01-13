@@ -10,11 +10,12 @@ function Navbar(): ReactElement {
       <div className="w-[90%] h-full flex justify-between items-center">
         {/* header icon */}
         <div>
-          <span
-            className="text-2xl italic font-bold bg-linear-to-br from-purple-500 to-yellow-500 text-black"
-          >
-            My Portfolio
-          </span>
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-blue-500 text-white flex items-center justify-center rounded-full font-bold">
+              K
+            </div>
+            <span className="text-xl font-semibold tracking-wide text-white">Karthi</span>
+          </div>
         </div>
 
         {/* Nav links */}
