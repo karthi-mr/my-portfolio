@@ -69,6 +69,8 @@ function Navbar(): ReactElement {
             ))}
           </div>
 
+          <div></div>
+
           {/* small screens */}
           <div className="md:hidden cursor-pointer">
             <Menu onClick={handleOpenMenu} />
