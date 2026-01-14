@@ -7,6 +7,8 @@ import profileImg from "../assets/profile1.jpg";
 const RESUME_PDF_URL: string = "https://drive.google.com/file/d/1UKLLpP9tGlPoilDuIfeo1KwkNucTVHLX/view?usp=drive_link";
 
 const SUB_TITLE: string = "Full Stack Developer | Spring Framework | React | Angular";
+const mobileNumber: string = "+91 7708006145"
+const mailId: string = "mkarthim1998@gmail.com"
 
 function Home(): ReactElement {
   const navigator: NavigateFunction = useNavigate();
@@ -36,6 +38,10 @@ function Home(): ReactElement {
           <h1 className="text-3xl md:text-5xl font-bold tracking-wider">
             Hi, I'm Karthi
           </h1>
+          <h2 className="text-lg md:text-2xl text-cyan-300 font-semibold tracking-wide">
+            <span>{mailId}</span> {" | "}
+            <span>{mobileNumber}</span>
+          </h2>
           <h3 className="text-xl md:text-3xl text-blue-400 font-semibold tracking-tight">
             {SUB_TITLE}
           </h3>
