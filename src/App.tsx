@@ -1,13 +1,13 @@
 import type { ReactElement } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import Home from "./components/Home.tsx";
-import Layout from "./components/Layout.tsx";
-import About from "./components/About.tsx";
-import Contact from "./components/Contact.tsx";
-import Skills from "./components/Skills.tsx";
-import Experience from "./components/Experience.tsx";
-import Projects from "./components/Projects.tsx";
-import CursorHighlight from "./components/CursorHighlight.tsx";
+import Home from "./pages/Home.tsx";
+import Layout from "./pages/Layout.tsx";
+import About from "./pages/About.tsx";
+import Contact from "./pages/Contact.tsx";
+import Skills from "./pages/Skills.tsx";
+import Experience from "./pages/Experience.tsx";
+import Projects from "./pages/Projects.tsx";
+import CursorHighlight from "./pages/CursorHighlight.tsx";
 
 function App(): ReactElement {
   return (
