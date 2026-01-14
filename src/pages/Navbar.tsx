@@ -41,7 +41,7 @@ function Navbar(): ReactElement {
   return (
     <>
       {/* navbar for medium screens */}
-      <nav className="w-full h-14 flex justify-center items-center bg-slate-800">
+      <nav className="w-full h-14 flex justify-center items-center bg-slate-900 border-b border-slate-800 fixed">
         <div className="w-[90%] h-full flex justify-between items-center">
           {/* header icon */}
           <div>

@@ -58,6 +58,7 @@ function About(): ReactElement {
               year="June 2016 - April 2020"
               major="Mechanical Engineering"
               TitleIcon={<GraduationCap size={40} className="text-yellow-300" />}
+              marksChild="CGPA: 7.93"
             />
             <div
               className="absolute top-0 left-0 w-full h-full rounded-2xl
@@ -76,6 +77,7 @@ function About(): ReactElement {
               year="June 2015 - April 2016"
               major="Mathematics & Biology"
               TitleIcon={<School size={40} className="text-amber-300" />}
+              marksChild="80.75%"
             />
             <div
               className="absolute top-0 left-0 w-full h-full rounded-2xl
@@ -94,6 +96,7 @@ function About(): ReactElement {
               year="June 2013 - April 2014"
               major="General Science"
               TitleIcon={<School size={40} className="text-cyan-300" />}
+              marksChild="94.4%"
             />
             <div
               className="absolute top-0 left-0 w-full h-full rounded-2xl
