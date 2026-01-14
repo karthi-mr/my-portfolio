@@ -23,7 +23,7 @@ function CursorHighlight(): ReactElement {
   return (
     <div
       className="pointer-events-none fixed top-0 left-0 w-8 h-8 bg-blue-500 dark:bg-indigo-400
-      rounded-full mix-blend-screen blur-xl transition-colors"
+      rounded-full mix-blend-screen blur-xl transition-colors md:block hidden"
       style={{
         transform: `translate(${position.x - 16}px, ${position.y - 16}px)`,
       }}
