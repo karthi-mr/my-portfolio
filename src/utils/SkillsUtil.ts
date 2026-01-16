@@ -11,12 +11,13 @@ import {
   SiPostman,
   SiPython,
   SiReact,
+  SiSelenium,
   SiSpringboot,
   SiSwagger,
   SiTailwindcss,
   SiTypescript
 } from "react-icons/si";
-import { FaJava } from "react-icons/fa";
+import { FaClipboardCheck, FaJava } from "react-icons/fa";
 
 
 export type Category = "Frontend" | "Backend" | "Tools" | "Database" | "Testing";
@@ -44,8 +45,8 @@ export const skills: SkillCardType[] = [
   { name: "PostgreSQL", Icon: SiPostgresql, category: "Database" },
   { name: "MySql", Icon: SiMysql, category: "Database" },
 
-  { name: "Automation Testing", Icon: SiPostgresql, category: "Testing" },
-  { name: "Manual Testing", Icon: SiMysql, category: "Testing" },
+  { name: "Automation Testing", Icon: SiSelenium, category: "Testing" },
+  { name: "Manual Testing", Icon: FaClipboardCheck, category: "Testing" },
 
   { name: "GitHub", Icon: SiGithub, category: "Tools" },
   { name: "Docker", Icon: SiDocker, category: "Tools" },
