@@ -1,7 +1,8 @@
-import type { ReactElement } from "react";
+import { type ReactElement, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { type SkillCardType, skills } from "../utils/SkillsUtil.ts";
+import { type Category, type SkillCardType, skills } from "../utils/SkillsUtil.ts";
 import SkillCard from "../components/SkillCard.tsx";
+import SkillFilterButton from "../components/SkillFilterButton.tsx";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -26,6 +27,17 @@ const itemVariants = {
 // const transition = { duration: 0.4, ease: "easeInOut" }
 
 function Skills(): ReactElement {
+  const [activeCategory, setActiveCategory] = useState<Category>("All");
+
+  const filteredSkills = useMemo(() => {
+    if (activeCategory === "All") return skills;
+    return skills.filter(skill => skill.category === activeCategory);
+  }, [activeCategory]);
+
+  function handleCategorySearch(category: Category): void {
+    setActiveCategory(category);
+  }
+
   return (
     <section className="grow flex flex-col items-center justify-start py-6">
       <div className="text-sm md:text-lg text-center">
@@ -43,16 +55,57 @@ function Skills(): ReactElement {
         </p>
       </div>
 
+      {/* filter */}
+      <div
+        className="flex justify-center items-center px-4 py-2.5 gap-3 mb-4 bg-slate-800/90 rounded-2xl text-black"
+      >
+        <SkillFilterButton
+          category="All"
+          handleClick={handleCategorySearch}
+          activeCategory={activeCategory}
+        >
+          All
+        </SkillFilterButton>
+        <SkillFilterButton
+          category="Frontend"
+          handleClick={handleCategorySearch}
+          activeCategory={activeCategory}
+        >
+          Frontend
+        </SkillFilterButton>
+        <SkillFilterButton
+          category="Backend"
+          handleClick={handleCategorySearch}
+          activeCategory={activeCategory}
+        >
+          Backend
+        </SkillFilterButton>
+        <SkillFilterButton
+          category="Tools"
+          handleClick={handleCategorySearch}
+          activeCategory={activeCategory}
+        >
+          Tools
+        </SkillFilterButton>
+        <SkillFilterButton
+          category="Testing"
+          handleClick={handleCategorySearch}
+          activeCategory={activeCategory}
+        >
+          Testing
+        </SkillFilterButton>
+      </div>
+
       {/* Staggered grid */}
       <motion.div
+        key={activeCategory}
         variants={containerVariants}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
         className="w-[80%] grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6"
       >
-        {skills.map((skill: SkillCardType) => (
-
+        {filteredSkills.map((skill: SkillCardType) => (
           <motion.div
             key={skill.name}
             variants={itemVariants}

@@ -1,13 +1,13 @@
 export const categoryGlow = {
   Frontend: {
-    border: "hover:border-yellow-400/60",
-    shadow: "inset-shadow-yellow-400 shadow-yellow-400/60 hover:shadow-[0_0_30px_rgba(34,211,238,0.25)]",
-    icon: "text-yellow-400"
+    border: "hover:border-red-400/60",
+    shadow: "inset-shadow-red-400 shadow-red-400/60 hover:shadow-[0_0_30px_rgba(34,211,238,0.25)]",
+    icon: "text-red-400"
   },
   Backend: {
-    border: "hover:border-orange-400/60",
-    shadow: "inset-shadow-orange-400 shadow-orange-400/60 hover:shadow-[0_0_30px_rgba(52,211,153,0.25)]",
-    icon: "text-orange-400"
+    border: "hover:border-amber-400/60",
+    shadow: "inset-shadow-amber-400 shadow-amber-400/60 hover:shadow-[0_0_30px_rgba(52,211,153,0.25)]",
+    icon: "text-amber-400"
   },
   Database: {
     border: "hover:border-blue-400/60",

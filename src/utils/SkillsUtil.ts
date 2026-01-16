@@ -20,7 +20,7 @@ import {
 import { FaClipboardCheck, FaJava } from "react-icons/fa";
 
 
-export type Category = "Frontend" | "Backend" | "Tools" | "Database" | "Testing";
+export type Category = "All" | "Frontend" | "Backend" | "Tools" | "Database" | "Testing";
 
 export interface SkillCardType {
   name: string;
