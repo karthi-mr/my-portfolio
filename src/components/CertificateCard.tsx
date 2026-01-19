@@ -16,7 +16,7 @@ function CertificateCard({label, url, category}: CertificateProps): ReactElement
 
   return (
     <div
-      className={`bg-slate-900/60 border border-slate-800 rounded- transition-all duration-300 h-full
+      className={`bg-slate-900/60 border border-slate-800 rounded- transition-all duration-300 h-full rounded-2xl
       ${glow.border} ${glow.shadow} hover:translate-y-1 text-lg md:text-2xl shadow-sm inset-shadow-xs auto-rows-fr 
       p-6 text-wrap`}
     >
