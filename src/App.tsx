@@ -8,6 +8,7 @@ import Skills from "./pages/Skills.tsx";
 import Experience from "./pages/Experience.tsx";
 import Projects from "./pages/Projects.tsx";
 import CursorHighlight from "./pages/CursorHighlight.tsx";
+import Certificates from "./pages/Certificates.tsx";
 
 function App(): ReactElement {
   return (
@@ -22,6 +23,7 @@ function App(): ReactElement {
           <Route path="/skills" element={<Layout><Skills /></Layout>} />
           <Route path="/contact" element={<Layout><Contact /></Layout>} />
           <Route path="/about" element={<Layout><About /></Layout>} />
+          <Route path="/certificates" element={<Layout><Certificates /></Layout>} />
         </Routes>
       </BrowserRouter>
     </>
