@@ -3,6 +3,7 @@ import type { SkillCardType } from "../utils/SkillsUtil.ts";
 import { categoryGlow } from "../utils/SkillGlow.ts";
 
 function SkillCard({ name, Icon, category }: SkillCardType): ReactElement {
+  // @ts-expect-error "glow of type any"
   const glow = categoryGlow[category];
 
   return (
