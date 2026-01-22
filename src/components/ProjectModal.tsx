@@ -88,8 +88,8 @@ const ProjectModal = forwardRef(
                 Tech Stack
               </h2>
               <div className="flex flex-wrap gap-2">
-                {projectData?.techStacks.map(techStack => (
-                  <span className="px-2 py-1 bg-slate-700 rounded-xl text-xs md:text-sm text-slate-300">
+                {projectData?.techStacks.map((techStack: string, index: number) => (
+                  <span key={index} className="px-2 py-1 bg-slate-700 rounded-xl text-xs md:text-sm text-slate-300">
                 {techStack}
               </span>
                 ))}
@@ -102,8 +102,8 @@ const ProjectModal = forwardRef(
                 Key Features
               </h2>
               <ul className="list-disc">
-                {projectData?.keyFeatures.map(keyFeature => (
-                  <li className="text-sm md:text-lg">
+                {projectData?.keyFeatures.map((keyFeature: string, index: number) => (
+                  <li key={index} className="text-sm md:text-lg">
                     {keyFeature}
                   </li>
                 ))}
@@ -113,7 +113,10 @@ const ProjectModal = forwardRef(
         </div>
 
         {/* footer */}
-        <div className="mt-auto flex flex-col md:flex-row gap-3 px-5 py-4 border-t border-slate-600 bg-slate-800/20">
+        <div
+          className="mt-auto flex flex-col md:flex-row gap-3 px-5 py-4 border-t border-slate-600 bg-slate-800/20
+          text-center"
+        >
           <a
             href={projectData?.projectGitHubLink}
             target="_blank"

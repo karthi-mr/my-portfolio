@@ -41,7 +41,7 @@ function ProjectCard(
         <p className="text-sm text-slate-400 py-1">{projectData.projectDescription}</p>
 
         {/* tech stack */}
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-4 flex flex-wrap gap-2 justify-center">
           {projectData.techStacks.slice(0, 2).map((techStack) => (
             <span
               key={techStack}

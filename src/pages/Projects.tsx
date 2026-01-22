@@ -1,10 +1,7 @@
 import { type ReactElement, type Ref, useRef, useState } from "react";
 import ProjectCard from "../components/ProjectCard.tsx";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { type ProjectDataInput, projectsData } from "../data/ProjectsData.ts";
-import { Navigation, Pagination } from "swiper/modules";
 import ProjectModal from "../components/ProjectModal.tsx";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 function Projects(): ReactElement {
   const dialogRef: Ref<HTMLDialogElement | null> = useRef(null);
@@ -39,37 +36,11 @@ function Projects(): ReactElement {
         </div>
 
         <div className="w-full max-w-6xl mx-auto px-6 pb-16">
-          <Swiper
-            modules={[Navigation, Pagination]}
-            pagination={{ clickable: true }}
-            spaceBetween={20}
-            breakpoints={{
-              320: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-            }}
-            onSlideChange={() => console.log("Slide change")}
-            onSwiper={(swiper) => console.log(swiper)}
-            className="project-swiper relative"
-            navigation={{
-              prevEl: ".project-prev",
-              nextEl: ".project-next",
-            }}
-          >
-            {/* Custom arrows */}
-            <button className="project-prev swiper-arrow">
-              <ChevronLeft size={22} />
-            </button>
-
-            <button className="project-next swiper-arrow">
-              <ChevronRight size={22} />
-            </button>
+          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {projectsData.map(projectData => (
-              <SwiperSlide key={projectData.projectTitle}>
-                <ProjectCard projectData={projectData} onView={handleViewDetailsClick}  />
-              </SwiperSlide>
+                <ProjectCard key={projectData.projectTitle} projectData={projectData} onView={handleViewDetailsClick}  />
             ))}
-          </Swiper>
+          </div>
         </div>
 
         {/* modal */}
