@@ -14,16 +14,20 @@ const professionalSummary: string = "I’m a Full Stack Developer with hands-on 
 
 function About(): ReactElement {
   return (
-    <section className="grow flex flex-col items-start justify-start text-wrap">
-      {/* profile summary */}
-      <div
-        className="mt-3 text-sm md:text-lg text-center md:px-[20%] py-3 pb-4"
-      >
+    <section className="grow flex flex-col items-center justify-start text-wrap">
+      <div className="text-sm md:text-lg text-center">
         <h1
-          className="text-2xl md:text-5xl text-white/80 mb-3 tracking-wide font-semibold"
+          className="text-2xl md:text-5xl tracking-wide mb-3 font-bold bg-linear-to-r from-blue-400
+          via-purple-400 to-cyan-400 bg-clip-text text-transparent uppercase"
         >
           About Me
         </h1>
+        <hr
+          className="w-full h-0.5 border-0 bg-linear-to-r from-blue-400 via-purple-400 to-cyan-400"
+        />
+      </div>
+      {/* profile summary */}
+      <div className="mt-2 text-sm md:text-lg text-center md:px-[20%] py-2 pb-4">
         <p
           className="text-slate-300/90 tracking-tight md:tracking-wide"
         >

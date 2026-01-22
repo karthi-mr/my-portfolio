@@ -37,7 +37,8 @@ function Home(): ReactElement {
         >
           <h1
             className="text-2xl md:text-5xl tracking-wide mb-3 font-bold bg-linear-to-br from-yellow-400
-            via-red-400 to-green-400 bg-clip-text text-transparent uppercase">
+            via-red-400 to-green-400 bg-clip-text text-transparent uppercase"
+          >
             Hi, I'm Karthi
           </h1>
           <h2 className="text-lg md:text-2xl text-cyan-300 font-semibold tracking-wide">

@@ -76,6 +76,49 @@ export const projectsData: ProjectDataInput[] = [
     ]
   },
   {
+    projectTitle: "Personal Portfolio",
+    projectDescription: "Personal Portfolio project using React and Tailwind CSS",
+    projectGitHubLink: "https://github.com/karthi-mr/my-portfolio",
+    projectImageLinks: [
+      {
+        imageTitle: "Home",
+        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/64db0af0dc427d72d3bc29e9b393c65be60c7431/screenshots/home.png"
+      },
+      {
+        imageTitle: "About Me",
+        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/64db0af0dc427d72d3bc29e9b393c65be60c7431/screenshots/about-me.png"
+      },
+      {
+        imageTitle: "Projects",
+        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/64db0af0dc427d72d3bc29e9b393c65be60c7431/screenshots/projects.png"
+      },
+      {
+        imageTitle: "Experience",
+        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/64db0af0dc427d72d3bc29e9b393c65be60c7431/screenshots/experience.png"
+      },
+      {
+        imageTitle: "Skills",
+        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/64db0af0dc427d72d3bc29e9b393c65be60c7431/screenshots/skills.png"
+      },
+      {
+        imageTitle: "Certificates",
+        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/64db0af0dc427d72d3bc29e9b393c65be60c7431/screenshots/certificates.png"
+      },
+      {
+        imageTitle: "Contact Me",
+        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/64db0af0dc427d72d3bc29e9b393c65be60c7431/screenshots/contact-me.png"
+      },
+    ],
+    techStacks: ["TypeScript", "React", "Tailwind CSS", "Lucid React (icons)", "React router dom", "Framer motion",
+      "Swiper", "Email js"],
+    keyFeatures: [
+      "Developed a fully responsive portfolio website using React, TypeScript, and Vite to showcase skills & projects.",
+      "Implemented interactive UI/UX components including smooth scrolling and section highlights to enhance user experience.",
+      "Integrated a contact form and animations for professional engagement."
+    ],
+    demoUrl: "https://karthi-22.web.app/home"
+  },
+  {
     projectTitle: "Todo Application (Backend)",
     projectDescription: "Todo Backend Application",
     projectGitHubLink: "https://github.com/karthi-mr/spring-backend-todo/tree/dev",
