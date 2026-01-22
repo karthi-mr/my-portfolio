@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@500;700&display=swap');
 @import "tailwindcss";
+@import "swiper/css";
 
 @layer base {
   html {
@@ -8,5 +9,44 @@
   
   h1, h2, h3, h4 {
     font-family: 'Poppins', sans-serif;
+  }
+}
+
+@layer components {
+  .swiper-arrow {
+    @apply absolute top-1/2 z-20
+    -translate-y-1/2
+    h-17 w-17
+    rounded-full
+    flex items-center justify-center
+    bg-slate-900/90
+    text-white
+    border border-white/20
+    shadow-xl shadow-black/40
+    backdrop-blur-md
+    transition-all duration-300;
+    cursor: pointer;
+  }
+
+  .swiper-arrow:hover {
+    @apply bg-indigo-600/70 scale-105;
+  }
+
+  .swiper-arrow:disabled {
+    @apply hidden;
+  }
+
+  .project-prev {
+    @apply left-3 md:-left-6;
+  }
+
+  .project-next {
+    @apply right-3 md:-right-6;
+  }
+}
+
+@media (max-width: 640px) {
+  .swiper-arrow {
+    display: none;
   }
 }
