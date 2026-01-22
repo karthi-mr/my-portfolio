@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "portfolio-52e42"
+  },
+  "targets": {
+    "portfolio-52e42": {
+      "hosting": {
+        "karthi": [
+          "karthi-22"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
