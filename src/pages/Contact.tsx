@@ -45,7 +45,17 @@ function Contact(): ReactElement {
   return (
     <section className="grow flex flex-col items-center justify-start py-3 md:py-6">
       {/* title */}
-      <h2 className="text-2xl md:text-4xl">Contact Me</h2>
+      <div className="text-sm md:text-lg text-center">
+        <h1
+          className="text-2xl md:text-5xl tracking-wide mb-3 font-bold bg-linear-to-r from-blue-400
+          via-purple-400 to-cyan-400 bg-clip-text text-transparent uppercase"
+        >
+          Contact Me
+        </h1>
+        <hr
+          className="w-full h-0.5 border-0 bg-linear-to-r from-blue-400 via-purple-400 to-cyan-400"
+        />
+      </div>
       <p className="mt-3 text-center text-sm text-slate-300 md:text-base">
         Have a project or question? Let&apos;s talk.
       </p>
