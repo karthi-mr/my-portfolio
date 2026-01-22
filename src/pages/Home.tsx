@@ -35,7 +35,9 @@ function Home(): ReactElement {
           className="flex flex-col justify-center items-center gap-3 md:gap-5 border-b py-3 md:py-5
           border-slate-600/60 text-center w-[70%]"
         >
-          <h1 className="text-3xl md:text-5xl font-bold tracking-wider">
+          <h1
+            className="text-2xl md:text-5xl tracking-wide mb-3 font-bold bg-linear-to-br from-yellow-400
+            via-red-400 to-green-400 bg-clip-text text-transparent uppercase">
             Hi, I'm Karthi
           </h1>
           <h2 className="text-lg md:text-2xl text-cyan-300 font-semibold tracking-wide">
