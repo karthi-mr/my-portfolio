@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import { type NavigateFunction, useNavigate } from "react-router-dom";
 import { Download } from "lucide-react";
-import profileImg from "../assets/profile1.jpg";
+import profileImg from "../assets/profile2.jpg";
 
 
 const RESUME_PDF_URL: string = "https://drive.google.com/file/d/1UKLLpP9tGlPoilDuIfeo1KwkNucTVHLX/view?usp=drive_link";
