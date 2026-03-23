@@ -9,12 +9,14 @@ import Experience from "./pages/Experience.tsx";
 import Projects from "./pages/Projects.tsx";
 import CursorHighlight from "./pages/CursorHighlight.tsx";
 import Certificates from "./pages/Certificates.tsx";
+import ScrollToTop from "./utils/ScrollToTop.tsx";
 
 function App(): ReactElement {
   return (
     <>
       <CursorHighlight />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="*" element={<Navigate to="/home" replace />} />
           <Route path="/home" element={<Layout><Home /></Layout>} />
