@@ -15,6 +15,105 @@ export type ProjectDataInput = {
 
 export const projectsData: ProjectDataInput[] = [
   {
+    projectTitle: "WebSockets Demo – Real-Time Chat Application",
+    projectDescription: `Built a real-time chat application using Spring Boot and React to understand core WebSocket communication. The backend is configured with Spring’s WebSocket support and exposes endpoints like /chat and /ws, while the frontend uses the browser WebSocket API to connect, send messages, and display live chat updates. The project also handles connection, disconnection, and message broadcasting across active sessions.`,
+    projectGitHubLink: "https://github.com/karthi-mr/my-learning/tree/master/02-websockets-demo",
+    projectImageLinks: [],
+    techStacks: [
+      "Spring Boot", "Java", "WebSocket", "Mockito", "React Js", "Real-Time Communication"
+    ],
+    keyFeatures: [
+      "Enables bi-directional communication between client and server.",
+      "Messages are sent instantly without page refresh.",
+      "Uses STOMP over WebSocket for structured messaging.",
+      "Supports multiple clients connected simultaneously.",
+      "Messages are broadcast to all connected users.",
+      "Real-time group chat behavior"
+    ],
+  },
+  {
+    projectTitle: "Spring Boot Unit Testing – JUnit & Mockito",
+    projectDescription: `Developed a comprehensive Spring Boot Unit Testing project to demonstrate best practices for testing REST APIs, service layers, and repository components. Implemented unit tests using JUnit 5 and Mockito, focusing on isolating business logic, mocking dependencies, and validating application behavior under different scenarios.`,
+    projectGitHubLink: "https://github.com/karthi-mr/my-learning/tree/master/01-spring/01-unit-test",
+    projectImageLinks: [],
+    techStacks: [
+      "Spring Boot", "Java", "junit 5", "Mockito", "Unit Testing", "REST APIs", "H2 Database", "Test-Driven Development"
+    ],
+    keyFeatures: [
+      "Service layer testing with mocked dependencies.",
+      "Controller testing with request/response validation.",
+      "Repository testing using in-memory database (H2).",
+      "Exception handling and edge case validation.",
+      "Writing clean, maintainable, and scalable test cases.",
+    ],
+  },
+  {
+    projectTitle: "Spring Boot Microservices with JWT Authentication",
+    projectDescription: `Designed and developed a production-style microservices architecture using Spring Boot, implementing secure authentication and authorization using JWT (JSON Web Tokens). The system consists of multiple services including an Auth Service, API Gateway, and Resource Services, with centralized request routing and security enforcement. Integrated service discovery and load balancing to enable scalable and decoupled communication between services. Implemented stateless authentication where: Auth Service issues JWT tokens API Gateway validates tokens and routes requests Downstream services are protected and accessed securely.`,
+    projectGitHubLink: "https://github.com/karthi-mr/spring-microservices-with-authentication",
+    projectImageLinks: [],
+    techStacks: [
+      "Spring Boot", "Java", "Spring Security", "JSON Web Token (JWT)", "Microservices", "API Gateways", "Eureka", "Docker", "PostgreSQL", "REST APIs", "Distributed Systems"
+    ],
+    keyFeatures: [
+      "JWT-based authentication and role-based authorization.",
+      "API Gateway routing with centralized security.",
+      "Service discovery using Eureka.",
+      "Inter-service communication using REST.",
+      "Stateless and scalable architecture",
+      "Dockerized services with containerized PostgreSQL setup",
+    ],
+  },
+  {
+    projectTitle: "Razorpay Payment Integration – Full Stack Application",
+    projectDescription: `Built a full-stack payment integration system using Spring Boot and React, integrating the Razorpay API in test mode to simulate real-world online transactions. The backend handles secure order creation and payment verification, while the frontend provides a seamless checkout experience using Razorpay’s checkout flow. Implemented environment-based configuration using .env for securely managing API keys and sensitive credentials.
+`,
+    projectGitHubLink: "https://github.com/karthi-mr/quiz-app-react",
+    projectImageLinks: [],
+    techStacks: [
+      "Spring Boot", "Java", "Razorpay", "React", "TypeScript"
+    ],
+    keyFeatures: [
+      "Payment order creation using Razorpay API.",
+      "Secure payment verification on backend.",
+      "REST API integration between React and Spring Boot.",
+      "Environment variable configuration for sensitive data.",
+      "Clean separation of frontend and backend layers.",
+      "End-to-end payment flow simulation (test mode)"
+    ],
+  },
+  {
+    projectTitle: "Interactive Quiz Application – React",
+    projectDescription: "Developed an interactive quiz application using React to deliver a dynamic and engaging user experience. The application presents multiple-choice questions, tracks user answers, calculates scores, and displays results in real time. Implemented component-based architecture and state management to handle quiz flow, user interactions, and result evaluation. Designed a responsive UI to ensure smooth usability across devices. Deployed the application using Firebase Hosting, enabling fast and reliable access via a live URL.",
+    projectGitHubLink: "https://github.com/karthi-mr/quiz-app-react",
+    projectImageLinks: [
+      {
+        imageTitle: "Screenshot 1",
+        projectImageLink: "https://github.com/karthi-mr/quiz-app-react/blob/master/screenshots/screenshot_1.png",
+      },
+      {
+        imageTitle: "Screenshot 2",
+        projectImageLink: "https://github.com/karthi-mr/quiz-app-react/blob/master/screenshots/screenshot_2.png"
+      },
+      {
+        imageTitle: "Summary",
+        projectImageLink: "https://github.com/karthi-mr/quiz-app-react/blob/master/screenshots/summary.png"
+      },
+    ],
+    techStacks: [
+      "React", "TypeScript", "Front-End Development", "Firebase Hosting", "Web Development", "Vite"
+    ],
+    keyFeatures: [
+      "Dynamic question rendering and answer selection.",
+      "Real-time score calculation and result summary.",
+      "Clean and responsive UI design.",
+      "Component-based architecture using React.",
+      "Smooth navigation between quiz stages",
+      "Production deployment with Firebase Hosting"
+    ],
+    demoUrl: "https://quiz-app-react-1.web.app/"
+  },
+  {
     projectTitle: "Expense Tracker",
     projectDescription: "Expense Tracker Application",
     projectGitHubLink: "https://github.com/karthi-mr/expense-tracker-spring-react",
