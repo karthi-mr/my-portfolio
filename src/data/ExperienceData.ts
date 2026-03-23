@@ -12,7 +12,7 @@ export const experienceData: ExperienceDataInput[] = [
     id: 3,
     companyName: 'AquilaTest (Startup) [Part Time]',
     position: 'Software Developer - Automation & Backend',
-    period: 'Oct 2025 - Feb 2025',
+    period: 'Oct 2025 - Feb 2026',
     location: 'Tamil Nadu, India',
     keyPoints: [
       'Started as a Data Analyst and transitioned into a Software Development & Automation Engineer role.',
