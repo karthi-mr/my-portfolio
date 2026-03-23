@@ -1,6 +1,6 @@
 import { type ReactElement, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { type Category, type SkillCardType, skills } from "../utils/SkillsUtil.ts";
+import { type Category, type SkillCardType, skills } from "../data/SkillsData.ts";
 import SkillCard from "../components/SkillCard.tsx";
 import SkillFilterButton from "../components/SkillFilterButton.tsx";
 
