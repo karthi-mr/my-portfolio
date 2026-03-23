@@ -26,7 +26,7 @@ function Certificates(): ReactElement {
           className="text-2xl md:text-5xl tracking-wide mb-3 font-bold bg-linear-to-r
           from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent uppercase"
         >
-          Certificates
+          Achievements & Certifications
         </h1>
         <hr
           className="w-full h-0.5 border-0 bg-linear-to-r from-blue-400 via-purple-400 to-cyan-400"
