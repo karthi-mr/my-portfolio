@@ -35,7 +35,7 @@ function Navbar(): ReactElement {
     { to: "/projects", label: "Projects" },
     { to: "/experience", label: "Experience" },
     { to: "/skills", label: "Skills" },
-    { to: "/certificates", label: "Certificates" },
+    { to: "/certificates", label: "Achievements & Certifications" },
     { to: "/contact", label: "Contact Me" },
   ];
 
