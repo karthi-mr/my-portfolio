@@ -2,15 +2,7 @@ import type { ReactElement } from "react";
 import { RiGraduationCapFill } from "react-icons/ri";
 import Education from "../components/Education.tsx";
 import { GraduationCap, School } from "lucide-react";
-
-const professionalSummary: string = "I’m a Full Stack Developer with hands-on experience in building scalable and " +
-  "reliable web applications using Java, Spring Boot, React, Angular, and PostgreSQL. Currently, I work as a " +
-  "Software Developer (Automation & Backend) at a startup, where I design and implement Java- and Python-based " +
-  "automation systems and REST APIs that improve efficiency and reliability. Previously, I worked as a QA Engineer " +
-  "at Zoho Corporation, where I developed a strong quality-first mindset through extensive API and UI testing, " +
-  "collaborating closely with developers to deliver robust software. I enjoy transforming ideas into clean, " +
-  "maintainable solutions and continuously improving my skills by working on real-world projects and " +
-  "modern technologies.";
+import { SiTicktick } from "react-icons/si";
 
 function About(): ReactElement {
   return (
@@ -27,12 +19,84 @@ function About(): ReactElement {
         />
       </div>
       {/* profile summary */}
-      <div className="mt-2 text-sm md:text-lg text-center md:px-[20%] py-2 pb-4">
-        <p
-          className="text-slate-300/90 tracking-tight md:tracking-wide"
-        >
-          {professionalSummary}
+      <div className="mt-2 text-sm md:text-lg text-start md:px-[20%] py-2 pb-4">
+        <p className="text-slate-300/90 tracking-tight md:tracking-wide mb-2">
+          I am a Backend-Focused Full Stack Developer with 4+ years of experience, specializing in building scalable and secure web applications using Java, Spring Boot, React, Angular, and PostgreSQL.
         </p>
+        <p className="text-slate-300/90 tracking-tight md:tracking-wide mb-2">
+          I have hands-on experience designing REST APIs, implementing JWT-based authentication, and developing microservices architectures. I enjoy solving real-world problems by building production-style applications that focus on performance, security, and clean architecture.
+        </p>
+        <div className="text-slate-300/90 tracking-tight md:tracking-wide mb-2">
+          I have built and deployed multiple full stack projects including:
+          <ul className="list-none list-inside">
+            <li className="flex gap-2 items-center ml-4 mt-1">
+              <SiTicktick />
+              <span className="">Authentication systems using JWT and role-based access control</span>
+            </li>
+            <li className="flex gap-2 items-center ml-4 mt-1">
+              <SiTicktick />
+              <span className="">Real-time applications using WebSockets</span>
+            </li>
+            <li className="flex gap-2 items-center ml-4 mt-1">
+              <SiTicktick />
+              <span className="">Payment integrations using Razorpay</span>
+            </li>
+            <li className="flex gap-2 items-center ml-4 mt-1">
+              <SiTicktick />
+              <span className="">Microservices architecture with API Gateway and service communication</span>
+            </li>
+            <li className="flex gap-2 items-center ml-4 mt-1">
+              <SiTicktick />
+              <span className="">Dockerized applications for consistent deployment</span>
+            </li>
+          </ul>
+        </div>
+        <p className="text-slate-300/90 tracking-tight md:tracking-wide mb-2">
+          My strengths include backend development, API design, system thinking, and integrating frontend with backend services efficiently.
+        </p>
+        <p className="text-slate-300/90 tracking-tight md:tracking-wide mb-2">
+          Currently, I am actively looking for opportunities as a Full Stack Developer (Backend Preferred), where I can contribute to building scalable products and continue growing as an engineer.
+        </p>
+      </div>
+
+      {/* divider */}
+      <div className="w-full flex justify-center py-3">
+        <hr className="w-4/5 border-b border-slate-600/40" />
+      </div>
+
+      <div className="text-sm md:text-lg text-center">
+        <h1
+          className="text-2xl md:text-5xl tracking-wide mb-3 font-bold bg-linear-to-r from-blue-400
+          via-purple-400 to-cyan-400 bg-clip-text text-transparent uppercase"
+        >
+          Why Hire Me?
+        </h1>
+        <hr
+          className="w-full h-0.5 border-0 bg-linear-to-r from-blue-400 via-purple-400 to-cyan-400"
+        />
+      </div>
+
+      <div className="mt-2 text-sm md:text-lg md:px-[20%] py-2 pb-4 w-full">
+        <div className="text-slate-300/90 tracking-tight md:tracking-wide mb-2">
+          <ul className="list-none list-outside">
+            <li className="flex gap-2 items-center ml-4 mt-1">
+              <SiTicktick />
+              <span className="">Strong backend fundamentals with real project experience</span>
+            </li>
+            <li className="flex gap-2 items-center ml-4 mt-1">
+              <SiTicktick />
+              <span className="">Ability to build end-to-end applications</span>
+            </li>
+            <li className="flex gap-2 items-center ml-4 mt-1">
+              <SiTicktick />
+              <span className="">Experience with modern tools and production workflows</span>
+            </li>
+            <li className="flex gap-2 items-center ml-4 mt-1">
+              <SiTicktick />
+              <span className="">Quick learner with consistent hands-on development</span>
+            </li>
+          </ul>
+        </div>
       </div>
 
       {/* divider */}
