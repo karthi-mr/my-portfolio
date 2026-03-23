@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import type { Category } from "../utils/SkillsUtil.ts";
+import type { Category } from "../data/SkillsData.ts";
 
 type SkillFilterButtonProps = {
   children: string | ReactElement,

@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import type { SkillCardType } from "../utils/SkillsUtil.ts";
+import type { SkillCardType } from "../data/SkillsData.ts";
 import { categoryGlow } from "../utils/SkillGlow.ts";
 
 function SkillCard({ name, Icon, category }: SkillCardType): ReactElement {
