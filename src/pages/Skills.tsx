@@ -51,7 +51,7 @@ function Skills(): ReactElement {
           className="w-full h-0.5 border-0 bg-linear-to-r from-blue-400 via-purple-400 to-cyan-400"
         />
         <p className="my-4 text-slate-400 text-xs md:text-sm">
-          Tools and technologies I use to build modern applications
+          Technologies I use to build scalable and production-ready applications
         </p>
       </div>
 

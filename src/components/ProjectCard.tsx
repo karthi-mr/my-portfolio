@@ -38,7 +38,10 @@ function ProjectCard(
       <div className="text-center py-4 px-3">
         {/* project title */}
         <h3 className="text-lg font-semibold text-white">{projectData.projectTitle}</h3>
-        <p className="text-sm text-slate-400 py-1">{projectData.projectDescription}</p>
+        {
+          projectData.projectDescription.length > 30 
+          ? <p className="text-sm text-slate-400 py-1">{projectData.projectDescription.slice(0, 27)}...</p> 
+          : <p className="text-sm text-slate-400 py-1">{projectData.projectDescription}</p>}
 
         {/* tech stack */}
         <div className="mt-4 flex flex-wrap gap-2 justify-center">
