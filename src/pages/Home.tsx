@@ -1,10 +1,10 @@
-import { Download } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import type { ReactElement } from "react";
 import { SiTicktick } from "react-icons/si";
 import { type NavigateFunction, useNavigate } from "react-router-dom";
 import profileImg from "../assets/profile2.jpg";
 
-const RESUME_PDF_URL: string = "https://drive.google.com/file/d/1UKLLpP9tGlPoilDuIfeo1KwkNucTVHLX/view?usp=drive_link";
+const RESUME_PDF_URL: string = "https://drive.google.com/file/d/1FRiH7XiIytaEKxQnIZDgSNuoj48Ly_4X/view?usp=sharing";
 
 const SUB_TITLE: string = "Full Stack Developer | Spring Framework | React | Angular";
 const mobileNumber: string = "+91 7708006145"
@@ -57,9 +57,33 @@ function Home(): ReactElement {
           <h3 className="text-sm md:text-lg font-normal tracking-wide">
             Building scalable web applications using Java, Spring Boot, React and PostgreSQL
           </h3>
-          <h3 className="text-sm md:text-lg font-normal tracking-wide">
-            Experienced in developing real-world applications with JWT authentication, microservices architecture, WebSockets, payment integration, and Docker-based deployments.
-          </h3>
+          <div className="text-sm md:text-lg font-normal tracking-wide">
+            <h3 className="">
+              Experienced in building production-style applications with:
+            </h3>
+            <ul className="list-none ml-4">
+              <li className="flex items-center">
+                <ArrowRight height={20} />
+                <span>JWT Authentication & Role-Based Access</span>
+              </li>
+              <li className="flex items-center">
+                <ArrowRight height={20} />
+                <span>Microservices Architecture</span>
+              </li>
+              <li className="flex items-center">
+                <ArrowRight height={20} />
+                <span>WebSockets (Real-time apps)</span>
+              </li>
+              <li className="flex items-center">
+                <ArrowRight height={20} />
+                <span>Payment Integration (Razorpay)</span>
+              </li>
+              <li className="flex items-center">
+                <ArrowRight height={20} />
+                <span>Docker-based Deployment</span>
+              </li>
+            </ul>
+          </div>
           <ul className="list-none list-inside">
             <li className="flex gap-2 items-center">
               <SiTicktick />
@@ -80,8 +104,7 @@ function Home(): ReactElement {
           </ul>
         </div>
 
-        <div className="flex items-center justify-center gap-4 md:gap-6 py-2 md:py-5 border-b
-        border-slate-600/60 w-[70%] md:text-xl text-sm flex-col md:flex-row text-center">
+        <div className="flex items-center justify-center gap-4 md:gap-6 py-2 md:py-5 md:text-xl text-sm flex-col md:flex-row text-center">
           <a
             className="bg-pink-700 hover:bg-pink-800 px-3 md:px-5 py-2 rounded-2xl transition-all cursor-pointer
             font-semibold tracking-tight md:tracking-wider shadow-md shadow-pink-600/50 border

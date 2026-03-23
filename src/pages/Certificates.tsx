@@ -68,6 +68,13 @@ function Certificates(): ReactElement {
         >
           Hackerrank
         </CertificateFilterButton>
+        <CertificateFilterButton
+          category="LinkedIn"
+          handleClick={handleCategorySearch}
+          activeCategory={activeCategory}
+        >
+          LinkedIn
+        </CertificateFilterButton>
       </div>
 
       {/* Staggered grid */}
