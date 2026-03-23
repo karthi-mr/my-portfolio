@@ -60,7 +60,7 @@ function About(): ReactElement {
       </div>
 
       {/* divider */}
-      <div className="w-full flex justify-center py-3">
+      <div className="w-full flex justify-center py-3 my-3">
         <hr className="w-4/5 border-b border-slate-600/40" />
       </div>
 
@@ -100,7 +100,7 @@ function About(): ReactElement {
       </div>
 
       {/* divider */}
-      <div className="w-full flex justify-center py-3">
+      <div className="w-full flex justify-center py-3 my-3">
         <hr className="w-4/5 border-b border-slate-600/40" />
       </div>
 

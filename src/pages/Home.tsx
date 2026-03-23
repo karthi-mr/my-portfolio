@@ -51,9 +51,11 @@ function Home(): ReactElement {
         </div>
 
         {/* short summary */}
-        <div className="py-3 md:py-5 w-[90%] md:w-[60%] flex flex-col text-slate-400 gap-1">
+        <div className="py-3 md:py-5 w-[90%] md:w-[60%] flex flex-col text-slate-400 gap-1 my-3">
           {/* improving points */}
-          <h2 className="text-md md:text-xl font-normal tracking-wide italic">Backend-Focused Full Stack Developer</h2>
+          <h2 className="text-md md:text-xl font-normal tracking-wide italic">
+            <span className="text-yellow-500">Backend-Focused</span> Full Stack Developer
+          </h2>
           <h3 className="text-sm md:text-lg font-normal tracking-wide">
             Building scalable web applications using Java, Spring Boot, React and PostgreSQL
           </h3>
