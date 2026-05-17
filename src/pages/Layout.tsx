@@ -10,7 +10,7 @@ function Layout({ children }: LayoutProps): ReactElement {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="grow flex flex-col min-h-0 mt-20 md:mt-24 mx-6">
+      <main className="grow flex flex-col min-h-0 mt-20 md:mt-28 mx-6">
         {children}
       </main>
       <Footer />

@@ -42,10 +42,10 @@ function Navbar(): ReactElement {
   return (
     <>
       {/* navbar for medium screens */}
-      <nav className="w-full h-14 flex justify-center items-center bg-slate-900 border-b border-slate-800 fixed z-50 shadow-none md:shadow-sm shadow-slate-800">
-        <div className="w-[90%] h-full flex justify-between items-center">
+      <nav className="w-full md:w-[70%] md:mx-[15%] md:rounded-full h-14 md:my-4 flex justify-center items-center bg-slate-900 border border-slate-800 fixed z-50 shadow-none md:shadow-sm shadow-slate-800">
+        <div className="w-[90%] h-full flex justify-between md:justify-center items-center">
           {/* header icon */}
-          <div>
+          <div className="md:hidden">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-blue-500 text-white flex items-center justify-center rounded-full font-bold">
                 K
