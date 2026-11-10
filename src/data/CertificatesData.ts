@@ -1,4 +1,13 @@
-export type CertificateProvider = 'All' | 'CodeChef' | 'Udemy' | 'Hackerrank' | 'LinkedIn';
+// Any new platform name works: its filter option (with the site's favicon) is created automatically.
+export type CertificateProvider =
+  | 'CodeChef'
+  | 'Udemy'
+  | 'Hackerrank'
+  | 'LinkedIn'
+  | 'Coursera'
+  | 'Kaggle'
+  | 'DataCamp'
+  | (string & {});
 
 export type CertificateData = {
   label: string;

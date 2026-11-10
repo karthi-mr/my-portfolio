@@ -23,7 +23,16 @@ import {
   SiTypescript,
 } from 'react-icons/si';
 
-export type Category = 'All' | 'Frontend' | 'Backend' | 'Tools' | 'Database' | 'Testing';
+// Any new category string works: its filter option is created automatically.
+export type Category =
+  | 'Frontend'
+  | 'Backend'
+  | 'Tools'
+  | 'Database'
+  | 'Testing'
+  | 'AI/ML'
+  | 'Data Science'
+  | (string & {});
 
 export interface SkillCardType {
   name: string;

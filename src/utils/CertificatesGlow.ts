@@ -1,26 +1,37 @@
-export const certificatesGlow = {
-  Udemy: {
-    border: 'hover:border-rose-400/50',
-    shadow: 'hover:shadow-[0_20px_40px_-18px_rgba(244,63,94,0.45)]',
-    icon: 'text-rose-500 dark:text-rose-400',
-    tile: 'bg-rose-500/10 ring-rose-500/20',
-  },
-  CodeChef: {
-    border: 'hover:border-amber-400/50',
-    shadow: 'hover:shadow-[0_20px_40px_-18px_rgba(245,158,11,0.45)]',
-    icon: 'text-amber-600 dark:text-amber-400',
-    tile: 'bg-amber-500/10 ring-amber-500/20',
-  },
-  Hackerrank: {
-    border: 'hover:border-emerald-400/50',
-    shadow: 'hover:shadow-[0_20px_40px_-18px_rgba(16,185,129,0.45)]',
-    icon: 'text-emerald-600 dark:text-emerald-400',
-    tile: 'bg-emerald-500/10 ring-emerald-500/20',
-  },
-  LinkedIn: {
-    border: 'hover:border-blue-400/50',
-    shadow: 'hover:shadow-[0_20px_40px_-18px_rgba(59,130,246,0.45)]',
-    icon: 'text-blue-600 dark:text-blue-400',
-    tile: 'bg-blue-500/10 ring-blue-500/20',
-  },
-} as const;
+// Original brand colors for certificate providers.
+// `light` is used in the light theme when the brand color is too pale on white.
+export type ProviderBrand = {
+  color: string;
+  light?: string;
+};
+
+const fallback: ProviderBrand = { color: '#818cf8', light: '#4f46e5' };
+
+const providerBrands: Record<string, ProviderBrand> = {
+  udemy: { color: '#a435f0' },
+  codechef: { color: '#c89b6d', light: '#5b4638' },
+  hackerrank: { color: '#00ea64', light: '#00a050' },
+  linkedin: { color: '#3b8ede', light: '#0a66c2' },
+  coursera: { color: '#4d8eff', light: '#0056d2' },
+  kaggle: { color: '#20beff', light: '#0e8fc4' },
+  datacamp: { color: '#03ef62', light: '#05192d' },
+  edx: { color: '#e43d55', light: '#b8213a' },
+  google: { color: '#4285f4' },
+  ibm: { color: '#4589ff', light: '#0f62fe' },
+  microsoft: { color: '#00a4ef', light: '#0078d4' },
+  aws: { color: '#ff9900', light: '#e47911' },
+  nvidia: { color: '#76b900', light: '#5a8f00' },
+  'deeplearning.ai': { color: '#f65b66', light: '#d9364a' },
+  freecodecamp: { color: '#a8a8ff', light: '#0a0a23' },
+  geeksforgeeks: { color: '#2f8d46' },
+  nptel: { color: '#f5a623', light: '#c97f00' },
+  'great learning': { color: '#4f8df5', light: '#1a56db' },
+  simplilearn: { color: '#ff7a3d', light: '#e85d1c' },
+  'analytics vidhya': { color: '#3fa9f5', light: '#1b75bc' },
+  'infosys springboard': { color: '#3d8ff2', light: '#007cc3' },
+};
+
+/** Brand color for a provider (case-insensitive); unknown providers get the site accent color. */
+export function getProviderBrand(provider: string): ProviderBrand {
+  return providerBrands[provider.trim().toLowerCase()] ?? fallback;
+}
