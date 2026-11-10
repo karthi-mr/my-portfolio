@@ -1,124 +1,95 @@
 import { type ReactElement, useMemo, useState } from "react";
-import { motion } from "framer-motion";
-import { type Category, type SkillCardType, skills } from "../data/SkillsData.ts";
+import { AnimatePresence, motion } from "framer-motion";
+import { SearchX } from "lucide-react";
+import { type SkillCardType, skills } from "../data/SkillsData.ts";
+import SectionHeader from "../components/SectionHeader.tsx";
 import SkillCard from "../components/SkillCard.tsx";
-import SkillFilterButton from "../components/SkillFilterButton.tsx";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.06,
-      delayChildren: 0.08
-    }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 14, scale: 0.98 },
-  show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-  }
-};
-
-// const transition = { duration: 0.4, ease: "easeInOut" }
+import MultiSelectFilter, { type FilterOption } from "../components/MultiSelectFilter.tsx";
+import { getCategoryIcon } from "../utils/FilterIcons.tsx";
 
 function Skills(): ReactElement {
-  const [activeCategory, setActiveCategory] = useState<Category>("All");
+  // empty selection = show every category
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [query, setQuery] = useState<string>("");
 
-  const filteredSkills = useMemo(() => {
-    if (activeCategory === "All") return skills;
-    return skills.filter(skill => skill.category === activeCategory);
-  }, [activeCategory]);
+  // filter options are built from the data, so new categories show up automatically
+  const categoryOptions: FilterOption[] = useMemo(() => {
+    const counts = new Map<string, number>();
+    skills.forEach(skill => counts.set(skill.category, (counts.get(skill.category) ?? 0) + 1));
+    return [...counts.entries()].map(([category, count]) => ({
+      value: category,
+      label: category,
+      count,
+      icon: getCategoryIcon(category),
+    }));
+  }, []);
 
-  function handleCategorySearch(category: Category): void {
-    setActiveCategory(category);
-  }
+  const filteredSkills: SkillCardType[] = useMemo(() => {
+    const q: string = query.trim().toLowerCase();
+    return skills.filter(skill =>
+      (selectedCategories.length === 0 || selectedCategories.includes(skill.category))
+      && (!q || skill.name.toLowerCase().includes(q) || skill.category.toLowerCase().includes(q)));
+  }, [selectedCategories, query]);
 
   return (
-    <section className="grow flex flex-col items-center justify-start py-6">
-      <div className="text-sm md:text-lg text-center">
-        <h1
-          className="text-2xl md:text-5xl tracking-wide mb-3 font-bold bg-linear-to-r
-          from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent uppercase"
-        >
-          Skills & Technologies
-        </h1>
-        <hr
-          className="w-full h-0.5 border-0 bg-linear-to-r from-blue-400 via-purple-400 to-cyan-400"
-        />
-        <p className="my-4 text-slate-400 text-xs md:text-sm">
-          Technologies I use to build scalable and production-ready applications
-        </p>
-      </div>
+    <section className="grow flex flex-col items-center gap-10">
+      <SectionHeader
+        title="Skills & Technologies"
+        subtitle="Technologies I use to build scalable and production-ready applications"
+      />
 
       {/* filter */}
-      <div
-        className="flex justify-center items-center px-4 py-2.5 gap-3 mb-4 bg-slate-800/90 rounded-2xl text-black"
-      >
-        <SkillFilterButton
-          category="All"
-          handleClick={handleCategorySearch}
-          activeCategory={activeCategory}
-        >
-          All
-        </SkillFilterButton>
-        <SkillFilterButton
-          category="Frontend"
-          handleClick={handleCategorySearch}
-          activeCategory={activeCategory}
-        >
-          Frontend
-        </SkillFilterButton>
-        <SkillFilterButton
-          category="Backend"
-          handleClick={handleCategorySearch}
-          activeCategory={activeCategory}
-        >
-          Backend
-        </SkillFilterButton>
-        <SkillFilterButton
-          category="Tools"
-          handleClick={handleCategorySearch}
-          activeCategory={activeCategory}
-        >
-          Tools
-        </SkillFilterButton>
-        <SkillFilterButton
-          category="Testing"
-          handleClick={handleCategorySearch}
-          activeCategory={activeCategory}
-        >
-          Testing
-        </SkillFilterButton>
-      </div>
+      <MultiSelectFilter
+        title="Category"
+        options={categoryOptions}
+        selected={selectedCategories}
+        onSelectedChange={setSelectedCategories}
+        query={query}
+        onQueryChange={setQuery}
+        searchPlaceholder="Search skills..."
+        shownCount={filteredSkills.length}
+        totalCount={skills.length}
+      />
 
       {/* Staggered grid */}
-      <motion.div
-        key={activeCategory}
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
-        className="w-[80%] grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6"
-      >
-        {filteredSkills.map((skill: SkillCardType) => (
-          <motion.div
-            key={skill.name}
-            variants={itemVariants}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+      {filteredSkills.length > 0 ? (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-5"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredSkills.map((skill: SkillCardType, index: number) => (
+              <motion.div
+                key={skill.name}
+                layout
+                initial={{ opacity: 0, y: 14, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.94, transition: { duration: 0.15 } }}
+                transition={{ duration: 0.35, ease: "easeOut", delay: Math.min(index * 0.03, 0.3) }}
+              >
+                <SkillCard
+                  name={skill.name}
+                  Icon={skill.Icon}
+                  category={skill.category}
+                />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      ) : (
+        <div className="flex flex-col items-center gap-3 py-16 text-center text-muted">
+          <SearchX size={40} className="text-subtle" />
+          <p>No skills match your filters.</p>
+          <button
+            type="button"
+            className="btn btn-secondary btn-sm"
+            onClick={() => { setSelectedCategories([]); setQuery(""); }}
           >
-            <SkillCard
-              name={skill.name}
-              Icon={skill.Icon}
-              category={skill.category}
-            />
-          </motion.div>
-        ))}
-      </motion.div>
+            Clear filters
+          </button>
+        </div>
+      )}
     </section>
   );
 }

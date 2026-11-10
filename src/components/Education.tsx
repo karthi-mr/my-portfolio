@@ -12,39 +12,38 @@ type EducationProps = {
 
 function Education({ title, name, year, major, TitleIcon, marksChild }: EducationProps): ReactElement {
   return (
-    <div className="">
+    <div className="flex flex-col h-full">
       {/* title, name, year */}
-      <div className="flex gap-3 items-start justify-start">
-        <div>
+      <div className="flex items-start justify-between gap-3">
+        <div className="grid place-items-center size-12 md:size-14 shrink-0 rounded-2xl bg-fg/5 ring-1 ring-line">
           {TitleIcon}
         </div>
-        <div className="grow flex flex-col gap-3 items-start justify-start">
-          {/* title */}
-          <h1 className="text-2xl md:text-4xl font-semibold text-white/90">{title}</h1>
-          {/* name */}
-          <h2 className="text-sm md:text-xl font-medium text-white/60">{name}</h2>
-          <h3
-            className="flex gap-2 justify-center items-center text-xs md:text-lg font-medium tracking-tight
-            text-slate-400"
-          >
-            <CalendarDays className="text-slate-500 w-4 h-4 md:w-5 md:h-5" />
-            <span>{year}</span>
-          </h3>
-
-          <hr className="w-full border border-slate-700" />
-
-          <h4 className="text-sm lg:text-md text-white/70 tracking-wide font-semibold">
-            <span className="text-white/90">Major: </span>
-            {major}
-          </h4>
-        </div>
         {/* marks */}
-        <div className="absolute right-2">
-          <div className="px-1.5 md:px-3 py-1 tracking-wide text-xs md:text-sm bg-green-600/60 text-white/90 rounded-2xl">
-            <span>{marksChild}</span>
-          </div>
+        <div
+          className="px-3 py-1 text-xs md:text-sm font-semibold tracking-wide rounded-full
+          bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 ring-1 ring-emerald-500/25"
+        >
+          <span>{marksChild}</span>
         </div>
       </div>
+
+      <div className="mt-5 flex flex-col gap-2">
+        {/* title */}
+        <h1 className="font-display text-xl md:text-2xl font-bold tracking-tight">{title}</h1>
+        {/* name */}
+        <h2 className="text-sm md:text-base font-medium text-muted">{name}</h2>
+        <h3 className="flex gap-2 items-center text-xs md:text-sm font-medium text-subtle font-sans">
+          <CalendarDays className="w-4 h-4" />
+          <span>{year}</span>
+        </h3>
+      </div>
+
+      <hr className="my-4 border-line" />
+
+      <h4 className="mt-auto text-sm text-muted font-sans">
+        <span className="font-semibold text-fg">Major: </span>
+        {major}
+      </h4>
     </div>
   );
 }

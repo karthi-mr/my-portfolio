@@ -1,105 +1,103 @@
 import { type ReactElement, useMemo, useState } from "react";
-import { type CertificateData, type CertificateProvider, certificatesData } from "../data/CertificatesData.ts";
-import CertificateFilterButton from "../components/CertificateFilterButton.tsx";
-import { motion } from "framer-motion";
-import { containerVariants, itemVariants } from "../utils/FramerUtils.ts";
+import { AnimatePresence, motion } from "framer-motion";
+import { SearchX } from "lucide-react";
+import { type CertificateData, certificatesData } from "../data/CertificatesData.ts";
+import SectionHeader from "../components/SectionHeader.tsx";
 import CertificateCard from "../components/CertificateCard.tsx";
+import MultiSelectFilter, { type FilterOption } from "../components/MultiSelectFilter.tsx";
+import { getProviderIcon } from "../utils/FilterIcons.tsx";
 
 function Certificates(): ReactElement {
-  const [activeCategory, setActiveCategory] = useState<CertificateProvider>("All");
+  // empty selection = show every platform
+  const [selectedProviders, setSelectedProviders] = useState<string[]>([]);
+  const [query, setQuery] = useState<string>("");
 
-  const filteredCertificates = useMemo(() => {
-    if (activeCategory === "All") return certificatesData;
-    return certificatesData.filter((certificateData: CertificateData) =>
-      certificateData.certificateProvider === activeCategory);
-  }, [activeCategory]);
+  // filter options are built from the data, so new platforms show up automatically
+  const providerOptions: FilterOption[] = useMemo(() => {
+    const groups = new Map<string, { count: number; sampleUrl: string }>();
+    certificatesData.forEach((certificate: CertificateData) => {
+      const group = groups.get(certificate.certificateProvider);
+      if (group) group.count += 1;
+      else groups.set(certificate.certificateProvider, { count: 1, sampleUrl: certificate.url });
+    });
+    return [...groups.entries()]
+      .map(([provider, { count, sampleUrl }]) => ({
+        value: provider,
+        label: provider,
+        count,
+        icon: getProviderIcon(sampleUrl),
+      }))
+      .sort((a, b) => b.count - a.count);
+  }, []);
 
-  function handleCategorySearch(category: CertificateProvider): void {
-    setActiveCategory(category);
-  }
+  const filteredCertificates: CertificateData[] = useMemo(() => {
+    const q: string = query.trim().toLowerCase();
+    return certificatesData.filter((certificate: CertificateData) =>
+      (selectedProviders.length === 0 || selectedProviders.includes(certificate.certificateProvider))
+      && (!q
+        || certificate.label.toLowerCase().includes(q)
+        || certificate.certificateProvider.toLowerCase().includes(q)));
+  }, [selectedProviders, query]);
 
   return (
-    <section className="grow flex flex-col items-center justify-start py-6">
-      {/* title */}
-      <div className="text-sm md:text-lg text-center">
-        <h1
-          className="text-2xl md:text-5xl tracking-wide mb-3 font-bold bg-linear-to-r
-          from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent uppercase"
-        >
-          Achievements & Certifications
-        </h1>
-        <hr
-          className="w-full h-0.5 border-0 bg-linear-to-r from-blue-400 via-purple-400 to-cyan-400"
-        />
-        <p className="my-4 text-slate-400 text-xs md:text-sm">
-          Certifications & Achievements
-        </p>
-      </div>
+    <section className="grow flex flex-col items-center gap-10">
+      <SectionHeader
+        title="Achievements & Certifications"
+        subtitle="Certifications & Achievements"
+      />
 
       {/* filter */}
-      <div
-        className="flex justify-center items-center px-4 py-2.5 gap-3 mb-4 bg-slate-800/90 rounded-2xl text-black"
-      >
-        <CertificateFilterButton
-          category="All"
-          handleClick={handleCategorySearch}
-          activeCategory={activeCategory}
-        >
-          All
-        </CertificateFilterButton>
-        <CertificateFilterButton
-          category="Udemy"
-          handleClick={handleCategorySearch}
-          activeCategory={activeCategory}
-        >
-          Udemy
-        </CertificateFilterButton>
-        <CertificateFilterButton
-          category="CodeChef"
-          handleClick={handleCategorySearch}
-          activeCategory={activeCategory}
-        >
-          CodeChef
-        </CertificateFilterButton>
-        <CertificateFilterButton
-          category="Hackerrank"
-          handleClick={handleCategorySearch}
-          activeCategory={activeCategory}
-        >
-          Hackerrank
-        </CertificateFilterButton>
-        <CertificateFilterButton
-          category="LinkedIn"
-          handleClick={handleCategorySearch}
-          activeCategory={activeCategory}
-        >
-          LinkedIn
-        </CertificateFilterButton>
-      </div>
+      <MultiSelectFilter
+        title="Platform"
+        options={providerOptions}
+        selected={selectedProviders}
+        onSelectedChange={setSelectedProviders}
+        query={query}
+        onQueryChange={setQuery}
+        searchPlaceholder="Search certificates..."
+        shownCount={filteredCertificates.length}
+        totalCount={certificatesData.length}
+      />
 
       {/* Staggered grid */}
-      <motion.div
-        key={activeCategory}
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
-        className="w-[90%] md:w-[80%] grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6"
-      >
-        {filteredCertificates.map((certificate: CertificateData) => (
-          <motion.div
-            key={certificate.url}
-            variants={itemVariants}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+      {filteredCertificates.length > 0 ? (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredCertificates.map((certificate: CertificateData, index: number) => (
+              <motion.div
+                key={certificate.url}
+                layout
+                initial={{ opacity: 0, y: 14, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.94, transition: { duration: 0.15 } }}
+                transition={{ duration: 0.35, ease: "easeOut", delay: Math.min(index * 0.03, 0.3) }}
+              >
+                <CertificateCard
+                  label={certificate.label}
+                  url={certificate.url}
+                  category={certificate.certificateProvider}
+                />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      ) : (
+        <div className="flex flex-col items-center gap-3 py-16 text-center text-muted">
+          <SearchX size={40} className="text-subtle" />
+          <p>No certificates match your filters.</p>
+          <button
+            type="button"
+            className="btn btn-secondary btn-sm"
+            onClick={() => { setSelectedProviders([]); setQuery(""); }}
           >
-            <CertificateCard
-              label={certificate.label}
-              url={certificate.url}
-              category={certificate.certificateProvider}
-            />
-          </motion.div>
-        ))}
-      </motion.div>
+            Clear filters
+          </button>
+        </div>
+      )}
     </section>
   );
 }

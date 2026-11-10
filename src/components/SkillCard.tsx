@@ -1,25 +1,43 @@
-import type { ReactElement } from "react";
+import type { CSSProperties, ReactElement } from "react";
 import type { SkillCardType } from "../data/SkillsData.ts";
-import { categoryGlow } from "../utils/SkillGlow.ts";
+import { type BrandColor, getSkillBrand } from "../utils/SkillGlow.ts";
 
-function SkillCard({ name, Icon, category }: SkillCardType): ReactElement {
-  // @ts-expect-error "glow of type any"
-  const glow = categoryGlow[category];
+function SkillCard({ name, Icon }: SkillCardType): ReactElement {
+  const brand: BrandColor = getSkillBrand(name);
+  const gradientId: string = `skill-grad-${name.replace(/\W+/g, "-").toLowerCase()}`;
+  const style = {
+    "--accent": brand.color,
+    ...(brand.light ? { "--accent-light": brand.light } : {}),
+  } as CSSProperties;
 
   return (
     <div
-      className={`group bg-slate-900/60 border border-slate-800 rounded-xl p-6 transition-all duration-300 h-full
-      ${glow.border} ${glow.shadow} hover:translate-y-1 text-lg md:text-2xl shadow-sm inset-shadow-xs auto-rows-fr`}
+      style={style}
+      className="group glass brand-card h-full p-5 md:p-6 flex flex-col items-center justify-center gap-4 text-center"
     >
-      <div className="flex gap-3 items-center justify-center h-full">
+      <div
+        className="brand-tile grid place-items-center size-16 md:size-[4.5rem] rounded-2xl transition-transform duration-300
+        group-hover:scale-110 group-hover:-rotate-3"
+      >
+        {brand.gradient && (
+          <svg width="0" height="0" className="absolute" aria-hidden="true">
+            <defs>
+              <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
+                <stop offset="45%" stopColor={brand.gradient[0]} />
+                <stop offset="55%" stopColor={brand.gradient[1]} />
+              </linearGradient>
+            </defs>
+          </svg>
+        )}
         <Icon
-          className={`transition-transform duration-300 group-hover:scale-110 ${glow.icon} size-8 md:size-10`}
+          className="brand-icon size-8 md:size-9 drop-shadow-sm"
+          {...(brand.gradient ? { fill: `url(#${gradientId})` } : {})}
         />
-
-        <span className="text-sm md:text-lg font-medium mt-2 text-slate-200">
-          {name}
-        </span>
       </div>
+
+      <span className="text-sm md:text-base font-semibold">
+        {name}
+      </span>
     </div>
   );
 }
