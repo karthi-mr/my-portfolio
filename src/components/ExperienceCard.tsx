@@ -6,7 +6,7 @@ function ExperienceCard(experienceData: ExperienceDataInput): ReactElement {
   return (
     <div className="flex flex-col justify-center gap-1">
       <h1 className="text-lg md:text-xl font-semibold uppercase bg-linear-to-r
-          from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+          from-blue-400 via-purple-400 to-cyan-400 bg-clip-text light:from-blue-600 light:via-purple-600 light:to-cyan-600 text-transparent">
         {experienceData.companyName}
       </h1>
       <h3
@@ -15,7 +15,7 @@ function ExperienceCard(experienceData: ExperienceDataInput): ReactElement {
       >
         {experienceData.position}
       </h3>
-      <div className="flex flex-col md:flex-row items-start gap-1 text-slate-400 md:space-x-1">
+      <div className="flex flex-col md:flex-row items-start gap-1 text-slate-400 light:text-slate-600 md:space-x-1">
         <p className="flex items-center justify-center gap-1">
           <CalendarDays />
           {experienceData.period}
@@ -26,13 +26,13 @@ function ExperienceCard(experienceData: ExperienceDataInput): ReactElement {
         </p>
       </div>
       <div
-        className="w-full border-b border-slate-600/70 py-2"
+        className="w-full border-b border-slate-600/70 light:border-slate-300 py-2"
       />
 
       {/* key points */}
       <ul className="px-1 py-3 space-y-2">
         {experienceData.keyPoints.map((point: string, index: number) => (
-          <li key={index} className="flex gap-2 text-slate-300">
+          <li key={index} className="flex gap-2 text-slate-300 light:text-slate-700">
             <span className="mt-2 h-2 w-4 md:w-2 bg-cyan-400" />
             <span>{point}</span>
           </li>

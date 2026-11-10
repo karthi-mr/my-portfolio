@@ -8,7 +8,7 @@ type ContactFieldProps = {
 function ContactField({ label, children } : ContactFieldProps): ReactElement {
   return (
     <div className="flex flex-col gap-1">
-      <label className="font-medium text-slate-200">
+      <label className="font-medium text-slate-200 light:text-slate-700">
         {label}
       </label>
       {children}

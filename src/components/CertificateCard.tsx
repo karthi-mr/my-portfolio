@@ -16,7 +16,7 @@ function CertificateCard({label, url, category}: CertificateProps): ReactElement
 
   return (
     <div
-      className={`bg-slate-900/60 border border-slate-800 rounded- transition-all duration-300 h-full rounded-2xl
+      className={`bg-slate-900/60 light:bg-white border border-slate-800 light:border-slate-200 rounded- transition-all duration-300 h-full rounded-2xl
       ${glow.border} ${glow.shadow} hover:translate-y-1 text-lg md:text-2xl shadow-sm inset-shadow-xs auto-rows-fr 
       p-6 text-wrap`}
     >
@@ -27,15 +27,15 @@ function CertificateCard({label, url, category}: CertificateProps): ReactElement
         className="block p-2 wrap-break-word"
       >
         {/* Link Preview */}
-        <div className="flex items-center gap-3 border-b border-slate-700 pb-3">
+        <div className="flex items-center gap-3 border-b border-slate-700 light:border-slate-200 pb-3">
           <img src={favicon} alt={domain} className="w-6 h-6" />
-          <div className="text-sm text-slate-300 truncate">{url}</div>
+          <div className="text-sm text-slate-300 light:text-slate-700 truncate">{url}</div>
         </div>
 
         {/* Label & Provider */}
         <div className="pt-3">
-          <h3 className="text-base font-semibold text-white">{label}</h3>
-          <p className="text-sm text-slate-400 mt-1">
+          <h3 className="text-base font-semibold text-white light:text-slate-900">{label}</h3>
+          <p className="text-sm text-slate-400 light:text-slate-600 mt-1">
             🎓 {category}
           </p>
         </div>

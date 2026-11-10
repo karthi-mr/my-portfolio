@@ -43,21 +43,21 @@ function Skills(): ReactElement {
       <div className="text-sm md:text-lg text-center">
         <h1
           className="text-2xl md:text-5xl tracking-wide mb-3 font-bold bg-linear-to-r
-          from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent uppercase"
+          from-blue-400 via-purple-400 to-cyan-400 bg-clip-text light:from-blue-600 light:via-purple-600 light:to-cyan-600 text-transparent uppercase"
         >
           Skills & Technologies
         </h1>
         <hr
           className="w-full h-0.5 border-0 bg-linear-to-r from-blue-400 via-purple-400 to-cyan-400"
         />
-        <p className="my-4 text-slate-400 text-xs md:text-sm">
+        <p className="my-4 text-slate-400 light:text-slate-600 text-xs md:text-sm">
           Technologies I use to build scalable and production-ready applications
         </p>
       </div>
 
       {/* filter */}
       <div
-        className="flex justify-center items-center px-4 py-2.5 gap-3 mb-4 bg-slate-800/90 rounded-2xl text-black"
+        className="flex justify-center items-center px-4 py-2.5 gap-3 mb-4 bg-slate-800/90 light:bg-slate-200 rounded-2xl text-black"
       >
         <SkillFilterButton
           category="All"

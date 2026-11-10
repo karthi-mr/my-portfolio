@@ -15,7 +15,7 @@ function ProjectCard(
   const imageClass = "w-full h-full object-fill";
 
   return (
-    <div className="relative w-full rounded-2xl border border-slate-800 shadow-lg  backdrop-blur-md overflow-hidden
+    <div className="relative w-full rounded-2xl border border-slate-800 light:border-slate-200 shadow-lg  backdrop-blur-md overflow-hidden
     group">
       {/* image */}
       <div className="pb-3 relative h-55">
@@ -37,19 +37,19 @@ function ProjectCard(
 
       <div className="text-center py-4 px-3">
         {/* project title */}
-        <h3 className="text-lg font-semibold text-white">{projectData.projectTitle}</h3>
+        <h3 className="text-lg font-semibold text-white light:text-slate-900">{projectData.projectTitle}</h3>
         {
           projectData.projectDescription.length > 30 
-          ? <p className="text-sm text-slate-400 py-1">{projectData.projectDescription.slice(0, 27)}...</p> 
-          : <p className="text-sm text-slate-400 py-1">{projectData.projectDescription}</p>}
+          ? <p className="text-sm text-slate-400 light:text-slate-600 py-1">{projectData.projectDescription.slice(0, 27)}...</p> 
+          : <p className="text-sm text-slate-400 light:text-slate-600 py-1">{projectData.projectDescription}</p>}
 
         {/* tech stack */}
         <div className="mt-4 flex flex-wrap gap-2 justify-center">
           {projectData.techStacks.slice(0, 2).map((techStack) => (
             <span
               key={techStack}
-              className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1
-              text-xs text-white/85"
+              className="inline-flex items-center rounded-full border border-white/10 light:border-slate-200 bg-white/5 light:bg-slate-100 px-3 py-1
+              text-xs text-white/85 light:text-slate-700"
             >
               {techStack}
             </span>
@@ -63,7 +63,7 @@ function ProjectCard(
         group-hover:opacity-100"
       >
         <button
-          className="px-3 py-1 border border-blue-600 rounded-2xl bg-blue-700 text-md hover:bg-blue-800
+          className="px-3 py-1 border border-blue-600 rounded-2xl bg-blue-700 light:text-white text-md hover:bg-blue-800
           transition-colors cursor-pointer"
           onClick={() => onView(projectData)}
         >
@@ -72,7 +72,7 @@ function ProjectCard(
         <a
           href={projectData.projectGitHubLink}
           target="_blank"
-          className="px-3 py-1 border border-gray-600 rounded-2xl bg-gray-700 text-md hover:bg-gray-800
+          className="px-3 py-1 border border-gray-600 rounded-2xl bg-gray-700 light:text-white text-md hover:bg-gray-800
           transition-colors"
         >
           View Github
@@ -82,7 +82,7 @@ function ProjectCard(
         className="flex md:hidden flex-col md:flex-row items-center justify-center gap-4 p-3"
       >
         <button
-          className="px-3 py-1 border border-blue-600 rounded-2xl bg-blue-700  text-xs md:text-md hover:bg-blue-800
+          className="px-3 py-1 border border-blue-600 rounded-2xl bg-blue-700 light:text-white  text-xs md:text-md hover:bg-blue-800
           transition-colors cursor-pointer"
           onClick={() => onView(projectData)}
         >
@@ -91,7 +91,7 @@ function ProjectCard(
         <a
           href={projectData.projectGitHubLink}
           target="_blank"
-          className="px-3 py-1 border border-gray-600 rounded-2xl bg-gray-700 text-md hover:bg-gray-800
+          className="px-3 py-1 border border-gray-600 rounded-2xl bg-gray-700 light:text-white text-md hover:bg-gray-800
           transition-colors"
         >
           View Github

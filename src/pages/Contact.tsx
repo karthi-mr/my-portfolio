@@ -48,7 +48,7 @@ function Contact(): ReactElement {
       <div className="text-sm md:text-lg text-center">
         <h1
           className="text-2xl md:text-5xl tracking-wide mb-3 font-bold bg-linear-to-r from-blue-400
-          via-purple-400 to-cyan-400 bg-clip-text text-transparent uppercase"
+          via-purple-400 to-cyan-400 bg-clip-text light:from-blue-600 light:via-purple-600 light:to-cyan-600 text-transparent uppercase"
         >
           Contact Me
         </h1>
@@ -56,13 +56,13 @@ function Contact(): ReactElement {
           className="w-full h-0.5 border-0 bg-linear-to-r from-blue-400 via-purple-400 to-cyan-400"
         />
       </div>
-      <p className="mt-3 text-center text-sm text-slate-300 md:text-base">
+      <p className="mt-3 text-center text-sm text-slate-300 light:text-slate-700 md:text-base">
         Have a project or question? Let&apos;s talk.
       </p>
 
       {/* form box */}
       <div
-        className="mt-10 w-full max-w-2xl rounded-2xl border border-slate-700/60 bg-slate-900/50
+        className="mt-10 w-full max-w-2xl rounded-2xl border border-slate-700/60 light:border-slate-200 bg-slate-900/50 light:bg-white/70
         backdrop-blur-md p-4 md:p-8"
       >
         <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
@@ -75,8 +75,8 @@ function Contact(): ReactElement {
                 name="form_name"
                 placeholder="Full Name"
                 required
-                className="h-11 w-full rounded-lg border border-slate-700/70 bg-slate-950/40 px-4 text-sm
-                text-slate-100 outline-none placeholder:text-slate-500 transition-all focus:border-blue-400/70
+                className="h-11 w-full rounded-lg border border-slate-700/70 light:border-slate-300 bg-slate-950/40 light:bg-white px-4 text-sm
+                text-slate-100 light:text-slate-900 outline-none placeholder:text-slate-500 transition-all focus:border-blue-400/70
                 focus:ring-2 focus:ring-blue-500/20"
               />
             </ContactField>
@@ -88,8 +88,8 @@ function Contact(): ReactElement {
                 name="reply_to"
                 placeholder="Email Address"
                 required
-                className="h-11 w-full rounded-lg border border-slate-700/70 bg-slate-950/40 px-4 text-sm
-                text-slate-100 outline-none placeholder:text-slate-500 transition-all focus:border-blue-400/70
+                className="h-11 w-full rounded-lg border border-slate-700/70 light:border-slate-300 bg-slate-950/40 light:bg-white px-4 text-sm
+                text-slate-100 light:text-slate-900 outline-none placeholder:text-slate-500 transition-all focus:border-blue-400/70
                 focus:ring-2 focus:ring-blue-500/20"
               />
             </ContactField>
@@ -102,8 +102,8 @@ function Contact(): ReactElement {
               name="subject"
               placeholder="Subject"
               required
-              className="h-11 w-full rounded-lg border border-slate-700/70 bg-slate-950/40 px-4 text-sm
-                text-slate-100 outline-none placeholder:text-slate-500 transition-all focus:border-blue-400/70
+              className="h-11 w-full rounded-lg border border-slate-700/70 light:border-slate-300 bg-slate-950/40 light:bg-white px-4 text-sm
+                text-slate-100 light:text-slate-900 outline-none placeholder:text-slate-500 transition-all focus:border-blue-400/70
                 focus:ring-2 focus:ring-blue-500/20"
             />
           </ContactField>
@@ -115,20 +115,20 @@ function Contact(): ReactElement {
               name="message"
               required
               rows={3}
-              className="resize-none w-full py-3 rounded-lg border border-slate-700/70 bg-slate-950/40 px-4 text-sm
-                text-slate-100 outline-none placeholder:text-slate-500 transition-all focus:border-blue-400/70
+              className="resize-none w-full py-3 rounded-lg border border-slate-700/70 light:border-slate-300 bg-slate-950/40 light:bg-white px-4 text-sm
+                text-slate-100 light:text-slate-900 outline-none placeholder:text-slate-500 transition-all focus:border-blue-400/70
                 focus:ring-2 focus:ring-blue-500/20"
             />
           </ContactField>
 
           {/* status */}
           {status === "success" && (
-            <p className="text-center text-sm text-emerald-300">
+            <p className="text-center text-sm text-emerald-300 light:text-emerald-600">
               ✅ Message sent successfully!
             </p>
           )}
           {status === "error" && (
-            <p className="text-center text-sm text-red-300">
+            <p className="text-center text-sm text-red-300 light:text-red-600">
               ❌ {errorMsg || "Something went wrong. Try again."}
             </p>
           )}

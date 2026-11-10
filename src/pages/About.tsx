@@ -10,7 +10,7 @@ function About(): ReactElement {
       <div className="text-sm md:text-lg text-center">
         <h1
           className="text-2xl md:text-5xl tracking-wide mb-3 font-bold bg-linear-to-r from-blue-400
-          via-purple-400 to-cyan-400 bg-clip-text text-transparent uppercase"
+          via-purple-400 to-cyan-400 bg-clip-text light:from-blue-600 light:via-purple-600 light:to-cyan-600 text-transparent uppercase"
         >
           About Me
         </h1>
@@ -20,13 +20,13 @@ function About(): ReactElement {
       </div>
       {/* profile summary */}
       <div className="mt-2 text-sm md:text-lg text-start md:px-[20%] py-2 pb-4">
-        <p className="text-slate-300/90 tracking-tight md:tracking-wide mb-2">
+        <p className="text-slate-300/90 light:text-slate-700 tracking-tight md:tracking-wide mb-2">
           I am a Backend-Focused Full Stack Developer with 4+ years of experience, specializing in building scalable and secure web applications using Java, Spring Boot, React, Angular, and PostgreSQL.
         </p>
-        <p className="text-slate-300/90 tracking-tight md:tracking-wide mb-2">
+        <p className="text-slate-300/90 light:text-slate-700 tracking-tight md:tracking-wide mb-2">
           I have hands-on experience designing REST APIs, implementing JWT-based authentication, and developing microservices architectures. I enjoy solving real-world problems by building production-style applications that focus on performance, security, and clean architecture.
         </p>
-        <div className="text-slate-300/90 tracking-tight md:tracking-wide mb-2">
+        <div className="text-slate-300/90 light:text-slate-700 tracking-tight md:tracking-wide mb-2">
           I have built and deployed multiple full stack projects including:
           <ul className="list-none list-inside">
             <li className="flex gap-2 items-center ml-4 mt-1">
@@ -51,23 +51,23 @@ function About(): ReactElement {
             </li>
           </ul>
         </div>
-        <p className="text-slate-300/90 tracking-tight md:tracking-wide mb-2">
+        <p className="text-slate-300/90 light:text-slate-700 tracking-tight md:tracking-wide mb-2">
           My strengths include backend development, API design, system thinking, and integrating frontend with backend services efficiently.
         </p>
-        <p className="text-slate-300/90 tracking-tight md:tracking-wide mb-2">
+        <p className="text-slate-300/90 light:text-slate-700 tracking-tight md:tracking-wide mb-2">
           Currently, I am actively looking for opportunities as a Full Stack Developer (Backend Preferred), where I can contribute to building scalable products and continue growing as an engineer.
         </p>
       </div>
 
       {/* divider */}
       <div className="w-full flex justify-center py-3 my-3">
-        <hr className="w-4/5 border-b border-slate-600/40" />
+        <hr className="w-4/5 border-b border-slate-600/40 light:border-slate-300" />
       </div>
 
       <div className="text-sm md:text-lg text-center">
         <h1
           className="text-2xl md:text-5xl tracking-wide mb-3 font-bold bg-linear-to-r from-blue-400
-          via-purple-400 to-cyan-400 bg-clip-text text-transparent uppercase"
+          via-purple-400 to-cyan-400 bg-clip-text light:from-blue-600 light:via-purple-600 light:to-cyan-600 text-transparent uppercase"
         >
           Why Hire Me?
         </h1>
@@ -77,7 +77,7 @@ function About(): ReactElement {
       </div>
 
       <div className="mt-2 text-sm md:text-lg md:px-[20%] py-2 pb-4 w-full">
-        <div className="text-slate-300/90 tracking-tight md:tracking-wide mb-2">
+        <div className="text-slate-300/90 light:text-slate-700 tracking-tight md:tracking-wide mb-2">
           <ul className="list-none list-outside">
             <li className="flex gap-2 items-center ml-4 mt-1">
               <SiTicktick />
@@ -101,7 +101,7 @@ function About(): ReactElement {
 
       {/* divider */}
       <div className="w-full flex justify-center py-3 my-3">
-        <hr className="w-4/5 border-b border-slate-600/40" />
+        <hr className="w-4/5 border-b border-slate-600/40 light:border-slate-300" />
       </div>
 
       {/* education */}
@@ -117,7 +117,7 @@ function About(): ReactElement {
           {/* college */}
           <div
             className="lg:col-span-2 relative p-4 rounded-2xl bg-linear-to-br from-[#0b1430] via-[#0f2557]
-            to-[#0a1128] border border-yellow-400/40 shadow-[0_0_25px_rgba(234,179,8,0.45)]
+            to-[#0a1128] light:from-amber-50 light:via-white light:to-sky-50 border border-yellow-400/40 shadow-[0_0_25px_rgba(234,179,8,0.45)]
             md:hover:shadow-[0_0_55px_rgba(234,179,8,0.7)] transition-all duration-300"
           >
             <Education
@@ -125,7 +125,7 @@ function About(): ReactElement {
               name="Karpagam College of Engineering"
               year="June 2016 - April 2020"
               major="Mechanical Engineering"
-              TitleIcon={<GraduationCap size={40} className="text-yellow-300" />}
+              TitleIcon={<GraduationCap size={40} className="text-yellow-300 light:text-yellow-600" />}
               marksChild="CGPA: 7.93"
             />
             <div
@@ -135,7 +135,7 @@ function About(): ReactElement {
           </div>
           {/* 12th */}
           <div
-            className="relative rounded-2xl p-4 bg-linear-to-br from-[#0b1430] via-[#0d1b3d] to-[#0a1128]
+            className="relative rounded-2xl p-4 bg-linear-to-br from-[#0b1430] via-[#0d1b3d] to-[#0a1128] light:from-amber-50 light:via-white light:to-sky-50
             border border-yellow-400/25 shadow-[0_0_20px_rgba(234,179,8,0.2)]
             md:hover:shadow-[0_0_40px_rgba(234,179,8,0.45)] transition-all duration-300"
           >
@@ -144,7 +144,7 @@ function About(): ReactElement {
               name="Adharsh Vidhyalaya HR SEC School"
               year="June 2015 - April 2016"
               major="Mathematics & Biology"
-              TitleIcon={<School size={40} className="text-amber-300" />}
+              TitleIcon={<School size={40} className="text-amber-300 light:text-amber-600" />}
               marksChild="80.75%"
             />
             <div
@@ -154,7 +154,7 @@ function About(): ReactElement {
           </div>
           {/* 10th */}
           <div
-            className="relative rounded-2xl p-4 bg-linear-to-br from-[#0b1430] via-[#0d1b3d] to-[#0a1128]
+            className="relative rounded-2xl p-4 bg-linear-to-br from-[#0b1430] via-[#0d1b3d] to-[#0a1128] light:from-amber-50 light:via-white light:to-sky-50
             border border-yellow-400/25 shadow-[0_0_20px_rgba(234,179,8,0.2)]
             md:hover:shadow-[0_0_40px_rgba(234,179,8,0.45)] transition-all duration-300"
           >
@@ -163,7 +163,7 @@ function About(): ReactElement {
               name="Adharsh Vidhyalaya HR SEC School"
               year="June 2013 - April 2014"
               major="General Science"
-              TitleIcon={<School size={40} className="text-cyan-300" />}
+              TitleIcon={<School size={40} className="text-cyan-300 light:text-cyan-700" />}
               marksChild="94.4%"
             />
             <div

@@ -22,7 +22,7 @@ function Home(): ReactElement {
           <div className="absolute -inset-6 rounded-full bg-cyan-500/25 blur-2xl" />
           {/* circle frame */}
           <div className="relative h-28 w-28 sm:h-32 sm:w-32 md:h-40 md:w-40 overflow-hidden rounded-full border
-          border-white/15 bg-white/5 shadow-2xl shadow-black/40">
+          border-white/15 light:border-slate-200 bg-white/5 light:bg-slate-100 shadow-2xl shadow-black/40 light:shadow-slate-300/60">
             <img
               src={profileImg}
               alt="Profile"
@@ -33,28 +33,28 @@ function Home(): ReactElement {
         {/* title */}
         <div
           className="flex flex-col justify-center items-center gap-3 md:gap-5 border-b py-3 md:py-5
-          border-slate-600/60 text-center w-[70%]"
+          border-slate-600/60 light:border-slate-300 text-center w-[70%]"
         >
           <h1
             className="text-2xl md:text-5xl tracking-wide mb-3 font-bold bg-linear-to-br from-yellow-400
-            via-red-400 to-green-400 bg-clip-text text-transparent uppercase"
+            via-red-400 to-green-400 bg-clip-text light:from-yellow-500 light:via-red-500 light:to-green-600 text-transparent uppercase"
           >
             Hi, I'm Karthi
           </h1>
-          <h2 className="text-lg md:text-2xl text-cyan-300 font-semibold tracking-wide">
+          <h2 className="text-lg md:text-2xl text-cyan-300 light:text-cyan-700 font-semibold tracking-wide">
             <span>{mailId}</span> {" | "}
             <span>{mobileNumber}</span>
           </h2>
-          <h3 className="text-xl md:text-3xl text-blue-400 font-semibold tracking-tight">
+          <h3 className="text-xl md:text-3xl text-blue-400 light:text-blue-600 font-semibold tracking-tight">
             {SUB_TITLE}
           </h3>
         </div>
 
         {/* short summary */}
-        <div className="py-3 md:py-5 w-[90%] md:w-[60%] flex flex-col text-slate-400 gap-1 my-3">
+        <div className="py-3 md:py-5 w-[90%] md:w-[60%] flex flex-col text-slate-400 light:text-slate-600 gap-1 my-3">
           {/* improving points */}
           <h2 className="text-md md:text-xl font-normal tracking-wide italic">
-            <span className="text-yellow-500">Backend-Focused</span> Full Stack Developer
+            <span className="text-yellow-500 light:text-yellow-600">Backend-Focused</span> Full Stack Developer
           </h2>
           <h3 className="text-sm md:text-lg font-normal tracking-wide">
             Building scalable web applications using Java, Spring Boot, React and PostgreSQL
@@ -108,7 +108,7 @@ function Home(): ReactElement {
 
         <div className="flex items-center justify-center gap-4 md:gap-6 py-2 md:py-5 md:text-xl text-sm flex-col md:flex-row text-center">
           <a
-            className="bg-pink-700 hover:bg-pink-800 px-3 md:px-5 py-2 rounded-2xl transition-all cursor-pointer
+            className="bg-pink-700 light:text-white hover:bg-pink-800 px-3 md:px-5 py-2 rounded-2xl transition-all cursor-pointer
             font-semibold tracking-tight md:tracking-wider shadow-md shadow-pink-600/50 border
             border-pink-400/70 w-[80%] md:w-auto"
             onClick={() => navigator("/projects")}
@@ -120,7 +120,7 @@ function Home(): ReactElement {
             download
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-lime-700 hover:bg-lime-800 px-3 md:px-5 py-2 rounded-2xl transition-all cursor-pointer
+            className="bg-lime-700 light:text-white hover:bg-lime-800 px-3 md:px-5 py-2 rounded-2xl transition-all cursor-pointer
             font-semibold tracking-tight md:tracking-wider shadow-md shadow-lime-600/50 border
             border-gray-400/70  w-[80%] md:w-auto md:mb-0 mb-3"
           >
@@ -130,7 +130,7 @@ function Home(): ReactElement {
             </div>
           </a>
           <a
-            className="bg-yellow-700 hover:bg-yellow-800 px-3 md:px-5 py-2 rounded-2xl transition-all cursor-pointer
+            className="bg-yellow-700 light:text-white hover:bg-yellow-800 px-3 md:px-5 py-2 rounded-2xl transition-all cursor-pointer
             font-semibold tracking-tight md:tracking-wider shadow-md shadow-yellow-600/50 border
             border-yellow-400/70 w-[80%] md:w-auto"
             onClick={() => navigator("/contact")}

@@ -2,6 +2,10 @@
 @import "tailwindcss";
 @import "swiper/css";
 
+/* theme variants: <html> gets "light" or "dark" (system by default, see index.html + useTheme) */
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *));
+
 @layer base {
   html {
     font-family: 'Inter', sans-serif;
@@ -30,6 +34,14 @@
 
   .swiper-arrow:hover {
     @apply bg-indigo-600/70 scale-105;
+  }
+
+  .light .swiper-arrow {
+    @apply bg-white/90 text-slate-900 border-slate-300 shadow-slate-400/40;
+  }
+
+  .light .swiper-arrow:hover {
+    @apply bg-indigo-600/70 text-white;
   }
 
   .swiper-arrow:disabled {
@@ -69,4 +81,12 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #0ea5e9, #4f46e5);
+}
+
+.light ::-webkit-scrollbar-track {
+  background: #f8fafc; /* slate-50 */
+}
+
+.light ::-webkit-scrollbar-thumb {
+  border-color: #f8fafc;
 }

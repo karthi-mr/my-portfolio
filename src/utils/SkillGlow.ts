@@ -7,7 +7,7 @@ export const categoryGlow = {
   Backend: {
     border: "hover:border-amber-400/60",
     shadow: "inset-shadow-amber-400 shadow-amber-400/60 hover:shadow-[0_0_30px_rgba(52,211,153,0.25)]",
-    icon: "text-amber-400"
+    icon: "text-amber-400 light:text-amber-500"
   },
   Database: {
     border: "hover:border-blue-400/60",

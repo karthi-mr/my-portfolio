@@ -1,6 +1,7 @@
 import { type ReactElement, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "../components/ThemeToggle.tsx";
 
 type NavItem = {
   to: string,
@@ -26,8 +27,8 @@ function Navbar(): ReactElement {
     setIsMenuOpen(false);
   }
 
-  const linkClasses: string = "px-2 py-1 text-sm font-medium transition hover:text-blue-400";
-  const activeClasses: string = "text-blue-400 border-b-2 border-blue-400";
+  const linkClasses: string = "px-2 py-1 text-sm font-medium transition hover:text-blue-400 light:hover:text-blue-600";
+  const activeClasses: string = "text-blue-400 border-b-2 border-blue-400 light:text-blue-600 light:border-blue-600";
 
   const navItems: NavItem[] = [
     { to: "/home", label: "Home" },
@@ -42,7 +43,8 @@ function Navbar(): ReactElement {
   return (
     <>
       {/* navbar for medium screens */}
-      <nav className="w-full md:w-[70%] md:mx-[15%] md:rounded-full h-14 md:my-4 flex justify-center items-center bg-slate-900 border border-slate-800 fixed z-50 shadow-none md:shadow-sm shadow-slate-800">
+      <nav className="w-full md:w-[70%] md:mx-[15%] md:rounded-full h-14 md:my-4 flex justify-center items-center bg-slate-900 border border-slate-800 fixed z-50 shadow-none md:shadow-sm shadow-slate-800
+      light:bg-white light:border-slate-200 light:shadow-slate-200">
         <div className="w-[90%] h-full flex justify-between md:justify-center items-center">
           {/* header icon */}
           <div className="md:hidden">
@@ -50,13 +52,13 @@ function Navbar(): ReactElement {
               <div className="w-8 h-8 bg-blue-500 text-white flex items-center justify-center rounded-full font-bold">
                 K
               </div>
-              <span className="text-xl font-semibold tracking-wide text-white">Karthi</span>
+              <span className="text-xl font-semibold tracking-wide text-white light:text-slate-900">Karthi</span>
             </div>
           </div>
 
           {/* Nav links */}
           {/* big screens */}
-          <div className="md:flex items-center gap-4 text-slate-400 hidden">
+          <div className="md:flex items-center gap-4 text-slate-400 light:text-slate-600 hidden">
             {navItems.map((navItem: NavItem, index: number) => (
               <NavLink
                 key={index}
@@ -72,9 +74,13 @@ function Navbar(): ReactElement {
 
           <div></div>
 
-          {/* small screens */}
-          <div className="md:hidden cursor-pointer">
-            <Menu onClick={handleOpenMenu} />
+          <div className="flex items-center gap-3 md:ml-4">
+            <ThemeToggle />
+
+            {/* small screens */}
+            <div className="md:hidden cursor-pointer">
+              <Menu onClick={handleOpenMenu} />
+            </div>
           </div>
         </div>
       </nav>
@@ -93,16 +99,16 @@ function Navbar(): ReactElement {
         >
           {/* sliding panel (top -> down) */}
           <div
-            className={`absolute inset-0 bg-slate-900 transform transition-transform duration-300 ease-out ${
+            className={`absolute inset-0 bg-slate-900 light:bg-white transform transition-transform duration-300 ease-out ${
               isMenuOpen ? "translate-y-0" : "-translate-y-full"
             }`}
           >
             {/* top bar inside menu */}
-            <div className="h-14 px-5 flex items-center justify-between border-b border-slate-700">
-              <span className="text-white font-semibold text-lg">Menu</span>
+            <div className="h-14 px-5 flex items-center justify-between border-b border-slate-700 light:border-slate-200">
+              <span className="text-white light:text-slate-900 font-semibold text-lg">Menu</span>
               <button
                 type="button"
-                className="text-slate-200 cursor-pointer"
+                className="text-slate-200 light:text-slate-700 cursor-pointer"
                 onClick={handleCloseMenu}
                 aria-label="Close menu"
               >
@@ -111,7 +117,7 @@ function Navbar(): ReactElement {
             </div>
 
             {/* menu links */}
-            <div className="px-6 py-6 flex flex-col items-center gap-4 text-slate-300">
+            <div className="px-6 py-6 flex flex-col items-center gap-4 text-slate-300 light:text-slate-600">
               {navItems.map((navItem: NavItem, index: number) => (
                 <NavLink
                   key={index}

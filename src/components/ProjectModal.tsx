@@ -27,16 +27,16 @@ const ProjectModal = forwardRef(
     <dialog
       ref={dialogRef}
       className="rounded-lg shadow-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
-      backdrop:bg-black/50 bg-slate-900 transition-all w-full md:w-[80%] text-white h-[80%]"
+      backdrop:bg-black/50 bg-slate-900 light:bg-white transition-all w-full md:w-[80%] text-white light:text-slate-900 h-[80%]"
     >
       <div className="flex flex-col h-full">
         {/* header */}
-        <div className="text-lg md:text-xl px-6 py-2 bg-slate-800/20 flex items-center justify-between border-b border-slate-600">
+        <div className="text-lg md:text-xl px-6 py-2 bg-slate-800/20 light:bg-slate-50 flex items-center justify-between border-b border-slate-600 light:border-slate-200">
           <h2 className="">
             {projectData?.projectTitle}
           </h2>
           <button
-            className="p-3 text-white cursor-pointer"
+            className="p-3 text-white light:text-slate-900 cursor-pointer"
             onClick={() => (dialogRef as React.RefObject<HTMLDialogElement>).current?.close()}
           >
             <X />
@@ -78,7 +78,7 @@ const ProjectModal = forwardRef(
 
           {/* content */}
           <div className="py-2 mx-auto flex flex-col gap-4">
-            <p className="text-slate-300">
+            <p className="text-slate-300 light:text-slate-700">
               {projectData?.projectDescription}
             </p>
 
@@ -89,7 +89,7 @@ const ProjectModal = forwardRef(
               </h2>
               <div className="flex flex-wrap gap-2">
                 {projectData?.techStacks.map((techStack: string, index: number) => (
-                  <span key={index} className="px-2 py-1 bg-slate-700 rounded-xl text-xs md:text-sm text-slate-300">
+                  <span key={index} className="px-2 py-1 bg-slate-700 light:bg-slate-100 rounded-xl text-xs md:text-sm text-slate-300 light:text-slate-700">
                 {techStack}
               </span>
                 ))}
@@ -114,13 +114,13 @@ const ProjectModal = forwardRef(
 
         {/* footer */}
         <div
-          className="mt-auto flex flex-col md:flex-row gap-3 px-5 py-4 border-t border-slate-600 bg-slate-800/20
+          className="mt-auto flex flex-col md:flex-row gap-3 px-5 py-4 border-t border-slate-600 light:border-slate-200 bg-slate-800/20 light:bg-slate-50
           text-center"
         >
           <a
             href={projectData?.projectGitHubLink}
             target="_blank"
-            className="px-2 py-1 bg-blue-700 rounded-lg hover:bg-blue-600 transition-all cursor-pointer"
+            className="px-2 py-1 bg-blue-700 light:text-white rounded-lg hover:bg-blue-600 transition-all cursor-pointer"
           >
             Visit Github
           </a>
@@ -129,7 +129,7 @@ const ProjectModal = forwardRef(
             <a
               href={projectData.demoUrl}
               target="_blank"
-              className="px-2 py-1 bg-blue-700 rounded-lg hover:bg-blue-600 transition-all cursor-pointer"
+              className="px-2 py-1 bg-blue-700 light:text-white rounded-lg hover:bg-blue-600 transition-all cursor-pointer"
             >
               Live Demo
             </a>

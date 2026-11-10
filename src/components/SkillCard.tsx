@@ -8,7 +8,7 @@ function SkillCard({ name, Icon, category }: SkillCardType): ReactElement {
 
   return (
     <div
-      className={`group bg-slate-900/60 border border-slate-800 rounded-xl p-6 transition-all duration-300 h-full
+      className={`group bg-slate-900/60 light:bg-white border border-slate-800 light:border-slate-200 rounded-xl p-6 transition-all duration-300 h-full
       ${glow.border} ${glow.shadow} hover:translate-y-1 text-lg md:text-2xl shadow-sm inset-shadow-xs auto-rows-fr`}
     >
       <div className="flex gap-3 items-center justify-center h-full">
@@ -16,7 +16,7 @@ function SkillCard({ name, Icon, category }: SkillCardType): ReactElement {
           className={`transition-transform duration-300 group-hover:scale-110 ${glow.icon} size-8 md:size-10`}
         />
 
-        <span className="text-sm md:text-lg font-medium mt-2 text-slate-200">
+        <span className="text-sm md:text-lg font-medium mt-2 text-slate-200 light:text-slate-700">
           {name}
         </span>
       </div>
