@@ -2,6 +2,8 @@ import { type FormEvent, type ReactElement, type RefObject, useRef, useState } f
 import ContactField from "../components/ContactField.tsx";
 import { IoSend } from "react-icons/io5";
 import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
+import SectionHeader from "../components/SectionHeader.tsx";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -43,31 +45,24 @@ function Contact(): ReactElement {
   }
 
   return (
-    <section className="grow flex flex-col items-center justify-start py-3 md:py-6">
+    <section className="grow flex flex-col items-center gap-10">
       {/* title */}
-      <div className="text-sm md:text-lg text-center">
-        <h1
-          className="text-2xl md:text-5xl tracking-wide mb-3 font-bold bg-linear-to-r from-blue-400
-          via-purple-400 to-cyan-400 bg-clip-text light:from-blue-600 light:via-purple-600 light:to-cyan-600 text-transparent uppercase"
-        >
-          Contact Me
-        </h1>
-        <hr
-          className="w-full h-0.5 border-0 bg-linear-to-r from-blue-400 via-purple-400 to-cyan-400"
-        />
-      </div>
-      <p className="mt-3 text-center text-sm text-slate-300 light:text-slate-700 md:text-base">
-        Have a project or question? Let&apos;s talk.
-      </p>
+      <SectionHeader
+        title="Contact Me"
+        subtitle="Have a project or question? Let's talk."
+      />
 
       {/* form box */}
-      <div
-        className="mt-10 w-full max-w-2xl rounded-2xl border border-slate-700/60 light:border-slate-200 bg-slate-900/50 light:bg-white/70
-        backdrop-blur-md p-4 md:p-8"
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="relative w-full max-w-2xl glass p-6 md:p-10 overflow-hidden"
       >
-        <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
+        <div className="pointer-events-none absolute -top-32 -right-32 size-72 rounded-full bg-brand opacity-20 blur-3xl" />
+        <form ref={formRef} onSubmit={handleSubmit} className="relative space-y-5">
           {/* row 1 */}
-          <div className="grid gap-3 md:grid-cols-2">
+          <div className="grid gap-5 md:grid-cols-2">
             {/* first name */}
             <ContactField label="Full Name">
               <input
@@ -75,9 +70,7 @@ function Contact(): ReactElement {
                 name="form_name"
                 placeholder="Full Name"
                 required
-                className="h-11 w-full rounded-lg border border-slate-700/70 light:border-slate-300 bg-slate-950/40 light:bg-white px-4 text-sm
-                text-slate-100 light:text-slate-900 outline-none placeholder:text-slate-500 transition-all focus:border-blue-400/70
-                focus:ring-2 focus:ring-blue-500/20"
+                className="field h-12"
               />
             </ContactField>
 
@@ -88,9 +81,7 @@ function Contact(): ReactElement {
                 name="reply_to"
                 placeholder="Email Address"
                 required
-                className="h-11 w-full rounded-lg border border-slate-700/70 light:border-slate-300 bg-slate-950/40 light:bg-white px-4 text-sm
-                text-slate-100 light:text-slate-900 outline-none placeholder:text-slate-500 transition-all focus:border-blue-400/70
-                focus:ring-2 focus:ring-blue-500/20"
+                className="field h-12"
               />
             </ContactField>
           </div>
@@ -102,9 +93,7 @@ function Contact(): ReactElement {
               name="subject"
               placeholder="Subject"
               required
-              className="h-11 w-full rounded-lg border border-slate-700/70 light:border-slate-300 bg-slate-950/40 light:bg-white px-4 text-sm
-                text-slate-100 light:text-slate-900 outline-none placeholder:text-slate-500 transition-all focus:border-blue-400/70
-                focus:ring-2 focus:ring-blue-500/20"
+              className="field h-12"
             />
           </ContactField>
 
@@ -114,21 +103,19 @@ function Contact(): ReactElement {
               placeholder="Your message"
               name="message"
               required
-              rows={3}
-              className="resize-none w-full py-3 rounded-lg border border-slate-700/70 light:border-slate-300 bg-slate-950/40 light:bg-white px-4 text-sm
-                text-slate-100 light:text-slate-900 outline-none placeholder:text-slate-500 transition-all focus:border-blue-400/70
-                focus:ring-2 focus:ring-blue-500/20"
+              rows={5}
+              className="field resize-none"
             />
           </ContactField>
 
           {/* status */}
           {status === "success" && (
-            <p className="text-center text-sm text-emerald-300 light:text-emerald-600">
+            <p className="rounded-xl bg-emerald-500/10 ring-1 ring-emerald-500/25 px-4 py-3 text-center text-sm font-medium text-emerald-600 dark:text-emerald-400">
               ✅ Message sent successfully!
             </p>
           )}
           {status === "error" && (
-            <p className="text-center text-sm text-red-300 light:text-red-600">
+            <p className="rounded-xl bg-red-500/10 ring-1 ring-red-500/25 px-4 py-3 text-center text-sm font-medium text-red-600 dark:text-red-400">
               ❌ {errorMsg || "Something went wrong. Try again."}
             </p>
           )}
@@ -137,16 +124,14 @@ function Contact(): ReactElement {
           <div className="pt-2">
             <button
               type="submit"
-              className="mx-auto flex h-11 w-[80%] items-center justify-center rounded-xl bg-linear-to-r from-blue-600
-              to-cyan-600 text-sm md:text-lg font-semibold text-white shadow-lg transition-all hover:scale-[1.03]
-              hover:brightness-110 active:scale-[0.99] cursor-pointer gap-2"
+              className="btn btn-primary w-full h-13 text-base disabled:opacity-70 group"
             >
               <span>{status === "sending" ? "Sending..." : "Send Message"}</span>
-              <IoSend />
+              <IoSend className="transition-transform group-hover:translate-x-1" />
             </button>
           </div>
         </form>
-      </div>
+      </motion.div>
     </section>
   );
 }

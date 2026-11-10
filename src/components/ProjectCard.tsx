@@ -1,4 +1,6 @@
 import type { ReactElement } from "react";
+import { FaGithub } from "react-icons/fa";
+import { ArrowUpRight } from "lucide-react";
 import type { ProjectDataInput } from "../data/ProjectsData.ts";
 
 type ProjectCardProps = {
@@ -12,13 +14,12 @@ function ProjectCard(
     onView
   }: ProjectCardProps
 ): ReactElement {
-  const imageClass = "w-full h-full object-fill";
+  const imageClass = "w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105";
 
   return (
-    <div className="relative w-full rounded-2xl border border-slate-800 light:border-slate-200 shadow-lg  backdrop-blur-md overflow-hidden
-    group">
+    <article className="group relative h-full flex flex-col overflow-hidden glass card-hover">
       {/* image */}
-      <div className="pb-3 relative h-55">
+      <div className="relative aspect-[16/10] overflow-hidden border-b border-line bg-fg/5">
         {projectData.projectImageLinks.length > 0 ? (
           <img
             src={`${projectData.projectImageLinks[0].projectImageLink}?raw=true`}
@@ -32,72 +33,42 @@ function ProjectCard(
             className={imageClass}
           />
         )}
-        <div className="absolute inset-0 bg-linear-to-t from-[#050a18]/85 via-transparent to-black/30" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent opacity-60 transition-opacity group-hover:opacity-100" />
       </div>
 
-      <div className="text-center py-4 px-3">
+      <div className="flex grow flex-col p-5 md:p-6">
         {/* project title */}
-        <h3 className="text-lg font-semibold text-white light:text-slate-900">{projectData.projectTitle}</h3>
-        {
-          projectData.projectDescription.length > 30 
-          ? <p className="text-sm text-slate-400 light:text-slate-600 py-1">{projectData.projectDescription.slice(0, 27)}...</p> 
-          : <p className="text-sm text-slate-400 light:text-slate-600 py-1">{projectData.projectDescription}</p>}
+        <h3 className="font-display text-lg font-bold leading-snug tracking-tight">{projectData.projectTitle}</h3>
+        <p className="mt-2 text-sm text-muted leading-relaxed line-clamp-2">{projectData.projectDescription}</p>
 
         {/* tech stack */}
-        <div className="mt-4 flex flex-wrap gap-2 justify-center">
+        <div className="mt-4 flex flex-wrap gap-2">
           {projectData.techStacks.slice(0, 2).map((techStack) => (
-            <span
-              key={techStack}
-              className="inline-flex items-center rounded-full border border-white/10 light:border-slate-200 bg-white/5 light:bg-slate-100 px-3 py-1
-              text-xs text-white/85 light:text-slate-700"
-            >
+            <span key={techStack} className="chip">
               {techStack}
             </span>
           ))}
         </div>
-      </div>
 
-      <div
-        className="hidden md:absolute inset-0 md:flex flex-col md:flex-row items-center justify-center gap-4 bg-black/30
-        -translate-y-full opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0
-        group-hover:opacity-100"
-      >
-        <button
-          className="px-3 py-1 border border-blue-600 rounded-2xl bg-blue-700 light:text-white text-md hover:bg-blue-800
-          transition-colors cursor-pointer"
-          onClick={() => onView(projectData)}
-        >
-          View Details
-        </button>
-        <a
-          href={projectData.projectGitHubLink}
-          target="_blank"
-          className="px-3 py-1 border border-gray-600 rounded-2xl bg-gray-700 light:text-white text-md hover:bg-gray-800
-          transition-colors"
-        >
-          View Github
-        </a>
+        <div className="mt-auto pt-6 grid grid-cols-2 gap-2">
+          <button
+            className="btn btn-primary btn-sm"
+            onClick={() => onView(projectData)}
+          >
+            View Details
+          </button>
+          <a
+            href={projectData.projectGitHubLink}
+            target="_blank"
+            className="btn btn-secondary btn-sm group/gh"
+          >
+            <FaGithub size={15} />
+            View Github
+            <ArrowUpRight size={14} className="opacity-60 transition-transform group-hover/gh:translate-x-0.5 group-hover/gh:-translate-y-0.5" />
+          </a>
+        </div>
       </div>
-      <div
-        className="flex md:hidden flex-col md:flex-row items-center justify-center gap-4 p-3"
-      >
-        <button
-          className="px-3 py-1 border border-blue-600 rounded-2xl bg-blue-700 light:text-white  text-xs md:text-md hover:bg-blue-800
-          transition-colors cursor-pointer"
-          onClick={() => onView(projectData)}
-        >
-          View Details
-        </button>
-        <a
-          href={projectData.projectGitHubLink}
-          target="_blank"
-          className="px-3 py-1 border border-gray-600 rounded-2xl bg-gray-700 light:text-white text-md hover:bg-gray-800
-          transition-colors"
-        >
-          View Github
-        </a>
-      </div>
-    </div>
+    </article>
   );
 }
 

@@ -1,4 +1,5 @@
 import type { ReactElement } from "react";
+import { ArrowUpRight } from "lucide-react";
 import type { CertificateProvider } from "../data/CertificatesData.ts";
 import { certificatesGlow } from "../utils/CertificatesGlow.ts";
 
@@ -15,32 +16,32 @@ function CertificateCard({label, url, category}: CertificateProps): ReactElement
   const favicon: string = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
 
   return (
-    <div
-      className={`bg-slate-900/60 light:bg-white border border-slate-800 light:border-slate-200 rounded- transition-all duration-300 h-full rounded-2xl
-      ${glow.border} ${glow.shadow} hover:translate-y-1 text-lg md:text-2xl shadow-sm inset-shadow-xs auto-rows-fr 
-      p-6 text-wrap`}
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`group glass card-hover h-full p-5 md:p-6 flex flex-col gap-5 ${glow.border} ${glow.shadow}`}
     >
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block p-2 wrap-break-word"
-      >
-        {/* Link Preview */}
-        <div className="flex items-center gap-3 border-b border-slate-700 light:border-slate-200 pb-3">
-          <img src={favicon} alt={domain} className="w-6 h-6" />
-          <div className="text-sm text-slate-300 light:text-slate-700 truncate">{url}</div>
-        </div>
+      {/* Link Preview */}
+      <div className="flex items-center gap-3">
+        <span className={`grid place-items-center size-11 shrink-0 rounded-xl ring-1 ${glow.tile}`}>
+          <img src={favicon} alt={domain} className="w-6 h-6 rounded" />
+        </span>
+        <div className="min-w-0 grow text-xs text-subtle truncate">{url}</div>
+        <ArrowUpRight
+          size={18}
+          className="shrink-0 text-subtle transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-fg"
+        />
+      </div>
 
-        {/* Label & Provider */}
-        <div className="pt-3">
-          <h3 className="text-base font-semibold text-white light:text-slate-900">{label}</h3>
-          <p className="text-sm text-slate-400 light:text-slate-600 mt-1">
-            🎓 {category}
-          </p>
-        </div>
-      </a>
-    </div>
+      {/* Label & Provider */}
+      <div className="flex grow flex-col gap-3">
+        <h3 className="font-display text-base md:text-lg font-bold leading-snug wrap-break-word">{label}</h3>
+        <p className={`mt-auto w-fit chip ${glow.icon}`}>
+          🎓 {category}
+        </p>
+      </div>
+    </a>
   );
 }
 

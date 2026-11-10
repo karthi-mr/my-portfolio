@@ -1,20 +1,13 @@
 import { type ForwardedRef, forwardRef, type ReactElement } from "react";
 import type { ProjectDataInput } from "../data/ProjectsData.ts";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ArrowUpRight, Check, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 
 type ProjectModalProps = {
   projectData: ProjectDataInput | null;
-  // dialogRef: Ref<HTMLDialogElement>
 }
-
-// const ProjectModal = (
-//   ({
-//      projectData,
-//      dialogRef
-//    }: ProjectModalProps
-//   ): ReactElement => {
 
 const ProjectModal = forwardRef(
   ({
@@ -23,36 +16,43 @@ const ProjectModal = forwardRef(
    dialogRef: ForwardedRef<HTMLDialogElement>
   ): ReactElement => {
 
+  function closeModal(): void {
+    (dialogRef as React.RefObject<HTMLDialogElement>).current?.close();
+  }
+
   return (
     <dialog
       ref={dialogRef}
-      className="rounded-lg shadow-lg fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
-      backdrop:bg-black/50 bg-slate-900 light:bg-white transition-all w-full md:w-[80%] text-white light:text-slate-900 h-[80%]"
+      onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}
+      className="fixed inset-0 m-auto w-[calc(100%-1.5rem)] max-w-5xl h-[85vh] p-0 rounded-3xl
+      bg-surface-strong text-fg border border-line shadow-2xl backdrop:bg-black/60 backdrop:backdrop-blur-sm"
     >
       <div className="flex flex-col h-full">
         {/* header */}
-        <div className="text-lg md:text-xl px-6 py-2 bg-slate-800/20 light:bg-slate-50 flex items-center justify-between border-b border-slate-600 light:border-slate-200">
-          <h2 className="">
+        <div className="flex items-center justify-between gap-4 px-5 md:px-8 py-4 border-b border-line">
+          <h2 className="font-display text-lg md:text-2xl font-bold tracking-tight">
             {projectData?.projectTitle}
           </h2>
           <button
-            className="p-3 text-white light:text-slate-900 cursor-pointer"
-            onClick={() => (dialogRef as React.RefObject<HTMLDialogElement>).current?.close()}
+            className="icon-btn shrink-0"
+            onClick={closeModal}
+            aria-label="Close"
           >
-            <X />
+            <X size={20} />
           </button>
         </div>
 
         {/* content */}
-        <div className="grow w-full md:w-[95%] mx-auto px-1 md:px-3 py-2">
+        <div className="grow overflow-y-auto px-5 md:px-8 py-6">
           {/* images */}
-          <div className="flex items-center py-2">
-            {projectData && projectData.projectImageLinks && (
+          {projectData && projectData.projectImageLinks && projectData.projectImageLinks.length > 0 && (
+            <div className="mb-8">
               <Swiper
                 modules={[Navigation, Pagination]}
                 pagination={{ clickable: true }}
-                slidesPerView={1.5}
-                spaceBetween={30}
+                slidesPerView={1.15}
+                breakpoints={{ 768: { slidesPerView: 1.5 } }}
+                spaceBetween={20}
                 className="project-swiper relative"
                 navigation={{
                   prevEl: ".project-prev",
@@ -60,51 +60,61 @@ const ProjectModal = forwardRef(
                 }}
               >
                 {/* Custom arrows */}
-                <button className="project-prev swiper-arrow">
+                <button className="project-prev swiper-arrow" aria-label="Previous image">
                   <ChevronLeft size={22} />
                 </button>
 
-                <button className="project-next swiper-arrow">
+                <button className="project-next swiper-arrow" aria-label="Next image">
                   <ChevronRight size={22} />
                 </button>
                 {projectData?.projectImageLinks.map(imageLink => (
                   <SwiperSlide key={imageLink.imageTitle}>
-                    <img src={`${imageLink.projectImageLink}?raw=true`} alt={imageLink.imageTitle} />
+                    <img
+                      src={`${imageLink.projectImageLink}?raw=true`}
+                      alt={imageLink.imageTitle}
+                      className="w-full rounded-2xl border border-line"
+                    />
                   </SwiperSlide>
                 ))}
               </Swiper>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* content */}
-          <div className="py-2 mx-auto flex flex-col gap-4">
-            <p className="text-slate-300 light:text-slate-700">
+          <div className="flex flex-col gap-8">
+            <p className="text-muted leading-relaxed md:text-lg">
               {projectData?.projectDescription}
             </p>
 
             {/* tech stack */}
             <div className="flex flex-col gap-4">
-              <h2 className="text-lg md:text-2xl font-semibold">
+              <h2 className="font-display text-lg md:text-xl font-bold">
                 Tech Stack
               </h2>
               <div className="flex flex-wrap gap-2">
                 {projectData?.techStacks.map((techStack: string, index: number) => (
-                  <span key={index} className="px-2 py-1 bg-slate-700 light:bg-slate-100 rounded-xl text-xs md:text-sm text-slate-300 light:text-slate-700">
-                {techStack}
-              </span>
+                  <span key={index} className="chip text-sm!">
+                    {techStack}
+                  </span>
                 ))}
               </div>
             </div>
 
             {/* key features */}
             <div className="flex flex-col gap-4">
-              <h2 className="text-lg md:text-2xl font-semibold">
+              <h2 className="font-display text-lg md:text-xl font-bold">
                 Key Features
               </h2>
-              <ul className="list-disc">
+              <ul className="grid gap-3 md:grid-cols-2">
                 {projectData?.keyFeatures.map((keyFeature: string, index: number) => (
-                  <li key={index} className="text-sm md:text-lg">
-                    {keyFeature}
+                  <li
+                    key={index}
+                    className="flex items-start gap-3 rounded-xl bg-fg/[0.03] ring-1 ring-line p-3 text-sm md:text-base text-muted"
+                  >
+                    <span className="mt-0.5 grid place-items-center size-5 shrink-0 rounded-full bg-brand text-white">
+                      <Check size={12} strokeWidth={3} />
+                    </span>
+                    <span>{keyFeature}</span>
                   </li>
                 ))}
               </ul>
@@ -113,15 +123,13 @@ const ProjectModal = forwardRef(
         </div>
 
         {/* footer */}
-        <div
-          className="mt-auto flex flex-col md:flex-row gap-3 px-5 py-4 border-t border-slate-600 light:border-slate-200 bg-slate-800/20 light:bg-slate-50
-          text-center"
-        >
+        <div className="flex flex-col sm:flex-row sm:justify-end gap-3 px-5 md:px-8 py-4 border-t border-line">
           <a
             href={projectData?.projectGitHubLink}
             target="_blank"
-            className="px-2 py-1 bg-blue-700 light:text-white rounded-lg hover:bg-blue-600 transition-all cursor-pointer"
+            className="btn btn-secondary btn-sm"
           >
+            <FaGithub size={15} />
             Visit Github
           </a>
 
@@ -129,9 +137,10 @@ const ProjectModal = forwardRef(
             <a
               href={projectData.demoUrl}
               target="_blank"
-              className="px-2 py-1 bg-blue-700 light:text-white rounded-lg hover:bg-blue-600 transition-all cursor-pointer"
+              className="btn btn-primary btn-sm"
             >
               Live Demo
+              <ArrowUpRight size={15} />
             </a>
           )}
         </div>

@@ -1,39 +1,34 @@
 import type { ReactElement } from "react";
 import type { ExperienceDataInput } from "../data/ExperienceData.ts";
-import { CalendarDays } from "lucide-react";
+import { CalendarDays, MapPin } from "lucide-react";
 
 function ExperienceCard(experienceData: ExperienceDataInput): ReactElement {
   return (
-    <div className="flex flex-col justify-center gap-1">
-      <h1 className="text-lg md:text-xl font-semibold uppercase bg-linear-to-r
-          from-blue-400 via-purple-400 to-cyan-400 bg-clip-text light:from-blue-600 light:via-purple-600 light:to-cyan-600 text-transparent">
+    <div className="flex flex-col gap-2">
+      <h1 className="font-display text-lg md:text-2xl font-bold tracking-tight">
         {experienceData.companyName}
       </h1>
-      <h3
-        className="text-sm md:text-lg bg-linear-to-r
-        from-purple-500 via-yellow-400 to-orange-300 bg-clip-text text-transparent"
-      >
+      <h3 className="text-sm md:text-lg font-semibold text-gradient w-fit">
         {experienceData.position}
       </h3>
-      <div className="flex flex-col md:flex-row items-start gap-1 text-slate-400 light:text-slate-600 md:space-x-1">
-        <p className="flex items-center justify-center gap-1">
-          <CalendarDays />
+      <div className="mt-1 flex flex-wrap items-center gap-2">
+        <p className="chip">
+          <CalendarDays size={14} />
           {experienceData.period}
         </p>
-        <p className="flex items-center justify-center space-x-1">
-          <span className="h-2 w-2 rounded-full bg-slate-400" />
+        <p className="chip">
+          <MapPin size={14} />
           <span>{experienceData.location}</span>
         </p>
       </div>
-      <div
-        className="w-full border-b border-slate-600/70 light:border-slate-300 py-2"
-      />
+
+      <div className="my-3 h-px w-full bg-line" />
 
       {/* key points */}
-      <ul className="px-1 py-3 space-y-2">
+      <ul className="space-y-3">
         {experienceData.keyPoints.map((point: string, index: number) => (
-          <li key={index} className="flex gap-2 text-slate-300 light:text-slate-700">
-            <span className="mt-2 h-2 w-4 md:w-2 bg-cyan-400" />
+          <li key={index} className="flex gap-3 text-sm md:text-base text-muted leading-relaxed">
+            <span className="mt-2 size-1.5 shrink-0 rounded-full bg-brand ring-4 ring-indigo-500/10" />
             <span>{point}</span>
           </li>
         ))}

@@ -22,8 +22,7 @@ function ThemeToggle(): ReactElement {
     <button
       type="button"
       onClick={() => setPreference(NEXT[preference])}
-      className="p-1.5 rounded-full text-slate-400 hover:text-blue-400 light:text-slate-600 light:hover:text-blue-600
-      transition cursor-pointer"
+      className="icon-btn"
       aria-label={`${LABEL[preference]} (click to switch to ${LABEL[NEXT[preference]].toLowerCase()})`}
       title={LABEL[preference]}
     >

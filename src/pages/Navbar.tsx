@@ -1,6 +1,7 @@
 import { type ReactElement, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import ThemeToggle from "../components/ThemeToggle.tsx";
 
 type NavItem = {
@@ -10,6 +11,7 @@ type NavItem = {
 
 function Navbar(): ReactElement {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
@@ -19,6 +21,13 @@ function Navbar(): ReactElement {
     }
   }, [isMenuOpen]);
 
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   function handleOpenMenu(): void {
     setIsMenuOpen(true);
   }
@@ -26,9 +35,6 @@ function Navbar(): ReactElement {
   function handleCloseMenu(): void {
     setIsMenuOpen(false);
   }
-
-  const linkClasses: string = "px-2 py-1 text-sm font-medium transition hover:text-blue-400 light:hover:text-blue-600";
-  const activeClasses: string = "text-blue-400 border-b-2 border-blue-400 light:text-blue-600 light:border-blue-600";
 
   const navItems: NavItem[] = [
     { to: "/home", label: "Home" },
@@ -42,98 +48,124 @@ function Navbar(): ReactElement {
 
   return (
     <>
-      {/* navbar for medium screens */}
-      <nav className="w-full md:w-[70%] md:mx-[15%] md:rounded-full h-14 md:my-4 flex justify-center items-center bg-slate-900 border border-slate-800 fixed z-50 shadow-none md:shadow-sm shadow-slate-800
-      light:bg-white light:border-slate-200 light:shadow-slate-200">
-        <div className="w-[90%] h-full flex justify-between md:justify-center items-center">
+      <header className="fixed inset-x-0 top-0 z-50 px-3 sm:px-5 pt-3 md:pt-4">
+        <nav
+          className={`mx-auto max-w-6xl h-14 md:h-16 flex items-center justify-between gap-4 px-3 md:px-4
+          glass rounded-2xl transition-shadow duration-300 ${isScrolled ? "shadow-xl" : ""}`}
+        >
           {/* header icon */}
-          <div className="md:hidden">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-500 text-white flex items-center justify-center rounded-full font-bold">
-                K
-              </div>
-              <span className="text-xl font-semibold tracking-wide text-white light:text-slate-900">Karthi</span>
+          <div className="flex items-center gap-2.5 shrink-0">
+            <div
+              className="size-9 bg-brand text-white grid place-items-center rounded-xl font-display font-bold
+              shadow-lg shadow-indigo-500/30"
+            >
+              K
             </div>
+            <span className="font-display text-lg font-bold tracking-tight">Karthi</span>
           </div>
 
-          {/* Nav links */}
-          {/* big screens */}
-          <div className="md:flex items-center gap-4 text-slate-400 light:text-slate-600 hidden">
-            {navItems.map((navItem: NavItem, index: number) => (
+          {/* Nav links (large screens) */}
+          <div className="hidden lg:flex items-center gap-0.5">
+            {navItems.map((navItem: NavItem) => (
               <NavLink
-                key={index}
+                key={navItem.to}
                 to={navItem.to}
-                className={({ isActive }) => isActive
-                  ? `${linkClasses} ${activeClasses}`
-                  : `${linkClasses}`}
+                className={({ isActive }) => `relative px-3 py-2 text-[13px] xl:text-sm font-medium rounded-lg
+                whitespace-nowrap transition-colors ${isActive ? "text-fg" : "text-muted hover:text-fg"}`}
               >
-                {navItem.label}
+                {({ isActive }) => (
+                  <>
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-active-pill"
+                        className="absolute inset-0 rounded-lg bg-fg/[0.07] ring-1 ring-line"
+                        transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                      />
+                    )}
+                    <span className="relative">{navItem.label}</span>
+                  </>
+                )}
               </NavLink>
             ))}
           </div>
 
-          <div></div>
-
-          <div className="flex items-center gap-3 md:ml-4">
+          <div className="flex items-center gap-2 shrink-0">
             <ThemeToggle />
 
             {/* small screens */}
-            <div className="md:hidden cursor-pointer">
-              <Menu onClick={handleOpenMenu} />
-            </div>
+            <button
+              type="button"
+              className="icon-btn lg:hidden"
+              onClick={handleOpenMenu}
+              aria-label="Open menu"
+            >
+              <Menu size={20} />
+            </button>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </header>
 
-      {/* menu items for < md screens */}
-      <div
-        className={`fixed inset-0 z-50 md:hidden transition-all duration-300 ${
-          isMenuOpen ? "pointer-events-auto" : "pointer-events-none"}`}
-      >
-        {/* backdrop */}
-        <div
-          className={`absolute inset-0 bg-black/60 transition-opacity duration-300 ${
-            isMenuOpen ? "opacity-100" : "opacity-0"
-          }`}
-          onClick={handleCloseMenu}
-        >
-          {/* sliding panel (top -> down) */}
-          <div
-            className={`absolute inset-0 bg-slate-900 light:bg-white transform transition-transform duration-300 ease-out ${
-              isMenuOpen ? "translate-y-0" : "-translate-y-full"
-            }`}
+      {/* menu items for < lg screens */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            className="fixed inset-0 z-[60] lg:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
           >
-            {/* top bar inside menu */}
-            <div className="h-14 px-5 flex items-center justify-between border-b border-slate-700 light:border-slate-200">
-              <span className="text-white light:text-slate-900 font-semibold text-lg">Menu</span>
-              <button
-                type="button"
-                className="text-slate-200 light:text-slate-700 cursor-pointer"
-                onClick={handleCloseMenu}
-                aria-label="Close menu"
-              >
-                <X />
-              </button>
-            </div>
+            {/* backdrop */}
+            <div className="absolute inset-0 bg-bg/70 backdrop-blur-md" onClick={handleCloseMenu} />
 
-            {/* menu links */}
-            <div className="px-6 py-6 flex flex-col items-center gap-4 text-slate-300 light:text-slate-600">
-              {navItems.map((navItem: NavItem, index: number) => (
-                <NavLink
-                  key={index}
-                  to={navItem.to}
+            {/* panel */}
+            <motion.div
+              initial={{ y: -24, opacity: 0, scale: 0.98 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: -24, opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="relative m-3 p-3 glass bg-surface-strong"
+            >
+              {/* top bar inside menu */}
+              <div className="flex items-center justify-between px-2 pb-3 mb-2 border-b border-line">
+                <span className="font-display font-semibold text-lg">Menu</span>
+                <button
+                  type="button"
+                  className="icon-btn"
                   onClick={handleCloseMenu}
-                  className={({ isActive }) => isActive
-                    ? `${linkClasses} ${activeClasses}`
-                    : `${linkClasses}`}
+                  aria-label="Close menu"
                 >
-                  {navItem.label}
-                </NavLink>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+                  <X size={20} />
+                </button>
+              </div>
+
+              {/* menu links */}
+              <div className="flex flex-col gap-1">
+                {navItems.map((navItem: NavItem, index: number) => (
+                  <motion.div
+                    key={navItem.to}
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.04 * index }}
+                  >
+                    <NavLink
+                      to={navItem.to}
+                      onClick={handleCloseMenu}
+                      className={({ isActive }) => `flex items-center justify-between rounded-xl px-4 py-3
+                      text-base font-medium transition-colors ${isActive
+                        ? "bg-brand text-white shadow-lg shadow-indigo-500/25"
+                        : "text-muted hover:text-fg hover:bg-fg/5"}`}
+                    >
+                      {navItem.label}
+                      <ArrowUpRight size={16} className="opacity-60" />
+                    </NavLink>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

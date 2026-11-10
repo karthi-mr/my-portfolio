@@ -1,7 +1,9 @@
 import { type ReactElement, type Ref, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import ProjectCard from "../components/ProjectCard.tsx";
 import { type ProjectDataInput, projectsData } from "../data/ProjectsData.ts";
 import ProjectModal from "../components/ProjectModal.tsx";
+import SectionHeader from "../components/SectionHeader.tsx";
 
 function Projects(): ReactElement {
   const dialogRef: Ref<HTMLDialogElement | null> = useRef(null);
@@ -19,28 +21,21 @@ function Projects(): ReactElement {
 
   return (
     <>
-      <section className="w-full grow flex flex-col items-center justify-start">
-        <div className="text-sm md:text-lg text-center">
-          <h1
-            className="text-2xl md:text-5xl tracking-wide mb-3 font-bold bg-linear-to-r
-          from-blue-400 via-purple-400 to-cyan-400 bg-clip-text light:from-blue-600 light:via-purple-600 light:to-cyan-600 text-transparent uppercase"
-          >
-            Projects
-          </h1>
-          <hr
-            className="w-full h-0.5 border-0 bg-linear-to-r from-blue-400 via-purple-400 to-cyan-400"
-          />
-          <p className="my-4 text-slate-400 light:text-slate-600 text-xs md:text-sm">
-            Projects that I have created
-          </p>
-        </div>
+      <section className="w-full grow flex flex-col gap-12">
+        <SectionHeader title="Projects" subtitle="Projects that I have created" />
 
-        <div className="w-full max-w-6xl mx-auto px-6 pb-16">
-          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {projectsData.map(projectData => (
-                <ProjectCard key={projectData.projectTitle} projectData={projectData} onView={handleViewDetailsClick}  />
-            ))}
-          </div>
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {projectsData.map((projectData, index) => (
+            <motion.div
+              key={projectData.projectTitle}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
+            >
+              <ProjectCard projectData={projectData} onView={handleViewDetailsClick} />
+            </motion.div>
+          ))}
         </div>
 
         {/* modal */}
