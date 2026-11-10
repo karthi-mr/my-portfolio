@@ -24,10 +24,10 @@ function Experience(): ReactElement {
         {/* content */}
         <div ref={timelineRef} className="relative w-full max-w-5xl mx-auto">
           {/* vertical line: faint track + gradient that fills while scrolling */}
-          <div className="absolute left-5 lg:left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 rounded-full bg-line" />
+          <div className="absolute left-3 sm:left-5 lg:left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 rounded-full bg-line" />
           <motion.div
             style={{ scaleY: lineProgress }}
-            className="absolute left-5 lg:left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 origin-top rounded-full
+            className="absolute left-3 sm:left-5 lg:left-1/2 top-0 bottom-0 w-0.5 -translate-x-1/2 origin-top rounded-full
             bg-linear-to-b from-indigo-500 via-violet-500 to-cyan-400 shadow-[0_0_12px_rgba(139,92,246,0.6)]"
           />
 
@@ -36,14 +36,14 @@ function Experience(): ReactElement {
               const isLeft: boolean = index % 2 === 0;
 
               return (
-                <li key={experience.id} className="relative grid lg:grid-cols-2 lg:gap-20 pl-14 lg:pl-0">
+                <li key={experience.id} className="relative grid lg:grid-cols-2 lg:gap-20 pl-9 sm:pl-14 lg:pl-0">
                   {/* Connector */}
                   <motion.span
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
                     viewport={{ once: true, amount: 0.6 }}
                     transition={{ type: "spring", stiffness: 260, damping: 18 }}
-                    className="absolute left-5 lg:left-1/2 top-8 -translate-x-1/2 grid place-items-center size-6 rounded-full
+                    className="absolute left-3 sm:left-5 lg:left-1/2 top-7 sm:top-8 -translate-x-1/2 grid place-items-center size-5 sm:size-6 rounded-full
                     bg-bg ring-2 ring-violet-500/70 z-10"
                   >
                     <span className="size-2.5 rounded-full bg-brand" />
@@ -85,7 +85,7 @@ function Experience(): ReactElement {
                         ? "-right-2 border-t border-r"
                         : "-left-2 border-b border-l"}`}
                     />
-                    <div className="group relative overflow-hidden glass card-hover p-6 md:p-8">
+                    <div className="group relative overflow-hidden glass card-hover p-4 sm:p-6 md:p-8">
                       {/* top accent */}
                       <span className="absolute inset-x-0 top-0 h-1 bg-brand opacity-80" />
                       {/* soft glow */}

@@ -15,7 +15,17 @@ function Contact(): ReactElement {
   async function handleSubmit(e: FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault();
 
-    if (!formRef.current) {
+    // ignore extra clicks while a message is already being sent
+    if (!formRef.current || status === "sending") {
+      return;
+    }
+
+    // spam protection: bots fill the hidden "website" field, people never see it
+    const honeypot = new FormData(formRef.current).get("website");
+    if (typeof honeypot === "string" && honeypot.trim() !== "") {
+      formRef.current.reset();
+      setStatus("success");
+      setTimeout(() => setStatus("idle"), 2500);
       return;
     }
 
@@ -38,9 +48,9 @@ function Contact(): ReactElement {
       formRef.current.reset();
       setStatus("success");
       setTimeout(() => setStatus("idle"), 2500);
-    } catch (err: any) {
+    } catch (err: unknown) {
       setStatus("error");
-      setErrorMsg(err?.message ?? "Failed to send message.");
+      setErrorMsg(err instanceof Error ? err.message : "Failed to send message.");
     }
   }
 
@@ -61,6 +71,14 @@ function Contact(): ReactElement {
       >
         <div className="pointer-events-none absolute -top-32 -right-32 size-72 rounded-full bg-brand opacity-20 blur-3xl" />
         <form ref={formRef} onSubmit={handleSubmit} className="relative space-y-5">
+          {/* honeypot field: hidden from people and screen readers, only bots fill it */}
+          <div aria-hidden="true" className="absolute -left-[9999px] top-auto w-px h-px overflow-hidden">
+            <label>
+              Website
+              <input type="text" name="website" tabIndex={-1} autoComplete="off" defaultValue="" />
+            </label>
+          </div>
+
           {/* row 1 */}
           <div className="grid gap-5 md:grid-cols-2">
             {/* first name */}
@@ -124,7 +142,9 @@ function Contact(): ReactElement {
           <div className="pt-2">
             <button
               type="submit"
-              className="btn btn-primary w-full h-13 text-base disabled:opacity-70 group"
+              disabled={status === "sending"}
+              aria-busy={status === "sending"}
+              className="btn btn-primary w-full h-13 text-base disabled:opacity-70 disabled:cursor-wait disabled:hover:translate-y-0 group"
             >
               <span>{status === "sending" ? "Sending..." : "Send Message"}</span>
               <IoSend className="transition-transform group-hover:translate-x-1" />

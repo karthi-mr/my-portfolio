@@ -4,6 +4,7 @@ import { ArrowUpRight, Check, ChevronLeft, ChevronRight, X } from "lucide-react"
 import { FaGithub } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
+import { toRawImageUrl } from "../utils/ImageUtils.ts";
 
 type ProjectModalProps = {
   projectData: ProjectDataInput | null;
@@ -24,7 +25,7 @@ const ProjectModal = forwardRef(
     <dialog
       ref={dialogRef}
       onClick={(e) => { if (e.target === e.currentTarget) closeModal(); }}
-      className="fixed inset-0 m-auto w-[calc(100%-1.5rem)] max-w-5xl h-[85vh] p-0 rounded-3xl
+      className="fixed inset-0 m-auto w-[calc(100%-1.5rem)] max-w-5xl h-[calc(100dvh-1.5rem)] sm:h-[85dvh] p-0 rounded-3xl
       bg-surface-strong text-fg border border-line shadow-2xl backdrop:bg-black/60 backdrop:backdrop-blur-sm"
     >
       <div className="flex flex-col h-full">
@@ -70,8 +71,10 @@ const ProjectModal = forwardRef(
                 {projectData?.projectImageLinks.map(imageLink => (
                   <SwiperSlide key={imageLink.imageTitle}>
                     <img
-                      src={`${imageLink.projectImageLink}?raw=true`}
+                      src={toRawImageUrl(imageLink.projectImageLink)}
                       alt={imageLink.imageTitle}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full rounded-2xl border border-line"
                     />
                   </SwiperSlide>
@@ -127,6 +130,7 @@ const ProjectModal = forwardRef(
           <a
             href={projectData?.projectGitHubLink}
             target="_blank"
+            rel="noopener noreferrer"
             className="btn btn-secondary btn-sm"
           >
             <FaGithub size={15} />
@@ -137,6 +141,7 @@ const ProjectModal = forwardRef(
             <a
               href={projectData.demoUrl}
               target="_blank"
+            rel="noopener noreferrer"
               className="btn btn-primary btn-sm"
             >
               Live Demo

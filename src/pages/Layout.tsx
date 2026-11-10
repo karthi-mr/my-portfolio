@@ -1,9 +1,18 @@
-import type { ReactElement } from "react";
+import { type ReactElement, Suspense } from "react";
 import Navbar from "./Navbar.tsx";
 import Footer from "./Footer.tsx";
 
 type LayoutProps = {
   children: ReactElement
+}
+
+/** shown for a moment while a page's code is downloading */
+function PageLoader(): ReactElement {
+  return (
+    <div className="grow grid place-items-center py-24" role="status" aria-label="Loading page">
+      <span className="size-10 rounded-full border-[3px] border-line border-t-indigo-500 animate-spin" />
+    </div>
+  );
 }
 
 function Background(): ReactElement {
@@ -25,11 +34,13 @@ function Background(): ReactElement {
 
 function Layout({ children }: LayoutProps): ReactElement {
   return (
-    <div className="relative isolate min-h-screen flex flex-col">
+    <div className="relative isolate min-h-dvh flex flex-col">
       <Background />
       <Navbar />
       <main className="grow flex flex-col min-h-0 w-full max-w-6xl mx-auto px-5 sm:px-8 pt-28 md:pt-32 pb-20">
-        {children}
+        <Suspense fallback={<PageLoader />}>
+          {children}
+        </Suspense>
       </main>
       <Footer />
     </div>

@@ -1,15 +1,18 @@
-import type { ReactElement } from "react";
+import { lazy, type ReactElement } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home.tsx";
 import Layout from "./pages/Layout.tsx";
-import About from "./pages/About.tsx";
-import Contact from "./pages/Contact.tsx";
-import Skills from "./pages/Skills.tsx";
-import Experience from "./pages/Experience.tsx";
-import Projects from "./pages/Projects.tsx";
 import CursorHighlight from "./pages/CursorHighlight.tsx";
-import Certificates from "./pages/Certificates.tsx";
 import ScrollToTop from "./utils/ScrollToTop.tsx";
+import RouteMeta from "./utils/RouteMeta.tsx";
+
+// each page is loaded only when it is first opened (smaller initial download)
+const Home = lazy(() => import("./pages/Home.tsx"));
+const About = lazy(() => import("./pages/About.tsx"));
+const Contact = lazy(() => import("./pages/Contact.tsx"));
+const Skills = lazy(() => import("./pages/Skills.tsx"));
+const Experience = lazy(() => import("./pages/Experience.tsx"));
+const Projects = lazy(() => import("./pages/Projects.tsx"));
+const Certificates = lazy(() => import("./pages/Certificates.tsx"));
 
 function App(): ReactElement {
   return (
@@ -17,6 +20,7 @@ function App(): ReactElement {
       <CursorHighlight />
       <BrowserRouter>
         <ScrollToTop />
+        <RouteMeta />
         <Routes>
           <Route path="*" element={<Navigate to="/home" replace />} />
           <Route path="/home" element={<Layout><Home /></Layout>} />

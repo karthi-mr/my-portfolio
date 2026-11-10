@@ -18,6 +18,8 @@ export default defineConfig({
         manualChunks: {
           react: ["react", "react-dom", "react-router-dom"],
           icons: ["lucide-react"],
+          motion: ["framer-motion"],
+          swiper: ["swiper"],
           // add more big libs here if you use them:
           // ui: ["@radix-ui/react-dialog", "@radix-ui/react-popover"],
           // charts: ["recharts"],

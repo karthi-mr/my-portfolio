@@ -185,7 +185,7 @@ function MultiSelectFilter(
                   </div>
                 )}
 
-                <ul role="listbox" aria-multiselectable="true" aria-label={title} className="max-h-72 overflow-y-auto pr-0.5">
+                <ul role="listbox" aria-multiselectable="true" aria-label={title} className="max-h-[min(18rem,50dvh)] overflow-y-auto overscroll-contain pr-0.5">
                   {visibleOptions.map((option: FilterOption) => {
                     const isChecked: boolean = selected.includes(option.value);
 

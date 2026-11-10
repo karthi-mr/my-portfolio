@@ -64,7 +64,7 @@ function Certificates(): ReactElement {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5"
+          className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5"
         >
           <AnimatePresence mode="popLayout">
             {filteredCertificates.map((certificate: CertificateData, index: number) => (

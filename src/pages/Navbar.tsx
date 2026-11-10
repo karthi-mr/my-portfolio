@@ -124,7 +124,7 @@ function Navbar(): ReactElement {
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: -24, opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
-              className="relative m-3 p-3 glass bg-surface-strong"
+              className="relative m-3 p-3 glass bg-surface-strong max-h-[calc(100dvh-1.5rem)] overflow-y-auto overscroll-contain"
             >
               {/* top bar inside menu */}
               <div className="flex items-center justify-between px-2 pb-3 mb-2 border-b border-line">

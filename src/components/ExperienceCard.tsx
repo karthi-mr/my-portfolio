@@ -11,10 +11,10 @@ function ExperienceCard({ hideMetaOnLarge = false, ...experienceData }: Experien
   return (
     <div className="flex flex-col gap-4">
       {/* header */}
-      <div className="flex items-start gap-4">
+      <div className="flex items-start gap-3 sm:gap-4">
         <span
-          className="grid place-items-center size-12 md:size-14 shrink-0 rounded-2xl bg-brand text-white
-          font-display text-xl md:text-2xl font-extrabold shadow-lg shadow-indigo-500/30"
+          className="grid place-items-center size-10 sm:size-12 md:size-14 shrink-0 rounded-xl sm:rounded-2xl bg-brand text-white
+          font-display text-lg sm:text-xl md:text-2xl font-extrabold shadow-lg shadow-indigo-500/30"
           aria-hidden="true"
         >
           {experienceData.companyName.charAt(0)}

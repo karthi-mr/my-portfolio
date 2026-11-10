@@ -16,6 +16,9 @@ function Footer(): ReactElement {
           <a
             href="https://github.com/karthi-mr"
             target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            title="GitHub"
             className={socialClasses}
           >
             <FaGithub size={18} />
@@ -23,6 +26,9 @@ function Footer(): ReactElement {
           <a
             href="https://www.linkedin.com/in/karthi-mr"
             target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            title="LinkedIn"
             className={socialClasses}
           >
             <FaLinkedin size={18} />
@@ -30,6 +36,9 @@ function Footer(): ReactElement {
           <a
             href="https://wa.me/917708006145"
             target="_blank"
+            rel="noopener noreferrer"
+            aria-label="WhatsApp"
+            title="WhatsApp"
             className={`${socialClasses} text-green-500!`}
           >
             <FaWhatsapp size={18} />
@@ -37,6 +46,9 @@ function Footer(): ReactElement {
           <a
             href="mailto:mkarthim1998@gmail.com"
             target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Email"
+            title="Email"
             className={socialClasses}
           >
             <MdEmail size={18} />

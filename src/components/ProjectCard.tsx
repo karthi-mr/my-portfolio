@@ -2,6 +2,8 @@ import type { ReactElement } from "react";
 import { FaGithub } from "react-icons/fa";
 import { ArrowUpRight } from "lucide-react";
 import type { ProjectDataInput } from "../data/ProjectsData.ts";
+import ProjectCover from "./ProjectCover.tsx";
+import { toRawImageUrl } from "../utils/ImageUtils.ts";
 
 type ProjectCardProps = {
   projectData: ProjectDataInput;
@@ -22,16 +24,16 @@ function ProjectCard(
       <div className="relative aspect-[16/10] overflow-hidden border-b border-line bg-fg/5">
         {projectData.projectImageLinks.length > 0 ? (
           <img
-            src={`${projectData.projectImageLinks[0].projectImageLink}?raw=true`}
+            src={toRawImageUrl(projectData.projectImageLinks[0].projectImageLink)}
             alt={projectData.projectImageLinks[0].imageTitle}
+            loading="lazy"
+            decoding="async"
             className={imageClass}
           />
         ) : (
-          <img
-            src="https://png.pngtree.com/png-vector/20221125/ourmid/pngtree-no-image-available-icon-flatvector-illustration-pic-design-profile-vector-png-image_40966566.jpg"
-            alt="No Image available"
-            className={imageClass}
-          />
+          <div className="h-full w-full transition-transform duration-700 ease-out group-hover:scale-105">
+            <ProjectCover title={projectData.projectTitle} techStacks={projectData.techStacks} />
+          </div>
         )}
         <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent opacity-60 transition-opacity group-hover:opacity-100" />
       </div>
@@ -60,6 +62,7 @@ function ProjectCard(
           <a
             href={projectData.projectGitHubLink}
             target="_blank"
+            rel="noopener noreferrer"
             className="btn btn-secondary btn-sm group/gh"
           >
             <FaGithub size={15} />

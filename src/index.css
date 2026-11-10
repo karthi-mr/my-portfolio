@@ -75,6 +75,11 @@
   ::selection {
     background: rgba(99, 102, 241, 0.3);
   }
+
+  /* no grey flash when tapping links/buttons on phones */
+  a, button, label, [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
 /* ===== Reusable utilities ===== */
@@ -90,10 +95,17 @@
 @utility card-hover {
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 
-  &:hover {
-    transform: translateY(-4px);
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-4px);
+      border-color: var(--line-strong);
+      box-shadow: var(--shadow-card-hover);
+    }
+  }
+
+  /* touch: brief press feedback instead of hover */
+  &:active {
     border-color: var(--line-strong);
-    box-shadow: var(--shadow-card-hover);
   }
 }
 
@@ -152,10 +164,12 @@
   background-position: 0% 0%;
   box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.65);
 
-  &:hover {
-    background-position: 100% 0%;
-    transform: translateY(-2px);
-    box-shadow: 0 16px 36px -12px rgba(99, 102, 241, 0.8);
+  @media (hover: hover) {
+    &:hover {
+      background-position: 100% 0%;
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px -12px rgba(99, 102, 241, 0.8);
+    }
   }
 }
 
@@ -165,9 +179,11 @@
   border: 1px solid var(--line);
   backdrop-filter: blur(12px);
 
-  &:hover {
-    transform: translateY(-2px);
-    border-color: var(--line-strong);
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-2px);
+      border-color: var(--line-strong);
+    }
   }
 }
 
@@ -226,10 +242,16 @@
   --accent-active: var(--accent);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 
-  &:hover {
-    transform: translateY(-4px);
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-4px);
+      border-color: color-mix(in oklab, var(--accent-active) 45%, transparent);
+      box-shadow: var(--shadow-card), 0 22px 44px -20px color-mix(in oklab, var(--accent-active) 70%, transparent);
+    }
+  }
+
+  &:active {
     border-color: color-mix(in oklab, var(--accent-active) 45%, transparent);
-    box-shadow: var(--shadow-card), 0 22px 44px -20px color-mix(in oklab, var(--accent-active) 70%, transparent);
   }
 }
 
@@ -290,6 +312,25 @@
 @media (prefers-reduced-motion: reduce) {
   .aurora-blob, .animate-spin-slow {
     animation: none;
+  }
+}
+
+/* ===== Phones ===== */
+@media (max-width: 640px) {
+  /* the big blurred background is expensive on phones: keep it, but static and lighter */
+  .aurora-blob {
+    animation: none;
+    filter: blur(70px);
+  }
+
+  /* iOS Safari zooms the page when a focused field has text under 16px */
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+
+  /* comfortable 44px touch targets for small buttons */
+  .btn-sm {
+    height: 2.75rem;
   }
 }
 

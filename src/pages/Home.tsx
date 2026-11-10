@@ -2,7 +2,7 @@ import { ArrowRight, Download, Mail, Phone } from "lucide-react";
 import type { ReactElement } from "react";
 import { motion } from "framer-motion";
 import { SiTicktick } from "react-icons/si";
-import { type NavigateFunction, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import profileImg from "../assets/profile2.jpg";
 
 const RESUME_PDF_URL: string = "https://drive.google.com/file/d/1FRiH7XiIytaEKxQnIZDgSNuoj48Ly_4X/view?usp=sharing";
@@ -17,8 +17,6 @@ const fadeUp = {
 };
 
 function Home(): ReactElement {
-  const navigator: NavigateFunction = useNavigate();
-
   return (
     <>
       {/* hero */}
@@ -80,13 +78,13 @@ function Home(): ReactElement {
             variants={fadeUp}
             className="mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto"
           >
-            <a
+            <Link
+              to="/projects"
               className="btn btn-primary group"
-              onClick={() => navigator("/projects")}
             >
               <span>View Projects</span>
               <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-            </a>
+            </Link>
             <a
               href={RESUME_PDF_URL}
               download
@@ -97,12 +95,12 @@ function Home(): ReactElement {
               <span><Download size={18} /></span>
               <span>Download Resume</span>
             </a>
-            <a
+            <Link
+              to="/contact"
               className="btn btn-secondary"
-              onClick={() => navigator("/contact")}
             >
               <span>Contact Me</span>
-            </a>
+            </Link>
           </motion.div>
         </div>
 
