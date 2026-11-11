@@ -2,6 +2,8 @@
 @import "tailwindcss";
 @import "swiper/css";
 @import "swiper/css/pagination";
+@import "swiper/css/thumbs";
+@import "swiper/css/zoom";
 
 /* theme variants: <html> gets "light" or "dark" (system by default, see index.html + useTheme) */
 @custom-variant dark (&:where(.dark, .dark *));
@@ -375,11 +377,111 @@
   .project-next {
     right: 0.75rem;
   }
+}
 
-  .project-swiper {
-    --swiper-pagination-color: #8b5cf6;
-    --swiper-pagination-bullet-inactive-color: var(--muted);
-    padding-bottom: 2rem !important;
+/* ===== Project gallery (outside @layer so it overrides Swiper's own CSS) ===== */
+/* image counter "2 / 11" as a small pill */
+.project-swiper .swiper-pagination-fraction,
+.lightbox-swiper .swiper-pagination-fraction {
+  left: auto;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  width: auto;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.5rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+}
+
+.lightbox-swiper .swiper-pagination-fraction {
+  left: 50%;
+  right: auto;
+  bottom: 1.25rem;
+  transform: translateX(-50%);
+  font-size: 0.875rem;
+}
+
+.lightbox-swiper .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-prev { left: 1rem; }
+.lightbox-next { right: 1rem; }
+
+/* thumbnail strip: dim the others, highlight the current image */
+.project-thumbs .swiper-slide {
+  opacity: 0.55;
+  transition: opacity 0.2s ease;
+}
+
+.project-thumbs .swiper-slide:hover,
+.project-thumbs .swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+.project-thumbs .swiper-slide-thumb-active img {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.45);
+}
+
+/* ===== Project modal open / close animation ===== */
+.project-modal {
+  opacity: 0;
+  transform: translateY(18px) scale(0.98);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    overlay 0.25s ease allow-discrete,
+    display 0.25s ease allow-discrete;
+}
+
+.project-modal[open] {
+  opacity: 1;
+  transform: none;
+}
+
+@starting-style {
+  .project-modal[open] {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+}
+
+.project-modal::backdrop {
+  background-color: rgb(0 0 0 / 0);
+  backdrop-filter: blur(0);
+  transition:
+    background-color 0.25s ease,
+    backdrop-filter 0.25s ease,
+    overlay 0.25s ease allow-discrete,
+    display 0.25s ease allow-discrete;
+}
+
+.project-modal[open]::backdrop {
+  background-color: rgb(0 0 0 / 0.6);
+  backdrop-filter: blur(4px);
+}
+
+@starting-style {
+  .project-modal[open]::backdrop {
+    background-color: rgb(0 0 0 / 0);
+    backdrop-filter: blur(0);
+  }
+}
+
+.lightbox::backdrop {
+  background-color: rgb(0 0 0 / 0.9);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-modal,
+  .project-modal::backdrop {
+    transition: none;
   }
 }
 
