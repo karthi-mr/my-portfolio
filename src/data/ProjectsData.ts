@@ -3,6 +3,15 @@ export type ProjectImageLink = {
   imageTitle: string;
 };
 
+// Any new category string works: it shows up as a filter option automatically.
+export type ProjectCategory =
+  | 'Full Stack'
+  | 'Backend'
+  | 'Frontend'
+  | 'AI/ML'
+  | 'Data Science'
+  | (string & {});
+
 export type ProjectDataInput = {
   projectTitle: string;
   projectDescription: string;
@@ -11,16 +20,21 @@ export type ProjectDataInput = {
   techStacks: string[];
   keyFeatures: string[];
   demoUrl?: string;
+  /** optional: shown as a badge and usable as a filter */
+  category?: ProjectCategory;
+  /** optional: featured projects are listed first with a "Featured" badge */
+  featured?: boolean;
 }
 
 export const projectsData: ProjectDataInput[] = [
   {
     projectTitle: "WebSockets Demo – Real-Time Chat Application",
+    category: "Full Stack",
     projectDescription: `Built a real-time chat application using Spring Boot and React to understand core WebSocket communication. The backend is configured with Spring’s WebSocket support and exposes endpoints like /chat and /ws, while the frontend uses the browser WebSocket API to connect, send messages, and display live chat updates. The project also handles connection, disconnection, and message broadcasting across active sessions.`,
     projectGitHubLink: "https://github.com/karthi-mr/my-learning/tree/master/02-websockets-demo",
     projectImageLinks: [],
     techStacks: [
-      "Spring Boot", "Java", "WebSocket", "Mockito", "React Js", "Real-Time Communication"
+      "Spring Boot", "Java", "WebSocket", "Mockito", "React", "Real-Time Communication"
     ],
     keyFeatures: [
       "Enables bi-directional communication between client and server.",
@@ -33,11 +47,12 @@ export const projectsData: ProjectDataInput[] = [
   },
   {
     projectTitle: "Spring Boot Unit Testing – JUnit & Mockito",
+    category: "Backend",
     projectDescription: `Developed a comprehensive Spring Boot Unit Testing project to demonstrate best practices for testing REST APIs, service layers, and repository components. Implemented unit tests using JUnit 5 and Mockito, focusing on isolating business logic, mocking dependencies, and validating application behavior under different scenarios.`,
     projectGitHubLink: "https://github.com/karthi-mr/my-learning/tree/master/01-spring/01-unit-test",
     projectImageLinks: [],
     techStacks: [
-      "Spring Boot", "Java", "junit 5", "Mockito", "Unit Testing", "REST APIs", "H2 Database", "Test-Driven Development"
+      "Spring Boot", "Java", "JUnit 5", "Mockito", "Unit Testing", "REST APIs", "H2 Database", "Test-Driven Development"
     ],
     keyFeatures: [
       "Service layer testing with mocked dependencies.",
@@ -49,11 +64,13 @@ export const projectsData: ProjectDataInput[] = [
   },
   {
     projectTitle: "Spring Boot Microservices with JWT Authentication",
+    category: "Backend",
+    featured: true,
     projectDescription: `Designed and developed a production-style microservices architecture using Spring Boot, implementing secure authentication and authorization using JWT (JSON Web Tokens). The system consists of multiple services including an Auth Service, API Gateway, and Resource Services, with centralized request routing and security enforcement. Integrated service discovery and load balancing to enable scalable and decoupled communication between services. Implemented stateless authentication where: Auth Service issues JWT tokens API Gateway validates tokens and routes requests Downstream services are protected and accessed securely.`,
     projectGitHubLink: "https://github.com/karthi-mr/spring-microservices-with-authentication",
     projectImageLinks: [],
     techStacks: [
-      "Spring Boot", "Java", "Spring Security", "JSON Web Token (JWT)", "Microservices", "API Gateways", "Eureka", "Docker", "PostgreSQL", "REST APIs", "Distributed Systems"
+      "Spring Boot", "Java", "Spring Security", "JWT", "Microservices", "API Gateways", "Eureka", "Docker", "PostgreSQL", "REST APIs", "Distributed Systems"
     ],
     keyFeatures: [
       "JWT-based authentication and role-based authorization.",
@@ -66,9 +83,11 @@ export const projectsData: ProjectDataInput[] = [
   },
   {
     projectTitle: "Razorpay Payment Integration – Full Stack Application",
+    category: "Full Stack",
+    featured: true,
     projectDescription: `Built a full-stack payment integration system using Spring Boot and React, integrating the Razorpay API in test mode to simulate real-world online transactions. The backend handles secure order creation and payment verification, while the frontend provides a seamless checkout experience using Razorpay’s checkout flow. Implemented environment-based configuration using .env for securely managing API keys and sensitive credentials.
 `,
-    projectGitHubLink: "https://github.com/karthi-mr/quiz-app-react",
+    projectGitHubLink: "https://github.com/karthi-mr/razorpay-demo",
     projectImageLinks: [],
     techStacks: [
       "Spring Boot", "Java", "Razorpay", "React", "TypeScript"
@@ -84,6 +103,7 @@ export const projectsData: ProjectDataInput[] = [
   },
   {
     projectTitle: "Interactive Quiz Application – React",
+    category: "Frontend",
     projectDescription: "Developed an interactive quiz application using React to deliver a dynamic and engaging user experience. The application presents multiple-choice questions, tracks user answers, calculates scores, and displays results in real time. Implemented component-based architecture and state management to handle quiz flow, user interactions, and result evaluation. Designed a responsive UI to ensure smooth usability across devices. Deployed the application using Firebase Hosting, enabling fast and reliable access via a live URL.",
     projectGitHubLink: "https://github.com/karthi-mr/quiz-app-react",
     projectImageLinks: [
@@ -115,7 +135,9 @@ export const projectsData: ProjectDataInput[] = [
   },
   {
     projectTitle: "Expense Tracker",
-    projectDescription: "Expense Tracker Application",
+    category: "Full Stack",
+    featured: true,
+    projectDescription: `Built a full-stack expense tracker with a Spring Boot REST API and a React + TypeScript frontend. Users sign up and log in with JWT-based authentication, create their own categories and record daily expenses. The dashboard summarises spending for the last 7, 30 and 365 days, shows the total for each of the past 30 days and the total per category. Data is stored in PostgreSQL (running in Docker) and the API is documented with OpenAPI.`,
     projectGitHubLink: "https://github.com/karthi-mr/expense-tracker-spring-react",
     projectImageLinks: [
       {
@@ -164,8 +186,8 @@ export const projectsData: ProjectDataInput[] = [
       },
     ],
     techStacks: [
-      "Spring Boot", "Spring Security", "Spring Data Jpa", "JWT", "Open API", "Docker", "TypeScript",
-      "React", "React Router", "Axios", "Tailwind CSS", "Postgres"
+      "Spring Boot", "Spring Security", "Spring Data JPA", "JWT", "OpenAPI", "Docker", "TypeScript",
+      "React", "React Router", "Axios", "Tailwind CSS", "PostgreSQL"
     ],
     keyFeatures: [
       "Built a full-stack web application to record and analyze personal expenses.",
@@ -176,40 +198,51 @@ export const projectsData: ProjectDataInput[] = [
   },
   {
     projectTitle: "Personal Portfolio",
-    projectDescription: "Personal Portfolio project using React and Tailwind CSS",
+    category: "Frontend",
+    projectDescription: `This portfolio website, built with React, TypeScript and Vite and styled with Tailwind CSS. It has light and dark themes that follow the system setting, Framer Motion animations, searchable multi-select filters for skills, certificates and projects, a project gallery with a full-screen image viewer and shareable project links, and a contact form powered by EmailJS. It is fully responsive, loads each page on demand and is deployed to Firebase Hosting with GitHub Actions.`,
     projectGitHubLink: "https://github.com/karthi-mr/my-portfolio",
     projectImageLinks: [
       {
         imageTitle: "Home",
-        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/64db0af0dc427d72d3bc29e9b393c65be60c7431/screenshots/home.png"
+        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/fa638057d617924442d92cd7c9ca8569492a0fd5/screenshots/home.png"
+      },
+      {
+        imageTitle: "Home (light theme)",
+        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/fa638057d617924442d92cd7c9ca8569492a0fd5/screenshots/home-light.png"
       },
       {
         imageTitle: "About Me",
-        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/64db0af0dc427d72d3bc29e9b393c65be60c7431/screenshots/about-me.png"
+        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/fa638057d617924442d92cd7c9ca8569492a0fd5/screenshots/about-me.png"
       },
       {
         imageTitle: "Projects",
-        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/64db0af0dc427d72d3bc29e9b393c65be60c7431/screenshots/projects.png"
+        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/fa638057d617924442d92cd7c9ca8569492a0fd5/screenshots/projects.png"
       },
       {
         imageTitle: "Experience",
-        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/64db0af0dc427d72d3bc29e9b393c65be60c7431/screenshots/experience.png"
+        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/fa638057d617924442d92cd7c9ca8569492a0fd5/screenshots/experience.png"
       },
       {
         imageTitle: "Skills",
-        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/64db0af0dc427d72d3bc29e9b393c65be60c7431/screenshots/skills.png"
+        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/fa638057d617924442d92cd7c9ca8569492a0fd5/screenshots/skills.png"
       },
       {
         imageTitle: "Certificates",
-        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/64db0af0dc427d72d3bc29e9b393c65be60c7431/screenshots/certificates.png"
+        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/fa638057d617924442d92cd7c9ca8569492a0fd5/screenshots/certificates.png"
       },
       {
         imageTitle: "Contact Me",
-        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/64db0af0dc427d72d3bc29e9b393c65be60c7431/screenshots/contact-me.png"
+        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/fa638057d617924442d92cd7c9ca8569492a0fd5/screenshots/contact-me.png"
+      },
+      {
+        imageTitle: "Mobile",
+        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/fa638057d617924442d92cd7c9ca8569492a0fd5/screenshots/mobile-home.png"
       },
     ],
-    techStacks: ["TypeScript", "React", "Tailwind CSS", "Lucid React (icons)", "React router dom", "Framer motion",
-      "Swiper", "Email js"],
+    techStacks: [
+      "TypeScript", "React", "Vite", "Tailwind CSS", "React Router", "Framer Motion", "Swiper", "EmailJS",
+      "Lucide React", "Firebase Hosting", "GitHub Actions"
+    ],
     keyFeatures: [
       "Developed a fully responsive portfolio website using React, TypeScript, and Vite to showcase skills & projects.",
       "Implemented interactive UI/UX components including smooth scrolling and section highlights to enhance user experience.",
@@ -219,11 +252,12 @@ export const projectsData: ProjectDataInput[] = [
   },
   {
     projectTitle: "Todo Application (Backend)",
-    projectDescription: "Todo Backend Application",
+    category: "Backend",
+    projectDescription: `The Spring Boot backend of my full-stack Todo application. It exposes RESTful APIs that the React frontend uses to manage tasks – including task priority and due dates – and persists the data in PostgreSQL through Spring Data JPA.`,
     projectGitHubLink: "https://github.com/karthi-mr/spring-backend-todo/tree/dev",
     projectImageLinks: [],
     techStacks: [
-      "Spring Boot", "Spring Data Jpa", "Postgres"
+      "Spring Boot", "Spring Data JPA", "PostgreSQL"
     ],
     keyFeatures: [
       "Designed and developed a full-stack Todo application with React frontend and Spring Boot backend.",
@@ -233,7 +267,8 @@ export const projectsData: ProjectDataInput[] = [
   },
   {
     projectTitle: "Todo Application (Frontend)",
-    projectDescription: "Todo Frontend Application",
+    category: "Frontend",
+    projectDescription: `The React + TypeScript frontend of my full-stack Todo application, styled with Tailwind CSS. Tasks can be given a priority and a due date, then filtered and sorted, and the app includes a dark mode. It talks to the Spring Boot backend through REST APIs for persistent storage and is deployed on Firebase Hosting.`,
     projectGitHubLink: "https://github.com/karthi-mr/react-todo-app/tree/dev",
     projectImageLinks: [],
     techStacks: ["TypeScript", "React", "Tailwind CSS"],

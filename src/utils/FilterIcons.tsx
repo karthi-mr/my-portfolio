@@ -5,6 +5,7 @@ import {
   Cloud,
   Database,
   FlaskConical,
+  Layers,
   Monitor,
   Server,
   Smartphone,
@@ -16,6 +17,7 @@ import {
 export function getCategoryIcon(category: string, size: number = 15): ReactElement {
   const key: string = category.toLowerCase();
 
+  if (key.includes("full")) return <Layers size={size} />;
   if (key.includes("front")) return <Monitor size={size} />;
   if (key.includes("back")) return <Server size={size} />;
   if (key.includes("data science") || key.includes("analytic") || key.includes("visual")) return <BarChart3 size={size} />;

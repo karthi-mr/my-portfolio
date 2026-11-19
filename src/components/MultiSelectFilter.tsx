@@ -1,4 +1,4 @@
-import { type Dispatch, type ReactElement, type ReactNode, type SetStateAction, useEffect, useId, useMemo, useRef, useState } from "react";
+import { type Dispatch, Fragment, type ReactElement, type ReactNode, type SetStateAction, useEffect, useId, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, ChevronDown, Search, SlidersHorizontal, X } from "lucide-react";
 
@@ -7,6 +7,8 @@ export type FilterOption = {
   label: string;
   count: number;
   icon?: ReactNode;
+  /** optional heading the option is listed under, e.g. "Category" or "Technology" */
+  group?: string;
 }
 
 type MultiSelectFilterProps = {
@@ -146,7 +148,7 @@ function MultiSelectFilter(
                 exit={{ opacity: 0, y: -6, scale: 0.98 }}
                 transition={{ duration: 0.15 }}
                 className="absolute z-30 left-0 right-0 sm:left-auto top-full mt-2 sm:w-80 origin-top-right
-                rounded-2xl border border-line bg-surface-strong shadow-2xl backdrop-blur-xl p-2"
+                rounded-2xl border border-line bg-surface-solid shadow-2xl p-2"
               >
                 <div className="flex items-center justify-between px-2 pt-1 pb-2">
                   <span className="text-xs font-semibold uppercase tracking-wider text-subtle">
@@ -156,7 +158,7 @@ function MultiSelectFilter(
                     <button
                       type="button"
                       onClick={() => onSelectedChange(options.map(option => option.value))}
-                      className="px-2 py-1 rounded-md text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500/10 cursor-pointer"
+                      className="px-2.5 py-3 sm:px-2 sm:py-1 rounded-md text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500/10 cursor-pointer"
                     >
                       Select all
                     </button>
@@ -164,7 +166,7 @@ function MultiSelectFilter(
                       type="button"
                       onClick={() => onSelectedChange([])}
                       disabled={selected.length === 0}
-                      className="px-2 py-1 rounded-md text-xs font-semibold text-muted hover:text-fg hover:bg-fg/5 cursor-pointer disabled:opacity-40 disabled:cursor-default"
+                      className="px-2.5 py-3 sm:px-2 sm:py-1 rounded-md text-xs font-semibold text-muted hover:text-fg hover:bg-fg/5 cursor-pointer disabled:opacity-40 disabled:cursor-default"
                     >
                       Clear
                     </button>
@@ -186,11 +188,21 @@ function MultiSelectFilter(
                 )}
 
                 <ul role="listbox" aria-multiselectable="true" aria-label={title} className="max-h-[min(18rem,50dvh)] overflow-y-auto overscroll-contain pr-0.5">
-                  {visibleOptions.map((option: FilterOption) => {
+                  {visibleOptions.map((option: FilterOption, optionIndex: number) => {
                     const isChecked: boolean = selected.includes(option.value);
+                    const startsGroup: boolean = !!option.group && option.group !== visibleOptions[optionIndex - 1]?.group;
 
                     return (
-                      <li key={option.value} role="option" aria-selected={isChecked}>
+                      <Fragment key={option.value}>
+                        {startsGroup && (
+                          <li
+                            role="presentation"
+                            className={`px-2.5 pb-1 text-[11px] font-semibold uppercase tracking-wider text-subtle ${optionIndex > 0 ? "pt-3" : "pt-1"}`}
+                          >
+                            {option.group}
+                          </li>
+                        )}
+                      <li role="option" aria-selected={isChecked}>
                         <button
                           type="button"
                           onClick={() => toggle(option.value)}
@@ -211,6 +223,7 @@ function MultiSelectFilter(
                           <span className="text-xs font-semibold tabular-nums text-subtle">{option.count}</span>
                         </button>
                       </li>
+                      </Fragment>
                     );
                   })}
                   {visibleOptions.length === 0 && (

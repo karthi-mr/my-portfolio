@@ -13,6 +13,7 @@ import {
   Link2,
   ListChecks,
   Share2,
+  Star,
   X,
 } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
@@ -22,6 +23,7 @@ import { A11y, Keyboard, Navigation, Pagination, Thumbs, Zoom } from "swiper/mod
 import { toRawImageUrl } from "../utils/ImageUtils.ts";
 import { projectSlug } from "../utils/ProjectUtils.ts";
 import ProjectCover from "./ProjectCover.tsx";
+import TechChip from "./TechChip.tsx";
 
 type ProjectModalProps = {
   /** the open project, or null when the modal is closed */
@@ -146,10 +148,8 @@ function ProjectModal(
       <section className="flex flex-col gap-3 rounded-2xl ring-1 ring-line p-4">
         <h3 className="font-display text-base font-bold">Tech Stack</h3>
         <div className="flex flex-wrap gap-2">
-          {shownProject.techStacks.map((techStack: string, techIndex: number) => (
-            <span key={techIndex} className="chip">
-              {techStack}
-            </span>
+          {shownProject.techStacks.map((techStack: string) => (
+            <TechChip key={techStack} name={techStack} />
           ))}
         </div>
       </section>
@@ -173,9 +173,22 @@ function ProjectModal(
           {/* header */}
           <header className="flex items-center gap-3 px-4 sm:px-6 md:px-8 py-3 sm:py-4 border-b border-line">
             <div className="min-w-0 grow flex flex-col gap-1">
-              <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-widest text-subtle tabular-nums">
-                Project {index + 1} / {total}
-              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-widest text-subtle tabular-nums">
+                  Project {index + 1} / {total}
+                </span>
+                {shownProject.featured && (
+                  <span className="inline-flex items-center gap-1 rounded-md bg-brand px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
+                    <Star size={10} className="fill-current" />
+                    Featured
+                  </span>
+                )}
+                {shownProject.category && (
+                  <span className="rounded-md bg-fg/5 ring-1 ring-line px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted">
+                    {shownProject.category}
+                  </span>
+                )}
+              </div>
               <h2 id={titleId} className="font-display text-lg md:text-2xl font-bold tracking-tight leading-snug">
                 {shownProject.projectTitle}
               </h2>

@@ -14,6 +14,7 @@
   --bg: #070a13;
   --surface: rgba(17, 24, 39, 0.55);
   --surface-strong: rgba(13, 18, 32, 0.96);
+  --surface-solid: #0e1322;
   --line: rgba(148, 163, 184, 0.12);
   --line-strong: rgba(129, 140, 248, 0.45);
   --fg: #e8ebf4;
@@ -30,6 +31,7 @@
   --bg: #f5f6fb;
   --surface: rgba(255, 255, 255, 0.72);
   --surface-strong: rgba(255, 255, 255, 0.98);
+  --surface-solid: #ffffff;
   --line: rgba(15, 23, 42, 0.08);
   --line-strong: rgba(99, 102, 241, 0.35);
   --fg: #0b1020;
@@ -46,6 +48,7 @@
   --color-bg: var(--bg);
   --color-surface: var(--surface);
   --color-surface-strong: var(--surface-strong);
+  --color-surface-solid: var(--surface-solid);
   --color-line: var(--line);
   --color-fg: var(--fg);
   --color-muted: var(--muted);
