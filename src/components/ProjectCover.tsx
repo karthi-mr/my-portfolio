@@ -46,11 +46,12 @@ function ProjectCover({ title, techStacks }: ProjectCoverProps): ReactElement {
       <div className="absolute -right-10 -top-10 size-40 rounded-full bg-white/15 blur-2xl" />
       <div className="absolute -bottom-16 -left-10 size-44 rounded-full bg-black/20 blur-2xl" />
 
-      <div className="relative h-full flex flex-col justify-between p-5 text-white">
-        <span className="grid place-items-center size-10 rounded-xl bg-white/15 ring-1 ring-white/25 backdrop-blur-sm">
-          <Code2 size={20} />
-        </span>
+      {/* content sits at the bottom, leaving the top free for card badges */}
+      <div className="relative h-full flex flex-col justify-end p-5 text-white">
         <div className="flex flex-col gap-3">
+          <span className="grid place-items-center size-9 rounded-xl bg-white/15 ring-1 ring-white/25 backdrop-blur-sm">
+            <Code2 size={18} />
+          </span>
           <span className="font-display text-xl md:text-2xl font-extrabold leading-tight tracking-tight drop-shadow-sm line-clamp-2">
             {shortTitle}
           </span>

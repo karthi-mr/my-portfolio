@@ -60,11 +60,32 @@ const brandColors: Record<string, BrandColor> = {
   "Apache Spark": { color: "#e25a1c" },
   "Streamlit": { color: "#ff4b4b" },
   "MongoDB": { color: "#47a248" },
+
+  // other tools used in projects
+  "JWT": { color: "#fb015b", light: "#d6004d" },
+  "Razorpay": { color: "#3395ff", light: "#0b66e4" },
+  "Vite": { color: "#9499ff", light: "#646cff" },
+  "Firebase Hosting": { color: "#ffca28", light: "#f57c00" },
+  "Axios": { color: "#8f6bff", light: "#5a29e4" },
+  "React Router": { color: "#f44250", light: "#ca4245" },
+  "JUnit 5": { color: "#25a162" },
+  "OpenAPI": { color: "#6ba539" },
+  "Swiper": { color: "#4da3ff", light: "#0080ff" },
+  "Lucide React": { color: "#f56565", light: "#e53e3e" },
+  "GitHub Actions": { color: "#4ea2ff", light: "#2088ff" },
+  "Framer Motion": { color: "#e94dab", light: "#bb4b96" },
+  "WebSocket": { color: "#a3a3a3", light: "#3f3f46" },
+  "Eureka": { color: "#6db33f" },
 };
 
 const brandColorsByLowerName: Map<string, BrandColor> = new Map(
   Object.entries(brandColors).map(([name, brand]) => [name.toLowerCase(), brand])
 );
+
+/** Brand color for a tool, or undefined when the name is not a known tool (e.g. "Unit Testing"). */
+export function findSkillBrand(name: string): BrandColor | undefined {
+  return brandColorsByLowerName.get(name.trim().toLowerCase());
+}
 
 export function getSkillBrand(name: string): BrandColor {
   return brandColorsByLowerName.get(name.trim().toLowerCase()) ?? fallback;
