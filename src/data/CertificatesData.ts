@@ -13,6 +13,11 @@ export type CertificateData = {
   label: string;
   url: string;
   certificateProvider: CertificateProvider;
+  /**
+   * optional: when the certificate was issued, as "YYYY-MM" or "YYYY-MM-DD" (e.g. '2025-03').
+   * Dated certificates are listed newest first and show "Issued Mar 2025".
+   */
+  issued?: string;
 };
 
 export const certificatesData: CertificateData[] = [
@@ -195,5 +200,11 @@ export const certificatesData: CertificateData[] = [
     label: 'AWS Essential Training for Developers',
     url: 'https://www.linkedin.com/learning/certificates/cf25ab4b0d9294aa6430d50cf905eb7fe7130c11d113a2fd523b0cb216ff9fa4?trk=share_certificate',
     certificateProvider: 'LinkedIn',
+  },
+  {
+    label: 'Agent Skills with Anthropic',
+    url: 'https://www.deeplearning.ai/accomplishments/f0fc3bbb-0030-4f26-8caa-7cc4069f0303',
+    certificateProvider: 'DeepLearning.AI',
+    issued: '2026-11-13',
   },
 ];

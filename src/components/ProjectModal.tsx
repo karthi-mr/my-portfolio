@@ -20,7 +20,7 @@ import { FaGithub } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperInstance } from "swiper";
 import { A11y, Keyboard, Navigation, Pagination, Thumbs, Zoom } from "swiper/modules";
-import { toRawImageUrl } from "../utils/ImageUtils.ts";
+import { fallbackToOriginal, toRawImageUrl, toThumbnailUrl } from "../utils/ImageUtils.ts";
 import { projectSlug } from "../utils/ProjectUtils.ts";
 import ProjectCover from "./ProjectCover.tsx";
 import TechChip from "./TechChip.tsx";
@@ -253,7 +253,8 @@ function ProjectModal(
                               aria-label={`View ${imageLink.imageTitle} full screen`}
                             >
                               <img
-                                src={toRawImageUrl(imageLink.projectImageLink)}
+                                src={toThumbnailUrl(imageLink.projectImageLink, 1280)}
+                                onError={fallbackToOriginal(imageLink.projectImageLink)}
                                 alt={imageLink.imageTitle}
                                 loading={imageIndex === 0 ? "eager" : "lazy"}
                                 decoding="async"
@@ -303,7 +304,8 @@ function ProjectModal(
                         {images.map((imageLink) => (
                           <SwiperSlide key={imageLink.projectImageLink} className="w-24! sm:w-28!">
                             <img
-                              src={toRawImageUrl(imageLink.projectImageLink)}
+                              src={toThumbnailUrl(imageLink.projectImageLink, 240)}
+                              onError={fallbackToOriginal(imageLink.projectImageLink)}
                               alt=""
                               loading="lazy"
                               decoding="async"

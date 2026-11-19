@@ -13,7 +13,7 @@ Personal portfolio of Karthi – Backend-Focused Full Stack Developer.
 - **Brand-colored icons** – every skill logo uses its original color, certificate platforms show their own icon
 - **Contact form** – sends email through EmailJS, with spam protection
 - **SEO & sharing** – page titles per route, meta description, link-preview image, sitemap and robots.txt
-- **Fast** – each page is loaded only when opened; images are lazy-loaded
+- **Fast** – each page is loaded only when opened, fonts are bundled with the site, screenshots load as small WebP thumbnails
 - **Responsive** – works on mobile, tablet and desktop
 
 ### Tech used
@@ -33,7 +33,10 @@ npm install
 npm run dev
 ```
 
-Other scripts: `npm run build` (production build into `dist/`), `npm run preview` (serve the build), `npm run lint`.
+Other scripts: `npm run build` (production build into `dist/`), `npm run preview` (serve the build), `npm run lint`,
+`npm run test:e2e` (build + browser tests with Playwright, using your installed Google Chrome).
+
+The browser tests in `e2e/` also run in GitHub Actions before every deploy, on desktop and mobile screen sizes.
 
 ### Environment variables
 | Variable | Purpose |
@@ -47,8 +50,10 @@ All content lives in `src/data/`:
 - **Skills** – `SkillsData.ts`. Any `category` works (e.g. `'AI/ML'`, `'Data Science'`); its filter option appears automatically.
   Brand colors for many tools (incl. TensorFlow, PyTorch, Pandas, NumPy, scikit-learn, …) are in `src/utils/SkillGlow.ts`.
 - **Certificates** – `CertificatesData.ts`. Any `certificateProvider` works (e.g. `'Coursera'`, `'Kaggle'`); the filter shows it with the site's own icon.
+  Add `issued: '2025-03'` (or `'2025-03-14'`) to show "Issued Mar 2025"; dated certificates are listed newest first.
   Platform colors are in `src/utils/CertificatesGlow.ts`.
 - **Projects** – `ProjectsData.ts`. Screenshot links can be GitHub file links; projects without screenshots get a generated cover.
+  Optional `category` (e.g. `'Full Stack'`, `'AI/ML'`) and `featured: true` (listed first and shown on the Home page, max 3).
 - **Experience** – `ExperienceData.ts`.
 
 ### Screenshots

@@ -1,4 +1,4 @@
-import { lazy, type ReactElement, Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { type ReactElement, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { SearchX } from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -9,9 +9,10 @@ import MultiSelectFilter, { type FilterOption } from "../components/MultiSelectF
 import { projectSlug } from "../utils/ProjectUtils.ts";
 import { getCategoryIcon } from "../utils/FilterIcons.tsx";
 import { findSkillBrand } from "../utils/SkillGlow.ts";
+import { lazyWithReload } from "../utils/lazyWithReload.ts";
 
 // the modal (and its image-slider library) is downloaded only when a project is first opened
-const ProjectModal = lazy(() => import("../components/ProjectModal.tsx"));
+const ProjectModal = lazyWithReload(() => import("../components/ProjectModal.tsx"));
 
 const PAGE_TITLE: string = "Projects | Karthi";
 const CATEGORY_PREFIX: string = "category:";

@@ -1,15 +1,18 @@
 import type { CSSProperties, ReactElement } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, CalendarDays } from "lucide-react";
+import { formatIssued } from "../utils/DateUtils.ts";
 import type { CertificateProvider } from "../data/CertificatesData.ts";
 import { getProviderBrand, type ProviderBrand } from "../utils/CertificatesGlow.ts";
 
 type CertificateProps = {
   label: string;
   url: string;
-  category: CertificateProvider
+  category: CertificateProvider;
+  issued?: string;
 }
 
-function CertificateCard({label, url, category}: CertificateProps): ReactElement {
+function CertificateCard({label, url, category, issued}: CertificateProps): ReactElement {
+  const issuedLabel: string | undefined = formatIssued(issued);
   const glow: ProviderBrand = getProviderBrand(category);
   const domain: string = new URL(url).hostname;
   const favicon: string = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
@@ -44,9 +47,17 @@ function CertificateCard({label, url, category}: CertificateProps): ReactElement
       {/* Label & Provider */}
       <div className="flex grow flex-col gap-2 sm:gap-3">
         <h3 className="font-display text-base md:text-lg font-bold leading-snug wrap-break-word">{label}</h3>
-        <p className="brand-tile brand-icon mt-auto w-fit inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold">
-          🎓 {category}
-        </p>
+        <div className="mt-auto flex flex-wrap items-center gap-2">
+          <p className="brand-tile brand-icon w-fit inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold">
+            🎓 {category}
+          </p>
+          {issuedLabel && (
+            <time dateTime={issued} className="inline-flex items-center gap-1 text-xs text-subtle">
+              <CalendarDays size={13} />
+              Issued {issuedLabel}
+            </time>
+          )}
+        </div>
       </div>
     </a>
   );

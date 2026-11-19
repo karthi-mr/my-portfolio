@@ -1,6 +1,7 @@
 import { type ReactElement, Suspense } from "react";
 import Navbar from "./Navbar.tsx";
 import Footer from "./Footer.tsx";
+import ErrorBoundary from "../components/ErrorBoundary.tsx";
 
 type LayoutProps = {
   children: ReactElement
@@ -38,9 +39,11 @@ function Layout({ children }: LayoutProps): ReactElement {
       <Background />
       <Navbar />
       <main className="grow flex flex-col min-h-0 w-full max-w-6xl mx-auto px-5 sm:px-8 pt-28 md:pt-32 pb-20">
-        <Suspense fallback={<PageLoader />}>
-          {children}
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<PageLoader />}>
+            {children}
+          </Suspense>
+        </ErrorBoundary>
       </main>
       <Footer />
     </div>
