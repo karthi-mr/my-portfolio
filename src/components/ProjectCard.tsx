@@ -4,7 +4,7 @@ import { ArrowUpRight, Star } from "lucide-react";
 import type { ProjectDataInput } from "../data/ProjectsData.ts";
 import ProjectCover from "./ProjectCover.tsx";
 import TechChip from "./TechChip.tsx";
-import { toRawImageUrl } from "../utils/ImageUtils.ts";
+import { fallbackToOriginal, toThumbnailUrl } from "../utils/ImageUtils.ts";
 
 type ProjectCardProps = {
   projectData: ProjectDataInput;
@@ -39,7 +39,8 @@ function ProjectCard(
       <div className="relative aspect-[16/10] overflow-hidden border-b border-line bg-fg/5">
         {projectData.projectImageLinks.length > 0 ? (
           <img
-            src={toRawImageUrl(projectData.projectImageLinks[0].projectImageLink)}
+            src={toThumbnailUrl(projectData.projectImageLinks[0].projectImageLink, 720)}
+            onError={fallbackToOriginal(projectData.projectImageLinks[0].projectImageLink)}
             alt={projectData.projectImageLinks[0].imageTitle}
             loading="lazy"
             decoding="async"

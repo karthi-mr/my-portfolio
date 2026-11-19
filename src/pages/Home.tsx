@@ -2,8 +2,11 @@ import { ArrowRight, Download, Mail, Phone } from "lucide-react";
 import type { ReactElement } from "react";
 import { motion } from "framer-motion";
 import { SiTicktick } from "react-icons/si";
-import { Link } from "react-router-dom";
-import profileImg from "../assets/profile2.jpg";
+import { Link, useNavigate } from "react-router-dom";
+import profileImg from "../assets/profile.webp";
+import ProjectCard from "../components/ProjectCard.tsx";
+import { type ProjectDataInput, projectsData } from "../data/ProjectsData.ts";
+import { projectSlug } from "../utils/ProjectUtils.ts";
 
 const RESUME_PDF_URL: string = "https://drive.google.com/file/d/1FRiH7XiIytaEKxQnIZDgSNuoj48Ly_4X/view?usp=sharing";
 
@@ -11,12 +14,17 @@ const SUB_TITLE: string = "Full Stack Developer | Spring Framework | React | Ang
 const mobileNumber: string = "+91 7708006145"
 const mailId: string = "mkarthim1998@gmail.com"
 
+// projects marked `featured: true` in ProjectsData.ts (max 3) are shown on the home page
+const featuredProjects: ProjectDataInput[] = projectsData.filter((project: ProjectDataInput) => project.featured).slice(0, 3);
+
 const fadeUp = {
   hidden: { opacity: 0, y: 18 },
   show: { opacity: 1, y: 0 },
 };
 
 function Home(): ReactElement {
+  const navigate = useNavigate();
+
   return (
     <>
       {/* hero */}
@@ -122,6 +130,9 @@ function Home(): ReactElement {
             <div className="relative h-full w-full overflow-hidden rounded-full border-4 border-bg bg-surface">
               <img
                 src={profileImg}
+                width={614}
+                height={566}
+                fetchPriority="high"
                 alt="Profile"
                 className="h-full w-full object-cover object-top"
               />
@@ -183,6 +194,40 @@ function Home(): ReactElement {
           ))}
         </ul>
       </section>
+
+      {/* featured projects */}
+      {featuredProjects.length > 0 && (
+        <section className="mt-20 md:mt-28 flex flex-col gap-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <h2 className="font-display text-2xl md:text-4xl font-extrabold tracking-tight">
+                Featured <span className="text-gradient">Projects</span>
+              </h2>
+            </div>
+            <Link to="/projects" className="btn btn-secondary btn-sm self-start sm:self-auto group">
+              View all projects
+              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+
+          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {featuredProjects.map((project: ProjectDataInput, index: number) => (
+              <motion.div
+                key={project.projectTitle}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+              >
+                <ProjectCard
+                  projectData={project}
+                  onView={(selected: ProjectDataInput) => navigate(`/projects?project=${projectSlug(selected.projectTitle)}`)}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </section>
+      )}
     </>
   );
 }

@@ -13,17 +13,18 @@ export default defineConfig({
     port: 5173
   },
   build: {
-    rollupOptions: {
+    rolldownOptions: {
       output: {
-        manualChunks: {
-          react: ["react", "react-dom", "react-router-dom"],
-          icons: ["lucide-react"],
-          motion: ["framer-motion"],
-          swiper: ["swiper"],
-          // add more big libs here if you use them:
-          // ui: ["@radix-ui/react-dialog", "@radix-ui/react-popover"],
-          // charts: ["recharts"],
-          // editor: ["monaco-editor"],
+        // big libraries get their own files, so browsers can keep them cached across deploys
+        codeSplitting: {
+          groups: [
+            { name: "react", test: /node_modules[\\/](react|react-dom|react-router|react-router-dom|scheduler)[\\/]/ },
+            { name: "icons", test: /node_modules[\\/]lucide-react[\\/]/ },
+            { name: "motion", test: /node_modules[\\/](framer-motion|motion-dom|motion-utils)[\\/]/ },
+            { name: "swiper", test: /node_modules[\\/]swiper[\\/]/ },
+            // add more big libs here if you use them, e.g.
+            // { name: "charts", test: /node_modules[\\/]recharts[\\/]/ },
+          ],
         },
       },
     },

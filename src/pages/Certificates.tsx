@@ -1,7 +1,14 @@
 import { type ReactElement, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { SearchX } from "lucide-react";
-import { type CertificateData, certificatesData } from "../data/CertificatesData.ts";
+import { type CertificateData, certificatesData as unsortedCertificates } from "../data/CertificatesData.ts";
+import { issuedSortKey } from "../utils/DateUtils.ts";
+
+// newest first; certificates without an `issued` date keep their order after the dated ones
+const certificatesData: CertificateData[] = unsortedCertificates
+  .map((certificate: CertificateData, index: number) => ({ certificate, index }))
+  .sort((a, b) => issuedSortKey(b.certificate.issued).localeCompare(issuedSortKey(a.certificate.issued)) || a.index - b.index)
+  .map(({ certificate }) => certificate);
 import SectionHeader from "../components/SectionHeader.tsx";
 import CertificateCard from "../components/CertificateCard.tsx";
 import MultiSelectFilter, { type FilterOption } from "../components/MultiSelectFilter.tsx";
@@ -80,6 +87,7 @@ function Certificates(): ReactElement {
                   label={certificate.label}
                   url={certificate.url}
                   category={certificate.certificateProvider}
+                  issued={certificate.issued}
                 />
               </motion.div>
             ))}

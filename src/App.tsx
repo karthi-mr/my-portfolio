@@ -1,18 +1,20 @@
-import { lazy, type ReactElement } from "react";
+import type { ReactElement } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./pages/Layout.tsx";
 import CursorHighlight from "./pages/CursorHighlight.tsx";
 import ScrollToTop from "./utils/ScrollToTop.tsx";
 import RouteMeta from "./utils/RouteMeta.tsx";
+import { lazyWithReload } from "./utils/lazyWithReload.ts";
 
-// each page is loaded only when it is first opened (smaller initial download)
-const Home = lazy(() => import("./pages/Home.tsx"));
-const About = lazy(() => import("./pages/About.tsx"));
-const Contact = lazy(() => import("./pages/Contact.tsx"));
-const Skills = lazy(() => import("./pages/Skills.tsx"));
-const Experience = lazy(() => import("./pages/Experience.tsx"));
-const Projects = lazy(() => import("./pages/Projects.tsx"));
-const Certificates = lazy(() => import("./pages/Certificates.tsx"));
+// each page is loaded only when it is first opened (smaller initial download);
+// if its code fails to download (e.g. right after a deploy) the page reloads once
+const Home = lazyWithReload(() => import("./pages/Home.tsx"));
+const About = lazyWithReload(() => import("./pages/About.tsx"));
+const Contact = lazyWithReload(() => import("./pages/Contact.tsx"));
+const Skills = lazyWithReload(() => import("./pages/Skills.tsx"));
+const Experience = lazyWithReload(() => import("./pages/Experience.tsx"));
+const Projects = lazyWithReload(() => import("./pages/Projects.tsx"));
+const Certificates = lazyWithReload(() => import("./pages/Certificates.tsx"));
 
 function App(): ReactElement {
   return (
