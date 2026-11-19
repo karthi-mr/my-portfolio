@@ -405,7 +405,7 @@ function ProjectModal(
                     rel="noopener noreferrer"
                     className="btn btn-secondary w-full"
                   >
-                    <FaGithub size={16} />
+                    <FaGithub aria-hidden="true" size={16} />
                     Visit Github
                   </a>
                   <button type="button" onClick={handleShare} className="btn btn-secondary w-full" aria-live="polite">
@@ -434,7 +434,7 @@ function ProjectModal(
               rel="noopener noreferrer"
               className={`btn btn-secondary btn-sm ${shownProject.demoUrl ? "" : "col-span-2"}`}
             >
-              <FaGithub size={15} />
+              <FaGithub aria-hidden="true" size={15} />
               Github
             </a>
             {shownProject.demoUrl && (

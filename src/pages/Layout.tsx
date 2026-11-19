@@ -10,7 +10,8 @@ type LayoutProps = {
 /** shown for a moment while a page's code is downloading */
 function PageLoader(): ReactElement {
   return (
-    <div className="grow grid place-items-center py-24" role="status" aria-label="Loading page">
+    // full screen height, so the footer stays below the fold while the page loads (no layout jump)
+    <div className="grow grid place-items-center min-h-dvh" role="status" aria-label="Loading page">
       <span className="size-10 rounded-full border-[3px] border-line border-t-indigo-500 animate-spin" />
     </div>
   );

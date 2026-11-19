@@ -147,7 +147,7 @@ function Contact(): ReactElement {
               className="btn btn-primary w-full h-13 text-base disabled:opacity-70 disabled:cursor-wait disabled:hover:translate-y-0 group"
             >
               <span>{status === "sending" ? "Sending..." : "Send Message"}</span>
-              <IoSend className="transition-transform group-hover:translate-x-1" />
+              <IoSend aria-hidden="true" className="transition-transform group-hover:translate-x-1" />
             </button>
           </div>
         </form>

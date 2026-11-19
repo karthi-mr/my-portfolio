@@ -65,7 +65,7 @@ function Experience(): ReactElement {
                     <span className="inline-flex items-center gap-2 font-display text-2xl xl:text-3xl font-extrabold tracking-tight text-gradient">
                       {experience.period}
                     </span>
-                    <span className="inline-flex items-center gap-1.5 text-sm text-muted">
+                    <span className="inline-flex items-center gap-1.5 text-sm text-muted light:text-fg/80">
                       <MapPin size={14} />
                       {experience.location}
                     </span>

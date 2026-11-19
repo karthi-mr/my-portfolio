@@ -20,15 +20,15 @@ function ExperienceCard({ hideMetaOnLarge = false, ...experienceData }: Experien
           {experienceData.companyName.charAt(0)}
         </span>
         <div className="min-w-0 flex flex-col gap-1.5">
-          <h1 className="font-display text-lg md:text-xl font-bold tracking-tight leading-snug">
+          <h2 className="font-display text-lg md:text-xl font-bold tracking-tight leading-snug">
             {experienceData.companyName}
-          </h1>
-          <h3
+          </h2>
+          <p
             className="w-fit rounded-lg px-2.5 py-1 text-xs md:text-sm font-semibold font-sans
             bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 ring-1 ring-indigo-500/20"
           >
             {experienceData.position}
-          </h3>
+          </p>
         </div>
       </div>
 

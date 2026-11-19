@@ -46,9 +46,9 @@ function CertificateCard({label, url, category, issued}: CertificateProps): Reac
 
       {/* Label & Provider */}
       <div className="flex grow flex-col gap-2 sm:gap-3">
-        <h3 className="font-display text-base md:text-lg font-bold leading-snug wrap-break-word">{label}</h3>
+        <h2 className="font-display text-base md:text-lg font-bold leading-snug wrap-break-word">{label}</h2>
         <div className="mt-auto flex flex-wrap items-center gap-2">
-          <p className="brand-tile brand-icon w-fit inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold">
+          <p className="brand-tile brand-text w-fit inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold">
             🎓 {category}
           </p>
           {issuedLabel && (

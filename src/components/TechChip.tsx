@@ -22,7 +22,7 @@ function TechChip({ name, className = "" }: TechChipProps): ReactElement {
   return (
     <span
       style={style}
-      className={`brand-tile brand-icon inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${className}`}
+      className={`brand-tile brand-text inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${className}`}
     >
       <span className="size-1.5 rounded-full bg-current" aria-hidden="true" />
       {name}
