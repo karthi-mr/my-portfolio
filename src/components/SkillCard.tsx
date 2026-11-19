@@ -30,6 +30,7 @@ function SkillCard({ name, Icon }: SkillCardType): ReactElement {
           </svg>
         )}
         <Icon
+          aria-hidden="true"
           className="brand-icon size-8 md:size-9 drop-shadow-sm"
           {...(brand.gradient ? { fill: `url(#${gradientId})` } : {})}
         />

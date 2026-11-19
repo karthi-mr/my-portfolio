@@ -37,18 +37,18 @@ function Home(): ReactElement {
         {/* title */}
         <div className="order-2 lg:order-1 flex flex-col items-center lg:items-start text-center lg:text-left">
           {/* improving points */}
-          <motion.h2
+          <motion.p
             variants={fadeUp}
-            className="chip text-sm! py-1.5! px-4! mb-6"
+            className="chip font-display text-sm! py-1.5! px-4! mb-6"
           >
             <span className="relative flex size-2">
               <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
               <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
             </span>
             <span>
-              <span className="font-semibold text-amber-500 dark:text-amber-400">Backend-Focused</span> Full Stack Developer
+              <span className="font-semibold text-[#92400e] dark:text-amber-400">Backend-Focused</span> Full Stack Developer
             </span>
-          </motion.h2>
+          </motion.p>
 
           <motion.h1
             variants={fadeUp}
@@ -57,19 +57,19 @@ function Home(): ReactElement {
             Hi, I'm <span className="text-gradient">Karthi</span>
           </motion.h1>
 
-          <motion.h3
+          <motion.p
             variants={fadeUp}
-            className="mt-5 text-lg md:text-2xl font-semibold tracking-tight text-fg/85"
+            className="mt-5 font-display text-lg md:text-2xl font-semibold tracking-tight text-fg/85"
           >
             {SUB_TITLE}
-          </motion.h3>
+          </motion.p>
 
-          <motion.h3
+          <motion.p
             variants={fadeUp}
             className="mt-4 max-w-xl text-base md:text-lg text-muted font-sans font-normal"
           >
             Building scalable web applications using Java, Spring Boot, React and PostgreSQL
-          </motion.h3>
+          </motion.p>
 
           <motion.div variants={fadeUp} className="mt-6 flex flex-wrap justify-center lg:justify-start gap-2">
             <span className="chip text-sm! py-1.5!">
@@ -112,12 +112,8 @@ function Home(): ReactElement {
           </motion.div>
         </div>
 
-        {/* profile picture */}
-        <motion.div
-          variants={{ hidden: { opacity: 0, scale: 0.92 }, show: { opacity: 1, scale: 1 } }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="order-1 lg:order-2 flex justify-center"
-        >
+        {/* profile picture: shown immediately (no fade-in), so it appears as early as possible */}
+        <div className="order-1 lg:order-2 flex justify-center">
           <div className="relative size-44 sm:size-56 lg:size-80">
             {/* glow behind */}
             <div className="absolute -inset-8 rounded-full bg-brand opacity-30 blur-3xl" />
@@ -138,7 +134,7 @@ function Home(): ReactElement {
               />
             </div>
           </div>
-        </motion.div>
+        </div>
       </motion.section>
 
       {/* short summary */}
@@ -150,9 +146,9 @@ function Home(): ReactElement {
           transition={{ duration: 0.5 }}
           className="glass card-hover p-6 md:p-8"
         >
-          <h3 className="font-display text-lg md:text-xl font-semibold">
+          <h2 className="font-display text-lg md:text-xl font-semibold">
             Experienced in building production-style applications with:
-          </h3>
+          </h2>
           <ul className="mt-5 space-y-3">
             {[
               "JWT Authentication & Role-Based Access",
@@ -187,7 +183,7 @@ function Home(): ReactElement {
               className="glass card-hover p-5 flex flex-col gap-4"
             >
               <span className="grid place-items-center size-10 rounded-xl bg-brand text-white shadow-lg shadow-indigo-500/25">
-                <SiTicktick />
+                <SiTicktick aria-hidden="true" />
               </span>
               <div className="font-medium leading-snug">{point}</div>
             </motion.li>
@@ -220,6 +216,7 @@ function Home(): ReactElement {
                 transition={{ duration: 0.5, delay: index * 0.08 }}
               >
                 <ProjectCard
+                  headingLevel={3}
                   projectData={project}
                   onView={(selected: ProjectDataInput) => navigate(`/projects?project=${projectSlug(selected.projectTitle)}`)}
                 />

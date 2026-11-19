@@ -43,7 +43,7 @@ function About(): ReactElement {
                   key={item}
                   className="flex gap-3 items-start rounded-xl bg-fg/[0.03] ring-1 ring-line p-3"
                 >
-                  <SiTicktick className="mt-1 shrink-0 text-indigo-500 dark:text-indigo-400" />
+                  <SiTicktick aria-hidden="true" className="mt-1 shrink-0 text-indigo-500 dark:text-indigo-400" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -60,7 +60,7 @@ function About(): ReactElement {
 
       {/* why hire me */}
       <div className="flex flex-col gap-10">
-        <SectionHeader title="Why Hire Me?" />
+        <SectionHeader title="Why Hire Me?" level={2} />
 
         <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {[
@@ -76,7 +76,7 @@ function About(): ReactElement {
               className="glass card-hover p-6 flex flex-col gap-5"
             >
               <span className="grid place-items-center size-11 rounded-xl bg-brand text-white shadow-lg shadow-indigo-500/25">
-                <SiTicktick />
+                <SiTicktick aria-hidden="true" />
               </span>
               <span className="font-medium leading-snug">{item}</span>
             </motion.li>
@@ -89,9 +89,9 @@ function About(): ReactElement {
         {/* title */}
         <div className="flex justify-center items-center gap-3">
           <span className="grid place-items-center size-12 md:size-14 rounded-2xl bg-brand text-white shadow-lg shadow-indigo-500/30">
-            <RiGraduationCapFill size={28} />
+            <RiGraduationCapFill aria-hidden="true" size={28} />
           </span>
-          <h1 className="font-display text-3xl md:text-5xl font-extrabold tracking-tight text-gradient pb-1">Education</h1>
+          <h2 className="font-display text-3xl md:text-5xl font-extrabold tracking-tight text-gradient pb-1">Education</h2>
         </div>
 
         {/* content */}

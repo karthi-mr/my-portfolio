@@ -21,7 +21,7 @@ function Education({ title, name, year, major, TitleIcon, marksChild }: Educatio
         {/* marks */}
         <div
           className="px-3 py-1 text-xs md:text-sm font-semibold tracking-wide rounded-full
-          bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 ring-1 ring-emerald-500/25"
+          bg-emerald-500/10 text-emerald-800 dark:text-emerald-400 ring-1 ring-emerald-500/25"
         >
           <span>{marksChild}</span>
         </div>
@@ -29,21 +29,21 @@ function Education({ title, name, year, major, TitleIcon, marksChild }: Educatio
 
       <div className="mt-5 flex flex-col gap-2">
         {/* title */}
-        <h1 className="font-display text-xl md:text-2xl font-bold tracking-tight">{title}</h1>
+        <h3 className="font-display text-xl md:text-2xl font-bold tracking-tight">{title}</h3>
         {/* name */}
-        <h2 className="text-sm md:text-base font-medium text-muted">{name}</h2>
-        <h3 className="flex gap-2 items-center text-xs md:text-sm font-medium text-subtle font-sans">
+        <p className="font-display text-sm md:text-base font-medium text-muted">{name}</p>
+        <p className="flex gap-2 items-center text-xs md:text-sm font-medium text-subtle font-sans">
           <CalendarDays className="w-4 h-4" />
           <span>{year}</span>
-        </h3>
+        </p>
       </div>
 
       <hr className="my-4 border-line" />
 
-      <h4 className="mt-auto text-sm text-muted font-sans">
+      <p className="mt-auto text-sm text-muted font-sans">
         <span className="font-semibold text-fg">Major: </span>
         {major}
-      </h4>
+      </p>
     </div>
   );
 }

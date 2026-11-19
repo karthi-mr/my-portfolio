@@ -21,7 +21,7 @@ function Footer(): ReactElement {
             title="GitHub"
             className={socialClasses}
           >
-            <FaGithub size={18} />
+            <FaGithub aria-hidden="true" size={18} />
           </a>
           <a
             href="https://www.linkedin.com/in/karthi-mr"
@@ -31,7 +31,7 @@ function Footer(): ReactElement {
             title="LinkedIn"
             className={socialClasses}
           >
-            <FaLinkedin size={18} />
+            <FaLinkedin aria-hidden="true" size={18} />
           </a>
           <a
             href="https://wa.me/917708006145"
@@ -41,7 +41,7 @@ function Footer(): ReactElement {
             title="WhatsApp"
             className={`${socialClasses} text-green-500!`}
           >
-            <FaWhatsapp size={18} />
+            <FaWhatsapp aria-hidden="true" size={18} />
           </a>
           <a
             href="mailto:mkarthim1998@gmail.com"
@@ -51,7 +51,7 @@ function Footer(): ReactElement {
             title="Email"
             className={socialClasses}
           >
-            <MdEmail size={18} />
+            <MdEmail aria-hidden="true" size={18} />
           </a>
         </div>
       </div>

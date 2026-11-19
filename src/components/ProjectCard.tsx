@@ -9,6 +9,8 @@ import { fallbackToOriginal, toThumbnailUrl } from "../utils/ImageUtils.ts";
 type ProjectCardProps = {
   projectData: ProjectDataInput;
   onView: (projectData: ProjectDataInput) => void;
+  /** heading level of the title: 2 on the Projects page, 3 inside another section */
+  headingLevel?: 2 | 3;
 }
 
 /** how many technologies to show on the card before "+N more" */
@@ -17,10 +19,12 @@ const VISIBLE_TECH_COUNT = 3;
 function ProjectCard(
   {
     projectData,
-    onView
+    onView,
+    headingLevel = 2,
   }: ProjectCardProps
 ): ReactElement {
   const imageClass = "w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105";
+  const Heading = headingLevel === 2 ? "h2" : "h3";
   const hiddenTechCount: number = Math.max(projectData.techStacks.length - VISIBLE_TECH_COUNT, 0);
 
   // clicking anywhere on the card opens the details (links and buttons keep their own action);
@@ -82,7 +86,7 @@ function ProjectCard(
 
       <div className="flex grow flex-col p-5 md:p-6">
         {/* project title */}
-        <h3 className="font-display text-lg font-bold leading-snug tracking-tight">{projectData.projectTitle}</h3>
+        <Heading className="font-display text-lg font-bold leading-snug tracking-tight">{projectData.projectTitle}</Heading>
         <p className="mt-2 text-sm text-muted leading-relaxed line-clamp-2">{projectData.projectDescription}</p>
 
         {/* tech stack */}
@@ -112,7 +116,7 @@ function ProjectCard(
             rel="noopener noreferrer"
             className="btn btn-secondary btn-sm group/gh"
           >
-            <FaGithub size={15} />
+            <FaGithub aria-hidden="true" size={15} />
             View Github
             <ArrowUpRight size={14} className="opacity-60 transition-transform group-hover/gh:translate-x-0.5 group-hover/gh:-translate-y-0.5" />
           </a>
