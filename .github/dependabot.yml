@@ -1,0 +1,43 @@
+# Dependabot opens pull requests when dependencies have updates or security fixes.
+# Every pull request runs lint, build and the browser tests (see workflows/), so a green
+# check means the update is safe to merge.
+version: 2
+updates:
+  # npm packages
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Asia/Kolkata
+    # wait a few days after a release before suggesting it (avoids broken or compromised fresh releases)
+    cooldown:
+      default-days: 7
+      semver-major-days: 14
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+    commit-message:
+      prefix: "deps"
+    groups:
+      # all minor + patch updates together in one pull request per week;
+      # major versions come as separate pull requests (they can change behaviour)
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+
+  # GitHub Actions used in the workflows
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    labels:
+      - dependencies
+    commit-message:
+      prefix: "ci"
+    groups:
+      actions:
+        patterns:
+          - "*"

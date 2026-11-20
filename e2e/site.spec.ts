@@ -245,3 +245,54 @@ test.describe("navigation", () => {
     await expect(page.getByRole("button", { name: "Reload page" })).toBeVisible();
   });
 });
+
+test.describe("security headers", () => {
+  test("pages are served with the security headers from firebase.json", async ({ page }) => {
+    const response = await page.goto("/home");
+    const headers = response!.headers();
+    expect(headers["content-security-policy"]).toContain("default-src 'self'");
+    expect(headers["x-content-type-options"]).toBe("nosniff");
+    expect(headers["x-frame-options"]).toBe("DENY");
+    expect(headers["referrer-policy"]).toBe("strict-origin-when-cross-origin");
+  });
+
+  test("nothing on the site is blocked by the Content-Security-Policy", async ({ page }) => {
+    // record every CSP violation the browser reports
+    await page.addInitScript(() => {
+      (window as unknown as { __cspViolations: string[] }).__cspViolations = [];
+      document.addEventListener("securitypolicyviolation", (event) => {
+        (window as unknown as { __cspViolations: string[] }).__cspViolations.push(`${event.violatedDirective} ${event.blockedURI}`);
+      });
+    });
+    const violations: string[] = [];
+    const collect = async () => violations.push(...await page.evaluate(() => (window as unknown as { __cspViolations: string[] }).__cspViolations));
+
+    for (const { path } of PAGES) {
+      await page.goto(path);
+      await page.waitForLoadState("networkidle");
+      // scroll so lazy images (thumbnails, favicons) load
+      await page.evaluate(async () => {
+        for (let y = 0; y < document.documentElement.scrollHeight; y += 600) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 80)); }
+      });
+      await page.waitForLoadState("networkidle");
+      await collect();
+    }
+
+    // project with screenshots: gallery thumbnails + full-screen originals
+    await page.goto("/projects?project=expense-tracker");
+    await page.locator("dialog.project-modal").getByRole("button", { name: "View full screen" }).click();
+    await page.waitForLoadState("networkidle");
+    await collect();
+
+    // the theme script must run (it is allowed by its hash)
+    expect(await page.locator("html").getAttribute("class")).toMatch(/light|dark/);
+    // external images actually load (GitHub screenshot thumbnail and a certificate favicon)
+    await page.goto("/projects");
+    await expect.poll(() => page.locator("main article img").first().evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
+    await page.goto("/certificates");
+    await expect.poll(() => page.locator("main a img").first().evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
+    await collect();
+
+    expect(violations).toEqual([]);
+  });
+});
