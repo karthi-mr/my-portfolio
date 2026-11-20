@@ -4,6 +4,7 @@ import { IoSend } from "react-icons/io5";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import SectionHeader from "../components/SectionHeader.tsx";
+import ContactChannels from "../components/ContactChannels.tsx";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -62,13 +63,25 @@ function Contact(): ReactElement {
         subtitle="Have a project or question? Let's talk."
       />
 
+      <div className="w-full max-w-5xl grid gap-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] items-start">
+      {/* direct contact options */}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="h-full"
+      >
+        <ContactChannels />
+      </motion.div>
+
       {/* form box */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="relative w-full max-w-2xl glass p-6 md:p-10 overflow-hidden"
+        className="relative w-full glass p-6 md:p-10 overflow-hidden"
       >
+        <h2 className="relative font-display text-xl md:text-2xl font-bold tracking-tight mb-5">Send a message</h2>
         <div className="pointer-events-none absolute -top-32 -right-32 size-72 rounded-full bg-brand opacity-20 blur-3xl" />
         <form ref={formRef} onSubmit={handleSubmit} className="relative space-y-5">
           {/* honeypot field: hidden from people and screen readers, only bots fill it */}
@@ -152,6 +165,7 @@ function Contact(): ReactElement {
           </div>
         </form>
       </motion.div>
+      </div>
     </section>
   );
 }

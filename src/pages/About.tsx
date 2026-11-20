@@ -22,7 +22,7 @@ function About(): ReactElement {
 
         <motion.div {...reveal} className="glass p-6 md:p-10 max-w-4xl mx-auto w-full text-sm md:text-lg leading-relaxed text-muted">
           <p className="mb-4">
-            I am a Backend-Focused Full Stack Developer with 4+ years of experience, specializing in building scalable and secure web applications using Java, Spring Boot, React, Angular, and PostgreSQL.
+            I am a Senior Data Scientist working in AI/ML, with 4+ years of experience building scalable and secure web applications using Java, Spring Boot, React, Angular, and PostgreSQL. That engineering background helps me take AI/ML work from experiments to production-ready software.
           </p>
           <p className="mb-6">
             I have hands-on experience designing REST APIs, implementing JWT-based authentication, and developing microservices architectures. I enjoy solving real-world problems by building production-style applications that focus on performance, security, and clean architecture.
@@ -53,7 +53,7 @@ function About(): ReactElement {
             My strengths include backend development, API design, system thinking, and integrating frontend with backend services efficiently.
           </p>
           <p>
-            Currently, I am actively looking for opportunities as a Full Stack Developer (Backend Preferred), where I can contribute to building scalable products and continue growing as an engineer.
+            Since June 2026, I have been working as a Senior Data Scientist, focusing on AI/ML. I keep growing through hands-on projects, such as an NLP emotion-detection app built with IBM Watson, and certifications like DeepLearning.AI&apos;s Agent Skills with Anthropic.
           </p>
         </motion.div>
       </div>
@@ -64,9 +64,9 @@ function About(): ReactElement {
 
         <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {[
+            "AI/ML and NLP work as a Senior Data Scientist",
             "Strong backend fundamentals with real project experience",
-            "Ability to build end-to-end applications",
-            "Experience with modern tools and production workflows",
+            "Ability to build end-to-end applications, from data to production",
             "Quick learner with consistent hands-on development",
           ].map((item: string, index: number) => (
             <motion.li

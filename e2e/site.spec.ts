@@ -315,3 +315,93 @@ test.describe("security headers", () => {
     expect(violations).toEqual([]);
   });
 });
+
+test.describe("home, contact & guidance", () => {
+  test("hero: email copies on click, profile links and phone link are present", async ({ page, context, browserName }) => {
+    test.skip(browserName !== "chromium", "clipboard permissions are Chromium-only");
+    await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+    await page.goto("/home");
+    await page.getByRole("button", { name: /Copy email address/ }).click();
+    await expect(page.getByText("Copied!")).toBeVisible();
+    expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("mkarthim1998@gmail.com");
+    await expect(page.getByRole("link", { name: "GitHub profile" })).toHaveAttribute("href", "https://github.com/karthi-mr");
+    await expect(page.getByRole("link", { name: "LinkedIn profile" })).toHaveAttribute("href", "https://www.linkedin.com/in/karthi-mr");
+    await expect(page.getByRole("link", { name: "+91 7708006145" })).toHaveAttribute("href", "tel:+917708006145");
+  });
+
+  test("stats count up to the real numbers", async ({ page }) => {
+    await page.goto("/home");
+    const stats = page.getByRole("list", { name: "At a glance" });
+    await stats.scrollIntoViewIfNeeded();
+    // the visible number animates; once settled it equals the screen-reader number
+    for (const item of await stats.getByRole("listitem").all()) {
+      const finalValue: string = await item.locator(".sr-only").innerText();
+      await expect(item.locator("[aria-hidden=true]").first()).toHaveText(finalValue);
+    }
+  });
+
+  test("each page ends with a Next card that leads through the site", async ({ page }) => {
+    await page.goto("/about");
+    const next = page.getByRole("navigation", { name: "Next page" }).getByRole("link");
+    await expect(next).toContainText("Projects");
+    await next.click();
+    await expect(page).toHaveURL(/\/projects$/);
+
+    await page.goto("/contact");
+    await page.getByRole("navigation", { name: "Next page" }).getByRole("link").click();
+    await expect(page).toHaveURL(/\/home$/);
+  });
+
+  test("back-to-top button appears after scrolling and scrolls up", async ({ page }) => {
+    await page.goto("/certificates");
+    // wait until the page content is there (otherwise there is nothing to scroll yet)
+    await expect(page.locator("main .grid > div").first()).toBeVisible();
+    const button = page.getByRole("button", { name: "Back to top" });
+    await expect(button).toBeHidden();
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await expect(button).toBeVisible();
+    await button.click();
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(5);
+  });
+
+  test("footer links reach every page", async ({ page }) => {
+    await page.goto("/home");
+    const footer = page.getByRole("navigation", { name: "Footer" });
+    await expect(footer.getByRole("link")).toHaveCount(7);
+    await footer.getByRole("link", { name: "Experience", exact: true }).click();
+    await expect(page).toHaveURL(/\/experience$/);
+  });
+
+  test("certificates: 12 at first, Show all reveals every match", async ({ page }) => {
+    await page.goto("/certificates");
+    const grid = page.locator("main .grid").first();
+    const total: number = await shownCount(page);
+    await expect(grid.locator(":scope > div")).toHaveCount(Math.min(total, 12));
+    await page.getByRole("button", { name: `Show all ${total} certificates` }).click();
+    await expect(grid.locator(":scope > div")).toHaveCount(total);
+    await page.getByRole("button", { name: "Show fewer" }).click();
+    await expect(grid.locator(":scope > div")).toHaveCount(12);
+  });
+
+  test("contact page offers direct ways to reach me next to the form", async ({ page }) => {
+    await page.goto("/contact");
+    const panel = page.getByRole("complementary", { name: "Reach me directly" });
+    await expect(panel.getByRole("link", { name: "mkarthim1998@gmail.com" })).toHaveAttribute("href", "mailto:mkarthim1998@gmail.com");
+    await expect(panel.getByRole("button", { name: "Copy email address" })).toBeVisible();
+    for (const name of [/WhatsApp/, /LinkedIn/, /GitHub/, /Phone/, /Resume/]) {
+      await expect(panel.getByRole("link", { name })).toBeVisible();
+    }
+    await expect(page.getByRole("heading", { name: "Send a message" })).toBeVisible();
+  });
+
+  test("experience: current role first, AquilaTest shown once with both periods", async ({ page }) => {
+    await page.goto("/experience");
+    const cards = page.locator("main ol > li");
+    await expect(cards.first()).toContainText("Senior Data Scientist");
+    await expect(cards.first()).toContainText("Current");
+    await expect(page.getByRole("heading", { name: /AquilaTest/ })).toHaveCount(1);
+    const periods = page.getByRole("list", { name: "Periods" });
+    await expect(periods).toContainText("Full Time");
+    await expect(periods).toContainText("Part Time");
+  });
+});

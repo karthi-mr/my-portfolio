@@ -1,4 +1,5 @@
 import type { ReactElement } from "react";
+import { MotionConfig } from "framer-motion";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./pages/Layout.tsx";
 import CursorHighlight from "./pages/CursorHighlight.tsx";
@@ -18,7 +19,8 @@ const Certificates = lazyWithReload(() => import("./pages/Certificates.tsx"));
 
 function App(): ReactElement {
   return (
-    <>
+    // respect the visitor's "reduce motion" setting in every animation
+    <MotionConfig reducedMotion="user">
       <CursorHighlight />
       <BrowserRouter>
         <ScrollToTop />
@@ -34,7 +36,7 @@ function App(): ReactElement {
           <Route path="/certificates" element={<Layout><Certificates /></Layout>} />
         </Routes>
       </BrowserRouter>
-    </>
+    </MotionConfig>
   );
 }
 

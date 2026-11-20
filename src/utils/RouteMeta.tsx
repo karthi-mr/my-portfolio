@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 const SITE_NAME: string = "Karthi";
 const SITE_URL: string = "https://karthi-22.web.app";
-const DEFAULT_TITLE: string = "Karthi – Full Stack Developer | Spring Boot, React, Angular";
+const DEFAULT_TITLE: string = "Karthi – Senior Data Scientist | AI/ML, NLP, Python";
 
 // browser-tab title for each page
 const pageTitles: Record<string, string> = {

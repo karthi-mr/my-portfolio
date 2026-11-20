@@ -3,11 +3,7 @@ import { NavLink } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import ThemeToggle from "../components/ThemeToggle.tsx";
-
-type NavItem = {
-  to: string,
-  label: string;
-}
+import { type NavItem, navItems } from "../data/NavItems.ts";
 
 function Navbar(): ReactElement {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -53,16 +49,6 @@ function Navbar(): ReactElement {
   function handleCloseMenu(): void {
     setIsMenuOpen(false);
   }
-
-  const navItems: NavItem[] = [
-    { to: "/home", label: "Home" },
-    { to: "/about", label: "About Me" },
-    { to: "/projects", label: "Projects" },
-    { to: "/experience", label: "Experience" },
-    { to: "/skills", label: "Skills" },
-    { to: "/certificates", label: "Achievements & Certifications" },
-    { to: "/contact", label: "Contact Me" },
-  ];
 
   return (
     <>

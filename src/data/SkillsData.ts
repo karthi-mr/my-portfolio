@@ -4,7 +4,7 @@ import {
   SiAngular,
   SiApachemaven,
   SiBootstrap,
-  SiCss3,
+  SiCss,
   SiDocker,
   SiFlask,
   SiGithub,
@@ -53,7 +53,7 @@ export const skills: SkillCardType[] = [
   { name: 'Hibernate', Icon: SiHibernate, category: 'Backend' },
 
   { name: 'HTML', Icon: SiHtml5, category: 'Frontend' },
-  { name: 'CSS', Icon: SiCss3, category: 'Frontend' },
+  { name: 'CSS', Icon: SiCss, category: 'Frontend' },
   { name: 'JavaScript', Icon: SiJavascript, category: 'Frontend' },
   { name: 'TypeScript', Icon: SiTypescript, category: 'Frontend' },
   { name: 'Tailwind CSS', Icon: SiTailwindcss, category: 'Frontend' },
