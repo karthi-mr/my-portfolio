@@ -45,6 +45,18 @@ The browser tests in `e2e/` also run in GitHub Actions before every deploy, on d
 | `VITE_EMAILJS_TEMPLATE_ID` | EmailJS template used by the contact form |
 | `VITE_EMAILJS_PUBLIC_KEY` | EmailJS public key |
 
+### Security headers
+`firebase.json` sends security headers on every page, including a Content-Security-Policy (CSP) that only allows
+scripts, fonts and styles from this site, images from this site, GitHub, wsrv.nl and Google's favicon service,
+and network requests to EmailJS. `npm run preview` and the browser tests use the same headers.
+- Images from a **new external site** (e.g. screenshots hosted elsewhere) must be added to `img-src` in `firebase.json`;
+  the "nothing is blocked by the Content-Security-Policy" test fails otherwise.
+- If you edit the inline theme script in `index.html`, the build stops and prints the new `sha256-…` value to put in `script-src`.
+
+### Dependency updates
+Dependabot (`.github/dependabot.yml`) opens a weekly pull request with minor and patch updates and separate ones for
+major versions and security fixes. Each runs lint, build and the browser tests; merge it when the checks are green.
+
 ### Updating content
 All content lives in `src/data/`:
 - **Skills** – `SkillsData.ts`. Any `category` works (e.g. `'AI/ML'`, `'Data Science'`); its filter option appears automatically.

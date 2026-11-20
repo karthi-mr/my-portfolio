@@ -60,6 +60,8 @@ const brandColors: Record<string, BrandColor> = {
   "Apache Spark": { color: "#e25a1c" },
   "Streamlit": { color: "#ff4b4b" },
   "MongoDB": { color: "#47a248" },
+  "Flask": { color: "#f0f6fc", light: "#000000" },
+  "IBM Watson NLP": { color: "#4589ff", light: "#0f62fe" },
 
   // other tools used in projects
   "JWT": { color: "#fb015b", light: "#d6004d" },

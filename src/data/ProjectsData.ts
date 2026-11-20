@@ -28,6 +28,35 @@ export type ProjectDataInput = {
 
 export const projectsData: ProjectDataInput[] = [
   {
+    projectTitle: "Emotion Detection – NLP Web App with Watson AI",
+    category: "AI/ML",
+    projectDescription: `An NLP web application that detects the emotions in a piece of text. A Python package sends the text to IBM Watson NLP's emotion-prediction model and returns a score for anger, disgust, fear, joy and sadness together with the dominant emotion. A Flask web app exposes it through a simple page and an API endpoint, blank or invalid input is handled gracefully, and the emotion detector is covered by unit tests.`,
+    projectGitHubLink: "https://github.com/karthi-mr/oaqjp-final-project-emb-ai",
+    projectImageLinks: [
+      {
+        imageTitle: "Emotion detection result",
+        projectImageLink: "/projects/emotion-detection.webp"
+      },
+      {
+        imageTitle: "Invalid input handling",
+        projectImageLink: "https://github.com/karthi-mr/oaqjp-final-project-emb-ai/blob/b541eb36d5bb61dded486f5c63d1c50076f5da14/temp/7c_error_handling_interface.png"
+      },
+      {
+        imageTitle: "Flask server code",
+        projectImageLink: "https://github.com/karthi-mr/oaqjp-final-project-emb-ai/blob/b541eb36d5bb61dded486f5c63d1c50076f5da14/temp/6a_server.png"
+      },
+    ],
+    techStacks: ["Python", "IBM Watson NLP", "Flask", "REST APIs", "Unit Testing", "HTML", "JavaScript"],
+    keyFeatures: [
+      "Detects anger, disgust, fear, joy and sadness in any text using the IBM Watson NLP emotion model.",
+      "Returns the score of each emotion and picks the dominant one.",
+      "Packaged as a reusable Python module (EmotionDetection).",
+      "Flask web app with a web page and an /emotionDetector API endpoint.",
+      "Handles blank or invalid input with a clear message instead of an error.",
+      "Unit tests with Python unittest for all five emotions."
+    ],
+  },
+  {
     projectTitle: "WebSockets Demo – Real-Time Chat Application",
     category: "Full Stack",
     projectDescription: `Built a real-time chat application using Spring Boot and React to understand core WebSocket communication. The backend is configured with Spring’s WebSocket support and exposes endpoints like /chat and /ws, while the frontend uses the browser WebSocket API to connect, send messages, and display live chat updates. The project also handles connection, disconnection, and message broadcasting across active sessions.`,
@@ -90,7 +119,7 @@ export const projectsData: ProjectDataInput[] = [
     projectGitHubLink: "https://github.com/karthi-mr/razorpay-demo",
     projectImageLinks: [],
     techStacks: [
-      "Spring Boot", "Java", "Razorpay", "React", "TypeScript"
+      "Spring Boot", "Java", "Razorpay", "React", "JavaScript"
     ],
     keyFeatures: [
       "Payment order creation using Razorpay API.",
@@ -268,10 +297,15 @@ export const projectsData: ProjectDataInput[] = [
   {
     projectTitle: "Todo Application (Frontend)",
     category: "Frontend",
-    projectDescription: `The React + TypeScript frontend of my full-stack Todo application, styled with Tailwind CSS. Tasks can be given a priority and a due date, then filtered and sorted, and the app includes a dark mode. It talks to the Spring Boot backend through REST APIs for persistent storage and is deployed on Firebase Hosting.`,
+    projectDescription: `The React (JavaScript) frontend of my full-stack Todo application, styled with Tailwind CSS. Tasks can be given a priority and a due date, then filtered and sorted, and the app includes a dark mode. It talks to the Spring Boot backend through REST APIs for persistent storage and is deployed on Firebase Hosting.`,
     projectGitHubLink: "https://github.com/karthi-mr/react-todo-app/tree/dev",
-    projectImageLinks: [],
-    techStacks: ["TypeScript", "React", "Tailwind CSS"],
+    projectImageLinks: [
+      {
+        imageTitle: "Tasks with priority, due date and filters",
+        projectImageLink: "/projects/todo-frontend-desktop.webp"
+      },
+    ],
+    techStacks: ["JavaScript", "React", "Tailwind CSS", "Vite"],
     keyFeatures: [
       "Designed and developed a full-stack Todo application with React frontend and Spring Boot backend.",
       "Implemented features such as task priority, due dates, filtering, sorting, dark mode, and persistent storage.",

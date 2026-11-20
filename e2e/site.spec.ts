@@ -229,10 +229,29 @@ test.describe("navigation", () => {
   test("mobile menu opens, navigates and closes", async ({ page, isMobile }) => {
     test.skip(!isMobile, "the menu button only exists on small screens");
     await page.goto("/home");
+    // wait for the page content, so its own "View Projects" links exist too (they must not be matched)
+    await expect(page.getByRole("link", { name: "View Projects" })).toBeVisible();
     await page.getByRole("button", { name: "Open menu" }).click();
-    await page.getByRole("link", { name: "Projects" }).click();
+    const menu = page.getByRole("dialog", { name: "Menu" });
+    await expect(menu).toBeVisible();
+    await menu.getByRole("link", { name: "Projects", exact: true }).click();
     await expect(page).toHaveURL(/\/projects$/);
-    await expect(page.getByRole("button", { name: "Close menu" })).toBeHidden();
+    await expect(menu).toBeHidden();
+  });
+
+  test("open mobile menu blocks the page behind it; Esc closes it and restores focus", async ({ page, isMobile }) => {
+    test.skip(!isMobile, "the menu button only exists on small screens");
+    await page.goto("/home");
+    const openButton = page.getByRole("button", { name: "Open menu" });
+    await openButton.click();
+    const menu = page.getByRole("dialog", { name: "Menu" });
+    await expect(menu.getByRole("button", { name: "Close menu" })).toBeFocused();
+    // page links behind the menu are unreachable while it is open
+    await expect(page.getByRole("link", { name: "View Projects" })).toHaveCount(0);
+    await page.keyboard.press("Escape");
+    await expect(menu).toBeHidden();
+    await expect(openButton).toBeFocused();
+    await expect(page.getByRole("link", { name: "View Projects" })).toBeVisible();
   });
 
   test("a page whose code fails to download shows a reload screen instead of a blank page", async ({ page }) => {
@@ -243,5 +262,56 @@ test.describe("navigation", () => {
     // the site reloads once to fetch the latest version; when that also fails, the reload screen appears
     await expect(page.getByRole("alert")).toContainText("This page couldn't load", { timeout: 15_000 });
     await expect(page.getByRole("button", { name: "Reload page" })).toBeVisible();
+  });
+});
+
+test.describe("security headers", () => {
+  test("pages are served with the security headers from firebase.json", async ({ page }) => {
+    const response = await page.goto("/home");
+    const headers = response!.headers();
+    expect(headers["content-security-policy"]).toContain("default-src 'self'");
+    expect(headers["x-content-type-options"]).toBe("nosniff");
+    expect(headers["x-frame-options"]).toBe("DENY");
+    expect(headers["referrer-policy"]).toBe("strict-origin-when-cross-origin");
+  });
+
+  test("nothing on the site is blocked by the Content-Security-Policy", async ({ page }) => {
+    // record every CSP violation the browser reports
+    await page.addInitScript(() => {
+      (window as unknown as { __cspViolations: string[] }).__cspViolations = [];
+      document.addEventListener("securitypolicyviolation", (event) => {
+        (window as unknown as { __cspViolations: string[] }).__cspViolations.push(`${event.violatedDirective} ${event.blockedURI}`);
+      });
+    });
+    const violations: string[] = [];
+    const collect = async () => violations.push(...await page.evaluate(() => (window as unknown as { __cspViolations: string[] }).__cspViolations));
+
+    for (const { path } of PAGES) {
+      await page.goto(path);
+      await page.waitForLoadState("networkidle");
+      // scroll so lazy images (thumbnails, favicons) load
+      await page.evaluate(async () => {
+        for (let y = 0; y < document.documentElement.scrollHeight; y += 600) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 80)); }
+      });
+      await page.waitForLoadState("networkidle");
+      await collect();
+    }
+
+    // project with screenshots: gallery thumbnails + full-screen originals
+    await page.goto("/projects?project=expense-tracker");
+    await page.locator("dialog.project-modal").getByRole("button", { name: "View full screen" }).click();
+    await page.waitForLoadState("networkidle");
+    await collect();
+
+    // the theme script must run (it is allowed by its hash)
+    expect(await page.locator("html").getAttribute("class")).toMatch(/light|dark/);
+    // external images actually load (GitHub screenshot thumbnail and a certificate favicon)
+    await page.goto("/projects");
+    await expect.poll(() => page.locator("main article img").first().evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
+    await page.goto("/certificates");
+    await expect.poll(() => page.locator("main a img").first().evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
+    await collect();
+
+    expect(violations).toEqual([]);
   });
 });

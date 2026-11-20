@@ -1,4 +1,4 @@
-import { CloudyIcon, Database, Settings } from 'lucide-react';
+import { Brain, CloudyIcon, Database, Settings } from 'lucide-react';
 import { FaClipboardCheck, FaJava } from 'react-icons/fa';
 import {
   SiAngular,
@@ -6,6 +6,7 @@ import {
   SiBootstrap,
   SiCss3,
   SiDocker,
+  SiFlask,
   SiGithub,
   SiHibernate,
   SiHtml5,
@@ -43,6 +44,7 @@ export interface SkillCardType {
 export const skills: SkillCardType[] = [
   { name: 'Java', Icon: FaJava, category: 'Backend' },
   { name: 'Python', Icon: SiPython, category: 'Backend' },
+  { name: 'Flask', Icon: SiFlask, category: 'Backend' },
   { name: 'Spring Boot', Icon: SiSpringboot, category: 'Backend' },
   { name: 'Spring Security', Icon: SiSpringsecurity, category: 'Backend' },
   { name: 'Spring Data JPA', Icon: Database, category: 'Backend' },
@@ -58,6 +60,8 @@ export const skills: SkillCardType[] = [
   { name: 'Bootstrap', Icon: SiBootstrap, category: 'Frontend' },
   { name: 'React', Icon: SiReact, category: 'Frontend' },
   { name: 'Angular', Icon: SiAngular, category: 'Frontend' },
+
+  { name: 'IBM Watson NLP', Icon: Brain, category: 'AI/ML' },
 
   { name: 'PostgreSQL', Icon: SiPostgresql, category: 'Database' },
   { name: 'MySql', Icon: SiMysql, category: 'Database' },

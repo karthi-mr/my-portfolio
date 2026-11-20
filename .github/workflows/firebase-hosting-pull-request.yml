@@ -34,7 +34,9 @@ jobs:
           name: playwright-report
           path: test-results/
           retention-days: 7
+      # Dependabot pull requests cannot read the Firebase secret: they are tested above but not deployed as a preview
       - uses: FirebaseExtended/action-hosting-deploy@v0
+        if: github.actor != 'dependabot[bot]'
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_52E42 }}
