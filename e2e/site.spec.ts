@@ -229,10 +229,29 @@ test.describe("navigation", () => {
   test("mobile menu opens, navigates and closes", async ({ page, isMobile }) => {
     test.skip(!isMobile, "the menu button only exists on small screens");
     await page.goto("/home");
+    // wait for the page content, so its own "View Projects" links exist too (they must not be matched)
+    await expect(page.getByRole("link", { name: "View Projects" })).toBeVisible();
     await page.getByRole("button", { name: "Open menu" }).click();
-    await page.getByRole("link", { name: "Projects" }).click();
+    const menu = page.getByRole("dialog", { name: "Menu" });
+    await expect(menu).toBeVisible();
+    await menu.getByRole("link", { name: "Projects", exact: true }).click();
     await expect(page).toHaveURL(/\/projects$/);
-    await expect(page.getByRole("button", { name: "Close menu" })).toBeHidden();
+    await expect(menu).toBeHidden();
+  });
+
+  test("open mobile menu blocks the page behind it; Esc closes it and restores focus", async ({ page, isMobile }) => {
+    test.skip(!isMobile, "the menu button only exists on small screens");
+    await page.goto("/home");
+    const openButton = page.getByRole("button", { name: "Open menu" });
+    await openButton.click();
+    const menu = page.getByRole("dialog", { name: "Menu" });
+    await expect(menu.getByRole("button", { name: "Close menu" })).toBeFocused();
+    // page links behind the menu are unreachable while it is open
+    await expect(page.getByRole("link", { name: "View Projects" })).toHaveCount(0);
+    await page.keyboard.press("Escape");
+    await expect(menu).toBeHidden();
+    await expect(openButton).toBeFocused();
+    await expect(page.getByRole("link", { name: "View Projects" })).toBeVisible();
   });
 
   test("a page whose code fails to download shows a reload screen instead of a blank page", async ({ page }) => {

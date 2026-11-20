@@ -1,4 +1,4 @@
-import { type ReactElement, useEffect, useState } from "react";
+import { type ReactElement, useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Menu, X } from "lucide-react";
@@ -12,13 +12,31 @@ type NavItem = {
 function Navbar(): ReactElement {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const openButtonRef = useRef<HTMLButtonElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
 
+  // while the menu is open it behaves like a dialog: the page behind it can't scroll,
+  // can't be focused or clicked (inert), Esc closes it, and focus moves into / back out of it
   useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? "hidden" : "";
+    if (!isMenuOpen) return;
 
+    document.body.style.overflow = "hidden";
+    const background: Element[] = [...document.querySelectorAll("header, main, footer")];
+    background.forEach(element => element.setAttribute("inert", ""));
+    closeButtonRef.current?.focus();
+
+    function handleKey(event: KeyboardEvent): void {
+      if (event.key === "Escape") setIsMenuOpen(false);
+    }
+    document.addEventListener("keydown", handleKey);
+
+    const openButton: HTMLButtonElement | null = openButtonRef.current;
     return () => {
       document.body.style.overflow = "";
-    }
+      background.forEach(element => element.removeAttribute("inert"));
+      document.removeEventListener("keydown", handleKey);
+      openButton?.focus();
+    };
   }, [isMenuOpen]);
 
   useEffect(() => {
@@ -96,8 +114,11 @@ function Navbar(): ReactElement {
             <button
               type="button"
               className="icon-btn lg:hidden"
+              ref={openButtonRef}
               onClick={handleOpenMenu}
               aria-label="Open menu"
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
             >
               <Menu size={20} />
             </button>
@@ -124,12 +145,17 @@ function Navbar(): ReactElement {
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: -24, opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
+              id="mobile-menu"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Menu"
               className="relative m-3 p-3 glass bg-surface-strong max-h-[calc(100dvh-1.5rem)] overflow-y-auto overscroll-contain"
             >
               {/* top bar inside menu */}
               <div className="flex items-center justify-between px-2 pb-3 mb-2 border-b border-line">
                 <span className="font-display font-semibold text-lg">Menu</span>
                 <button
+                  ref={closeButtonRef}
                   type="button"
                   className="icon-btn"
                   onClick={handleCloseMenu}
