@@ -1,18 +1,28 @@
-import { ArrowRight, Download, Mail, Phone } from "lucide-react";
+import { ArrowRight, Download, Phone } from "lucide-react";
 import type { ReactElement } from "react";
 import { motion } from "framer-motion";
-import { SiTicktick } from "react-icons/si";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import profileImg from "../assets/profile.webp";
 import ProjectCard from "../components/ProjectCard.tsx";
+import CopyEmailButton from "../components/CopyEmailButton.tsx";
+import StatCounter from "../components/StatCounter.tsx";
 import { type ProjectDataInput, projectsData } from "../data/ProjectsData.ts";
+import { certificatesData } from "../data/CertificatesData.ts";
+import { skills } from "../data/SkillsData.ts";
+import { CONTACT } from "../data/ContactData.ts";
 import { projectSlug } from "../utils/ProjectUtils.ts";
 
-const RESUME_PDF_URL: string = "https://drive.google.com/file/d/1FRiH7XiIytaEKxQnIZDgSNuoj48Ly_4X/view?usp=sharing";
+// shown as separate items so a line only ever breaks between them
+const ROLES: string[] = ["Senior Data Scientist", "AI/ML", "NLP", "Python"];
 
-const SUB_TITLE: string = "Full Stack Developer | Spring Framework | React | Angular";
-const mobileNumber: string = "+91 7708006145"
-const mailId: string = "mkarthim1998@gmail.com"
+// numbers come from the data files, so they stay correct when you add projects / certificates / skills
+const STATS: { value: number; suffix?: string; label: string }[] = [
+  { value: 4, suffix: "+", label: "Years of experience" },
+  { value: projectsData.length, label: "Projects" },
+  { value: certificatesData.length, label: "Certificates" },
+  { value: skills.length, label: "Skills & tools" },
+];
 
 // projects marked `featured: true` in ProjectsData.ts (max 3) are shown on the home page
 const featuredProjects: ProjectDataInput[] = projectsData.filter((project: ProjectDataInput) => project.featured).slice(0, 3);
@@ -36,17 +46,17 @@ function Home(): ReactElement {
       >
         {/* title */}
         <div className="order-2 lg:order-1 flex flex-col items-center lg:items-start text-center lg:text-left">
-          {/* improving points */}
+          {/* current role */}
           <motion.p
             variants={fadeUp}
             className="chip font-display text-sm! py-1.5! px-4! mb-6"
           >
-            <span className="relative flex size-2">
+            <span className="relative flex size-2" aria-hidden="true">
               <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
               <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
             </span>
             <span>
-              <span className="font-semibold text-[#92400e] dark:text-amber-400">Backend-Focused</span> Full Stack Developer
+              <span className="font-semibold text-emerald-800 dark:text-emerald-300">Currently</span> Senior Data Scientist
             </span>
           </motion.p>
 
@@ -59,27 +69,30 @@ function Home(): ReactElement {
 
           <motion.p
             variants={fadeUp}
-            className="mt-5 font-display text-lg md:text-2xl font-semibold tracking-tight text-fg/85"
+            className="mt-5 flex flex-wrap justify-center lg:justify-start gap-x-3 gap-y-1 font-display text-lg md:text-2xl font-semibold tracking-tight text-fg/85"
           >
-            {SUB_TITLE}
+            {ROLES.map((role: string, index: number) => (
+              <span key={role} className="inline-flex items-center gap-3 whitespace-nowrap">
+                {index > 0 && <span className="text-subtle font-normal" aria-hidden="true">·</span>}
+                {role}
+              </span>
+            ))}
           </motion.p>
 
           <motion.p
             variants={fadeUp}
-            className="mt-4 max-w-xl text-base md:text-lg text-muted font-sans font-normal"
+            className="mt-4 max-w-xl text-base md:text-lg text-muted font-sans font-normal text-balance"
           >
-            Building scalable web applications using Java, Spring Boot, React and PostgreSQL
+            Working on AI/ML as a Senior Data Scientist, backed by 4+ years of backend and full-stack engineering
+            with Java, Spring Boot, React and PostgreSQL.
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-6 flex flex-wrap justify-center lg:justify-start gap-2">
-            <span className="chip text-sm! py-1.5!">
-              <Mail size={14} className="text-indigo-500" />
-              <span>{mailId}</span>
-            </span>
-            <span className="chip text-sm! py-1.5!">
+            <CopyEmailButton email={CONTACT.email} />
+            <a href={CONTACT.phoneLink} className="chip text-sm! py-1.5! hover:text-fg hover:border-indigo-400/50 transition-colors">
               <Phone size={14} className="text-cyan-500" />
-              <span>{mobileNumber}</span>
-            </span>
+              <span>{CONTACT.phoneDisplay}</span>
+            </a>
           </motion.div>
 
           <motion.div
@@ -94,7 +107,7 @@ function Home(): ReactElement {
               <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
             </Link>
             <a
-              href={RESUME_PDF_URL}
+              href={CONTACT.resume}
               download
               target="_blank"
               rel="noopener noreferrer"
@@ -109,6 +122,30 @@ function Home(): ReactElement {
             >
               <span>Contact Me</span>
             </Link>
+          </motion.div>
+
+          {/* profiles */}
+          <motion.div variants={fadeUp} className="mt-5 flex items-center gap-2">
+            <a
+              href={CONTACT.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="icon-btn hover:text-white! hover:border-transparent! hover:bg-brand"
+              aria-label="GitHub profile"
+              title="GitHub"
+            >
+              <FaGithub aria-hidden="true" size={18} />
+            </a>
+            <a
+              href={CONTACT.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="icon-btn hover:text-white! hover:border-transparent! hover:bg-brand"
+              aria-label="LinkedIn profile"
+              title="LinkedIn"
+            >
+              <FaLinkedin aria-hidden="true" size={18} />
+            </a>
           </motion.div>
         </div>
 
@@ -147,7 +184,7 @@ function Home(): ReactElement {
           className="glass card-hover p-6 md:p-8"
         >
           <h2 className="font-display text-lg md:text-xl font-semibold">
-            Experienced in building production-style applications with:
+            Engineering background: production-style applications with
           </h2>
           <ul className="mt-5 space-y-3">
             {[
@@ -167,26 +204,12 @@ function Home(): ReactElement {
           </ul>
         </motion.div>
 
-        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {[
-            "4+ years experience",
-            "Production-style projects with real integrations",
-            "Strong backend + API design skills",
-            "Open to Full Stack / Backend roles",
-          ].map((point: string, index: number) => (
-            <motion.li
-              key={point}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.08 * index }}
-              className="glass card-hover p-5 flex flex-col gap-4"
-            >
-              <span className="grid place-items-center size-10 rounded-xl bg-brand text-white shadow-lg shadow-indigo-500/25">
-                <SiTicktick aria-hidden="true" />
-              </span>
-              <div className="font-medium leading-snug">{point}</div>
-            </motion.li>
+        {/* stats: count up when scrolled into view */}
+        <ul className="grid grid-cols-2 gap-5" aria-label="At a glance">
+          {STATS.map((stat) => (
+            <li key={stat.label}>
+              <StatCounter value={stat.value} suffix={stat.suffix} label={stat.label} />
+            </li>
           ))}
         </ul>
       </section>

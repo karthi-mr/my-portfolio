@@ -2,40 +2,44 @@ export type ExperienceDataInput = {
   id: number;
   companyName: string;
   position: string;
+  /** whole period at the company, e.g. 'Jun 2024 - Feb 2026' or 'Jun 2026 - Present' */
   period: string;
-  location: string;
+  /** optional: shown as a location chip */
+  location?: string;
+  /** optional: separate stints at the same company, e.g. full time then part time */
+  stints?: { label: string; period: string }[];
+  /** true for the job you have now (shown with a "Current" badge) */
+  current?: boolean;
   keyPoints: string[];
 };
 
 export const experienceData: ExperienceDataInput[] = [
   {
-    id: 3,
-    companyName: 'AquilaTest (Startup) [Part Time]',
-    position: 'Software Developer - Automation & Backend',
-    period: 'Oct 2025 - Feb 2026',
-    location: 'Tamil Nadu, India',
-    keyPoints: [
-      'Started as a Data Analyst and transitioned into a Software Development & Automation Engineer role.',
-      'Designed and implemented multiple end-to-end automation solutions using Java and Python, ' +
-        'improving efficiency and reliability.',
-      'Re-architected the existing automation framework to improve scalability, maintainability, and modularity.',
-      'Collaborated with cross-functional teams to convert data insights into actionable software solutions.',
-      'Actively working on Java- and Python-based systems supporting process automation and decision-making',
-    ],
+    id: 4,
+    // TODO: replace "XXX" with the company name, add location and keyPoints
+    companyName: 'XXX',
+    position: 'Senior Data Scientist',
+    period: 'Jun 2026 - Present',
+    current: true,
+    keyPoints: [],
   },
   {
     id: 2,
-    companyName: 'AquilaTest (Startup) [Full Time]',
+    companyName: 'AquilaTest (Startup)',
     position: 'Software Developer - Automation & Backend',
-    period: 'Jun 2024 - Oct 2025',
+    period: 'Jun 2024 - Feb 2026',
     location: 'Tamil Nadu, India',
+    stints: [
+      { label: 'Full Time', period: 'Jun 2024 - Oct 2025' },
+      { label: 'Part Time', period: 'Oct 2025 - Feb 2026' },
+    ],
     keyPoints: [
       'Started as a Data Analyst and transitioned into a Software Development & Automation Engineer role.',
       'Designed and implemented multiple end-to-end automation solutions using Java and Python, ' +
         'improving efficiency and reliability.',
       'Re-architected the existing automation framework to improve scalability, maintainability, and modularity.',
       'Collaborated with cross-functional teams to convert data insights into actionable software solutions.',
-      'Actively working on Java- and Python-based systems supporting process automation and decision-making',
+      'Worked on Java- and Python-based systems supporting process automation and decision-making.',
     ],
   },
   {

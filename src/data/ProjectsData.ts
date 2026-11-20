@@ -30,6 +30,7 @@ export const projectsData: ProjectDataInput[] = [
   {
     projectTitle: "Emotion Detection – NLP Web App with Watson AI",
     category: "AI/ML",
+    featured: true,
     projectDescription: `An NLP web application that detects the emotions in a piece of text. A Python package sends the text to IBM Watson NLP's emotion-prediction model and returns a score for anger, disgust, fear, joy and sadness together with the dominant emotion. A Flask web app exposes it through a simple page and an API endpoint, blank or invalid input is handled gracefully, and the emotion detector is covered by unit tests.`,
     projectGitHubLink: "https://github.com/karthi-mr/oaqjp-final-project-emb-ai",
     projectImageLinks: [
@@ -113,7 +114,6 @@ export const projectsData: ProjectDataInput[] = [
   {
     projectTitle: "Razorpay Payment Integration – Full Stack Application",
     category: "Full Stack",
-    featured: true,
     projectDescription: `Built a full-stack payment integration system using Spring Boot and React, integrating the Razorpay API in test mode to simulate real-world online transactions. The backend handles secure order creation and payment verification, while the frontend provides a seamless checkout experience using Razorpay’s checkout flow. Implemented environment-based configuration using .env for securely managing API keys and sensitive credentials.
 `,
     projectGitHubLink: "https://github.com/karthi-mr/razorpay-demo",

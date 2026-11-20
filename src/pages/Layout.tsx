@@ -2,6 +2,9 @@ import { type ReactElement, Suspense } from "react";
 import Navbar from "./Navbar.tsx";
 import Footer from "./Footer.tsx";
 import ErrorBoundary from "../components/ErrorBoundary.tsx";
+import NextPageCard from "../components/NextPageCard.tsx";
+import BackToTop from "../components/BackToTop.tsx";
+import { motion } from "framer-motion";
 
 type LayoutProps = {
   children: ReactElement
@@ -42,11 +45,21 @@ function Layout({ children }: LayoutProps): ReactElement {
       <main className="grow flex flex-col min-h-0 w-full max-w-6xl mx-auto px-5 sm:px-8 pt-28 md:pt-32 pb-20">
         <ErrorBoundary>
           <Suspense fallback={<PageLoader />}>
-            {children}
+            {/* page transition: each page fades in when it opens */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="grow flex flex-col min-h-0"
+            >
+              {children}
+              <NextPageCard />
+            </motion.div>
           </Suspense>
         </ErrorBoundary>
       </main>
       <Footer />
+      <BackToTop />
     </div>
   );
 }

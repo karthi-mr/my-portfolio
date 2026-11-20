@@ -2,7 +2,7 @@
 
 **Demo URL: https://karthi-22.web.app**
 
-Personal portfolio of Karthi – Backend-Focused Full Stack Developer.
+Personal portfolio of Karthi – Senior Data Scientist (AI/ML), with a background in backend and full-stack engineering.
 
 ### Features
 - **Light & dark theme** – follows the system theme by default; the navbar toggle switches System → Light → Dark and remembers the choice

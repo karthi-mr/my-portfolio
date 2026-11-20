@@ -1,6 +1,6 @@
 import { type ReactElement, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { SearchX } from "lucide-react";
+import { ChevronDown, ChevronUp, SearchX } from "lucide-react";
 import { type CertificateData, certificatesData as unsortedCertificates } from "../data/CertificatesData.ts";
 import { issuedSortKey } from "../utils/DateUtils.ts";
 
@@ -14,10 +14,14 @@ import CertificateCard from "../components/CertificateCard.tsx";
 import MultiSelectFilter, { type FilterOption } from "../components/MultiSelectFilter.tsx";
 import { getProviderIcon } from "../utils/FilterIcons.tsx";
 
+const INITIAL_COUNT = 12;
+
 function Certificates(): ReactElement {
   // empty selection = show every platform
   const [selectedProviders, setSelectedProviders] = useState<string[]>([]);
   const [query, setQuery] = useState<string>("");
+  // long lists start with the newest 12; "Show all" reveals the rest
+  const [showAll, setShowAll] = useState<boolean>(false);
 
   // filter options are built from the data, so new platforms show up automatically
   const providerOptions: FilterOption[] = useMemo(() => {
@@ -74,7 +78,7 @@ function Certificates(): ReactElement {
           className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5"
         >
           <AnimatePresence mode="popLayout">
-            {filteredCertificates.map((certificate: CertificateData, index: number) => (
+            {(showAll ? filteredCertificates : filteredCertificates.slice(0, INITIAL_COUNT)).map((certificate: CertificateData, index: number) => (
               <motion.div
                 key={certificate.url}
                 layout
@@ -93,7 +97,23 @@ function Certificates(): ReactElement {
             ))}
           </AnimatePresence>
         </motion.div>
-      ) : (
+      ) : null}
+
+      {filteredCertificates.length > INITIAL_COUNT && (
+        <button
+          type="button"
+          onClick={() => setShowAll(value => !value)}
+          aria-expanded={showAll}
+          className="btn btn-secondary group"
+        >
+          {showAll ? "Show fewer" : `Show all ${filteredCertificates.length} certificates`}
+          {showAll
+            ? <ChevronUp size={18} className="transition-transform group-hover:-translate-y-0.5" />
+            : <ChevronDown size={18} className="transition-transform group-hover:translate-y-0.5" />}
+        </button>
+      )}
+
+      {filteredCertificates.length === 0 && (
         <div className="flex flex-col items-center gap-3 py-16 text-center text-muted">
           <SearchX size={40} className="text-subtle" />
           <p>No certificates match your filters.</p>
