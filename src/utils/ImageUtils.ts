@@ -18,6 +18,8 @@ export function toRawImageUrl(url: string): string {
  * original image is shown if the service is ever unavailable.
  */
 export function toThumbnailUrl(url: string, width: number): string {
+  // images stored in this site (e.g. "/projects/todo.webp") are already optimised: serve them directly
+  if (url.startsWith("/")) return url;
   const source: string = toRawImageUrl(url);
   return `https://wsrv.nl/?url=${encodeURIComponent(source)}&w=${width}&output=webp&q=78`;
 }
