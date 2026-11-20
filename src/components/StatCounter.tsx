@@ -21,7 +21,7 @@ function StatCounter({ value, suffix = "", label }: StatCounterProps): ReactElem
   }, [inView, reduceMotion, value]);
 
   return (
-    <div ref={ref} className="glass card-hover p-5 md:p-6 flex flex-col gap-1">
+    <div ref={ref} className="glass card-hover h-full p-5 md:p-6 flex flex-col justify-center gap-1">
       <span className="font-display text-4xl md:text-5xl font-extrabold tracking-tight text-gradient tabular-nums pb-1">
         {/* screen readers get the final number right away */}
         <span aria-hidden="true">{shown}{suffix}</span>

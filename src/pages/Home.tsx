@@ -13,6 +13,23 @@ import { skills } from "../data/SkillsData.ts";
 import { CONTACT } from "../data/ContactData.ts";
 import { projectSlug } from "../utils/ProjectUtils.ts";
 
+// career summary (details are on the Experience page)
+const CAREER_PATH: { period: string; title: string; detail: string; current?: boolean }[] = [
+  { period: "Jun 2026 – now", title: "Senior Data Scientist", detail: "AI/ML", current: true },
+  { period: "2024 – 2026", title: "AquilaTest: Data Analyst → Automation & Backend Developer", detail: "Data insights, Java & Python automation, framework re-architecture" },
+  { period: "2020 – 2023", title: "Zoho: QA Engineer (Member Technical Staff)", detail: "API & UI testing, automated test cases" },
+];
+
+// what my personal projects cover (see the Projects page)
+const PROJECT_HIGHLIGHTS: string[] = [
+  "JWT auth & role-based access",
+  "Microservices",
+  "WebSockets",
+  "Razorpay payments",
+  "Docker",
+  "NLP with IBM Watson",
+];
+
 // shown as separate items so a line only ever breaks between them
 const ROLES: string[] = ["Senior Data Scientist", "AI/ML", "NLP", "Python"];
 
@@ -83,8 +100,8 @@ function Home(): ReactElement {
             variants={fadeUp}
             className="mt-4 max-w-xl text-base md:text-lg text-muted font-sans font-normal text-balance"
           >
-            Working on AI/ML as a Senior Data Scientist, backed by 4+ years of backend and full-stack engineering
-            with Java, Spring Boot, React and PostgreSQL.
+            Working on AI/ML as a Senior Data Scientist, after 4+ years in QA and test automation, data analysis,
+            and Java &amp; Python automation and backend engineering.
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-6 flex flex-wrap justify-center lg:justify-start gap-2">
@@ -183,25 +200,31 @@ function Home(): ReactElement {
           transition={{ duration: 0.5 }}
           className="glass card-hover p-6 md:p-8"
         >
-          <h2 className="font-display text-lg md:text-xl font-semibold">
-            Engineering background: production-style applications with
-          </h2>
-          <ul className="mt-5 space-y-3">
-            {[
-              "JWT Authentication & Role-Based Access",
-              "Microservices Architecture",
-              "WebSockets (Real-time apps)",
-              "Payment Integration (Razorpay)",
-              "Docker-based Deployment",
-            ].map((point: string) => (
-              <li key={point} className="flex items-center gap-3 text-muted">
-                <span className="grid place-items-center size-7 shrink-0 rounded-lg bg-indigo-500/10 text-indigo-500 dark:text-indigo-400">
-                  <ArrowRight size={15} />
-                </span>
-                <span>{point}</span>
+          <h2 className="font-display text-lg md:text-xl font-semibold">My path</h2>
+          <ol className="mt-5 relative flex flex-col gap-5 before:absolute before:left-[0.6rem] before:top-2 before:bottom-2 before:w-px before:bg-line">
+            {CAREER_PATH.map((step) => (
+              <li key={step.period} className="relative flex gap-4">
+                <span
+                  className={`relative z-10 mt-1.5 size-[1.2rem] shrink-0 rounded-full ring-4 ring-bg ${step.current ? "bg-brand" : "bg-fg/15"}`}
+                  aria-hidden="true"
+                />
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-xs font-semibold text-subtle tabular-nums">{step.period}</span>
+                  <span className="font-semibold text-fg">{step.title}</span>
+                  <span className="text-sm text-muted">{step.detail}</span>
+                </div>
               </li>
             ))}
-          </ul>
+          </ol>
+
+          <div className="mt-6 pt-5 border-t border-line">
+            <h3 className="text-sm font-semibold text-fg">Built in my projects</h3>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {PROJECT_HIGHLIGHTS.map((item: string) => (
+                <li key={item} className="chip">{item}</li>
+              ))}
+            </ul>
+          </div>
         </motion.div>
 
         {/* stats: count up when scrolled into view */}
