@@ -242,16 +242,27 @@ test.describe("navigation", () => {
   test("open mobile menu blocks the page behind it; Esc closes it and restores focus", async ({ page, isMobile }) => {
     test.skip(!isMobile, "the menu button only exists on small screens");
     await page.goto("/home");
+    // wait for the page content first, so the check below is about the menu, not about loading timing
+    const pageLink = page.getByRole("link", { name: "View Projects" });
+    await expect(pageLink).toBeVisible();
+
     const openButton = page.getByRole("button", { name: "Open menu" });
     await openButton.click();
     const menu = page.getByRole("dialog", { name: "Menu" });
     await expect(menu.getByRole("button", { name: "Close menu" })).toBeFocused();
-    // page links behind the menu are unreachable while it is open
-    await expect(page.getByRole("link", { name: "View Projects" })).toHaveCount(0);
+
+    // the page behind the menu is inert: not focusable, not clickable, hidden from screen readers.
+    // (Playwright's getByRole does not take `inert` into account, so check the attribute and focus directly.)
+    for (const region of ["header", "main", "footer"]) {
+      await expect(page.locator(region).first()).toHaveAttribute("inert", "");
+    }
+    expect(await pageLink.evaluate((link: HTMLElement) => { link.focus(); return document.activeElement === link; })).toBe(false);
+
     await page.keyboard.press("Escape");
     await expect(menu).toBeHidden();
     await expect(openButton).toBeFocused();
-    await expect(page.getByRole("link", { name: "View Projects" })).toBeVisible();
+    await expect(page.locator("main")).not.toHaveAttribute("inert", "");
+    expect(await pageLink.evaluate((link: HTMLElement) => { link.focus(); return document.activeElement === link; })).toBe(true);
   });
 
   test("a page whose code fails to download shows a reload screen instead of a blank page", async ({ page }) => {
