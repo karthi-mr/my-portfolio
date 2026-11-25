@@ -233,39 +233,39 @@ export const projectsData: ProjectDataInput[] = [
     projectImageLinks: [
       {
         imageTitle: "Home",
-        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/fa638057d617924442d92cd7c9ca8569492a0fd5/screenshots/home.png"
+        projectImageLink: "/projects/portfolio-home.webp"
       },
       {
         imageTitle: "Home (light theme)",
-        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/fa638057d617924442d92cd7c9ca8569492a0fd5/screenshots/home-light.png"
+        projectImageLink: "/projects/portfolio-home-light.webp"
       },
       {
         imageTitle: "About Me",
-        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/fa638057d617924442d92cd7c9ca8569492a0fd5/screenshots/about-me.png"
+        projectImageLink: "/projects/portfolio-about-me.webp"
       },
       {
         imageTitle: "Projects",
-        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/fa638057d617924442d92cd7c9ca8569492a0fd5/screenshots/projects.png"
+        projectImageLink: "/projects/portfolio-projects.webp"
       },
       {
         imageTitle: "Experience",
-        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/fa638057d617924442d92cd7c9ca8569492a0fd5/screenshots/experience.png"
+        projectImageLink: "/projects/portfolio-experience.webp"
       },
       {
         imageTitle: "Skills",
-        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/fa638057d617924442d92cd7c9ca8569492a0fd5/screenshots/skills.png"
+        projectImageLink: "/projects/portfolio-skills.webp"
       },
       {
         imageTitle: "Certificates",
-        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/fa638057d617924442d92cd7c9ca8569492a0fd5/screenshots/certificates.png"
+        projectImageLink: "/projects/portfolio-certificates.webp"
       },
       {
         imageTitle: "Contact Me",
-        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/fa638057d617924442d92cd7c9ca8569492a0fd5/screenshots/contact-me.png"
+        projectImageLink: "/projects/portfolio-contact-me.webp"
       },
       {
         imageTitle: "Mobile",
-        projectImageLink: "https://github.com/karthi-mr/my-portfolio/blob/fa638057d617924442d92cd7c9ca8569492a0fd5/screenshots/mobile-home.png"
+        projectImageLink: "/projects/portfolio-mobile-home.webp"
       },
     ],
     techStacks: [

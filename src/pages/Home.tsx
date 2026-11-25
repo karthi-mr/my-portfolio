@@ -1,5 +1,5 @@
-import { ArrowRight, Download, Phone } from "lucide-react";
-import type { ReactElement } from "react";
+import { ArrowRight, Award, Briefcase, Download, FolderGit2, Phone, Wrench } from "lucide-react";
+import type { ReactElement, ReactNode } from "react";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
@@ -34,11 +34,12 @@ const PROJECT_HIGHLIGHTS: string[] = [
 const ROLES: string[] = ["Senior Data Scientist", "AI/ML", "NLP", "Python"];
 
 // numbers come from the data files, so they stay correct when you add projects / certificates / skills
-const STATS: { value: number; suffix?: string; label: string }[] = [
-  { value: 4, suffix: "+", label: "Years of experience" },
-  { value: projectsData.length, label: "Projects" },
-  { value: certificatesData.length, label: "Certificates" },
-  { value: skills.length, label: "Skills & tools" },
+// each card links to the page with the details
+const STATS: { value: number; suffix?: string; label: string; icon: ReactNode; to: string }[] = [
+  { value: 4, suffix: "+", label: "Years of experience", icon: <Briefcase size={20} />, to: "/experience" },
+  { value: projectsData.length, label: "Projects", icon: <FolderGit2 size={20} />, to: "/projects" },
+  { value: certificatesData.length, label: "Certificates", icon: <Award size={20} />, to: "/certificates" },
+  { value: skills.length, label: "Skills & tools", icon: <Wrench size={20} />, to: "/skills" },
 ];
 
 // projects marked `featured: true` in ProjectsData.ts (max 3) are shown on the home page
@@ -110,6 +111,27 @@ function Home(): ReactElement {
               <Phone size={14} className="text-cyan-500" />
               <span>{CONTACT.phoneDisplay}</span>
             </a>
+            {/* profiles, in the same row as the other ways to reach me */}
+            <a
+              href={CONTACT.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="chip text-sm! py-1.5! hover:text-fg hover:border-indigo-400/50 transition-colors"
+              aria-label="GitHub profile"
+              title="GitHub"
+            >
+              <FaGithub aria-hidden="true" size={15} />
+            </a>
+            <a
+              href={CONTACT.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="chip text-sm! py-1.5! hover:text-fg hover:border-indigo-400/50 transition-colors"
+              aria-label="LinkedIn profile"
+              title="LinkedIn"
+            >
+              <FaLinkedin aria-hidden="true" size={15} className="text-[#0a66c2] dark:text-[#4c9be8]" />
+            </a>
           </motion.div>
 
           <motion.div
@@ -139,30 +161,6 @@ function Home(): ReactElement {
             >
               <span>Contact Me</span>
             </Link>
-          </motion.div>
-
-          {/* profiles */}
-          <motion.div variants={fadeUp} className="mt-5 flex items-center gap-2">
-            <a
-              href={CONTACT.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="icon-btn hover:text-white! hover:border-transparent! hover:bg-brand"
-              aria-label="GitHub profile"
-              title="GitHub"
-            >
-              <FaGithub aria-hidden="true" size={18} />
-            </a>
-            <a
-              href={CONTACT.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="icon-btn hover:text-white! hover:border-transparent! hover:bg-brand"
-              aria-label="LinkedIn profile"
-              title="LinkedIn"
-            >
-              <FaLinkedin aria-hidden="true" size={18} />
-            </a>
           </motion.div>
         </div>
 
@@ -231,7 +229,7 @@ function Home(): ReactElement {
         <ul className="grid grid-cols-2 gap-5" aria-label="At a glance">
           {STATS.map((stat) => (
             <li key={stat.label}>
-              <StatCounter value={stat.value} suffix={stat.suffix} label={stat.label} />
+              <StatCounter value={stat.value} suffix={stat.suffix} label={stat.label} icon={stat.icon} to={stat.to} />
             </li>
           ))}
         </ul>

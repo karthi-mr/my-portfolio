@@ -137,7 +137,7 @@ function Projects(): ReactElement {
   return (
     <>
       <section className="w-full grow flex flex-col items-center gap-10">
-        <SectionHeader title="Projects" subtitle="Projects that I have created" />
+        <SectionHeader title="Projects" subtitle="AI/ML, backend and full-stack projects I've built" />
 
         {/* filter */}
         <MultiSelectFilter

@@ -28,7 +28,10 @@ export function toThumbnailUrl(url: string, width: number): string {
 export function fallbackToOriginal(originalUrl: string) {
   return (event: { currentTarget: HTMLImageElement }): void => {
     const img: HTMLImageElement = event.currentTarget;
-    const original: string = toRawImageUrl(originalUrl);
-    if (img.src !== original) img.src = original;
+    // only once: if the original fails too (e.g. a local "/projects/…" file that doesn't exist), stop here.
+    // (comparing img.src with the URL doesn't work for local paths: img.src is always absolute)
+    if (img.dataset.fallback) return;
+    img.dataset.fallback = "original";
+    img.src = toRawImageUrl(originalUrl);
   };
 }

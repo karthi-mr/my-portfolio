@@ -54,7 +54,7 @@ function Certificates(): ReactElement {
     <section className="grow flex flex-col items-center gap-10">
       <SectionHeader
         title="Achievements & Certifications"
-        subtitle="Certifications & Achievements"
+        subtitle={`${certificatesData.length} certificates from ${providerOptions.length} platforms, newest first`}
       />
 
       {/* filter */}

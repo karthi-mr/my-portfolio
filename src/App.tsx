@@ -16,6 +16,7 @@ const Skills = lazyWithReload(() => import("./pages/Skills.tsx"));
 const Experience = lazyWithReload(() => import("./pages/Experience.tsx"));
 const Projects = lazyWithReload(() => import("./pages/Projects.tsx"));
 const Certificates = lazyWithReload(() => import("./pages/Certificates.tsx"));
+const NotFound = lazyWithReload(() => import("./pages/NotFound.tsx"));
 
 function App(): ReactElement {
   return (
@@ -26,7 +27,7 @@ function App(): ReactElement {
         <ScrollToTop />
         <RouteMeta />
         <Routes>
-          <Route path="*" element={<Navigate to="/home" replace />} />
+          <Route path="/" element={<Navigate to="/home" replace />} />
           <Route path="/home" element={<Layout><Home /></Layout>} />
           <Route path="/projects" element={<Layout><Projects /></Layout>} />
           <Route path="/experience" element={<Layout><Experience /></Layout>} />
@@ -34,6 +35,7 @@ function App(): ReactElement {
           <Route path="/contact" element={<Layout><Contact /></Layout>} />
           <Route path="/about" element={<Layout><About /></Layout>} />
           <Route path="/certificates" element={<Layout><Certificates /></Layout>} />
+          <Route path="*" element={<Layout><NotFound /></Layout>} />
         </Routes>
       </BrowserRouter>
     </MotionConfig>

@@ -18,7 +18,7 @@ function Experience(): ReactElement {
       <section className="grow flex flex-col gap-14">
         <SectionHeader
           title="Experience"
-          subtitle="My journey in building scalable systems and solutions"
+          subtitle="From QA and data analysis to data science"
         />
 
         {/* content */}
