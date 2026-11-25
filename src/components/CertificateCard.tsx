@@ -16,6 +16,8 @@ function CertificateCard({label, url, category, issued}: CertificateProps): Reac
   const glow: ProviderBrand = getProviderBrand(category);
   const domain: string = new URL(url).hostname;
   const favicon: string = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+  // "www.linkedin.com" -> "linkedin.com", shown as "Verify on linkedin.com"
+  const siteName: string = domain.replace(/^www\./, "");
   const style = {
     "--accent": glow.color,
     ...(glow.light ? { "--accent-light": glow.light } : {}),
@@ -35,9 +37,14 @@ function CertificateCard({label, url, category, issued}: CertificateProps): Reac
       {/* Link Preview */}
       <div className="flex items-center gap-3">
         <span className="grid place-items-center size-10 sm:size-12 shrink-0 rounded-xl bg-white shadow-sm ring-1 ring-black/5">
-          <img src={favicon} alt={domain} loading="lazy" decoding="async" className="w-6 h-6 sm:w-7 sm:h-7 rounded" />
+          {/* decorative: the site name is written next to it */}
+          <img src={favicon} alt="" loading="lazy" decoding="async" className="w-6 h-6 sm:w-7 sm:h-7 rounded" />
         </span>
-        <div className="min-w-0 grow text-xs text-subtle truncate">{url}</div>
+        <div className="min-w-0 grow flex flex-col text-xs leading-tight">
+          {/* the trailing space keeps "Verify on linkedin.com" readable for screen readers */}
+          <span className="text-subtle">Verify on </span>
+          <span className="truncate font-medium text-muted group-hover:text-fg transition-colors">{siteName}</span>
+        </div>
         <ArrowUpRight
           size={18}
           className="shrink-0 text-subtle transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-fg"

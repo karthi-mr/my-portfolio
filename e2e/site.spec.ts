@@ -17,9 +17,9 @@ async function shownCount(page: Page): Promise<number> {
 }
 
 /** every card in the results grid is fully visible (guards the "cards stay invisible after clearing" bug) */
-async function expectAllCardsVisible(grid: Locator, expected: number): Promise<void> {
-  await expect(grid.locator(":scope > div")).toHaveCount(expected);
-  await expect.poll(async () => grid.locator(":scope > div").evaluateAll(cards =>
+async function expectAllCardsVisible(cards: Locator, expected: number): Promise<void> {
+  await expect(cards).toHaveCount(expected);
+  await expect.poll(async () => cards.evaluateAll(cards =>
     cards.filter(card => Number(getComputedStyle(card).opacity) < 0.98).length)).toBe(0);
 }
 
@@ -43,9 +43,30 @@ test.describe("pages", () => {
     });
   }
 
-  test("unknown URLs go to the home page", async ({ page }) => {
-    await page.goto("/does-not-exist");
+  test("the site root opens the home page", async ({ page }) => {
+    await page.goto("/");
     await expect(page).toHaveURL(/\/home$/);
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+  });
+
+  test("unknown URLs show a 'Page not found' page that search engines skip", async ({ page }) => {
+    await page.goto("/does-not-exist");
+    await expect(page.getByRole("heading", { level: 1, name: "Page not found" })).toBeVisible();
+    await expect(page).toHaveURL(/\/does-not-exist$/);
+    await expect(page).toHaveTitle("Page not found | Karthi");
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex");
+
+    // links lead back into the site, and the noindex tag goes away again
+    await page.getByRole("navigation", { name: "All pages" }).getByRole("link", { name: "Projects" }).click();
+    await expect(page).toHaveURL(/\/projects$/);
+    await expect(page.getByRole("heading", { level: 1, name: /Projects/ })).toBeVisible();
+    await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+  });
+
+  test("a trailing slash still opens the page", async ({ page }) => {
+    await page.goto("/about/");
+    await expect(page.getByRole("heading", { level: 1, name: /About Me/ })).toBeVisible();
+    await expect(page).toHaveTitle("About Me | Karthi");
   });
 
   test("each page has its own browser-tab title", async ({ page }) => {
@@ -77,7 +98,8 @@ test.describe("theme", () => {
 test.describe("skills & certificates filters", () => {
   test("skills: category filter, search, and clearing brings every card back", async ({ page }) => {
     await page.goto("/skills");
-    const grid = page.locator("main .grid").first();
+    // cards of every category group
+    const grid = page.locator("main .grid > div");
     const total: number = await shownCount(page);
     await expectAllCardsVisible(grid, total);
 
@@ -95,6 +117,15 @@ test.describe("skills & certificates filters", () => {
     await expect(list).toBeHidden();
     await page.getByRole("button", { name: "Clear all" }).click();
     await expectAllCardsVisible(grid, total);
+  });
+
+  test("skills are grouped by category, AI/ML last, and empty groups hide", async ({ page }) => {
+    await page.goto("/skills");
+    const headings = page.locator("main h2");
+    await expect(headings.first()).toHaveText("Backend");
+    await expect(headings.last()).toHaveText("AI/ML");
+    await search(page, "watson");
+    await expect(headings).toHaveText(["AI/ML"]);
   });
 
   test("certificates: picking two platforms shows both", async ({ page }) => {
@@ -119,6 +150,15 @@ test.describe("skills & certificates filters", () => {
 });
 
 test.describe("projects", () => {
+  test("a missing project image is retried once, not forever", async ({ page }) => {
+    let requests = 0;
+    await page.route("**/projects/portfolio-home.webp", route => { requests += 1; return route.fulfill({ status: 404 }); });
+    await page.goto("/projects");
+    await page.getByRole("heading", { name: "Personal Portfolio" }).scrollIntoViewIfNeeded();
+    await page.waitForTimeout(1500);
+    expect(requests).toBeLessThanOrEqual(2);
+  });
+
   test("filter by category and technology, and search", async ({ page }) => {
     await page.goto("/projects");
     const total: number = await shownCount(page);
@@ -347,8 +387,14 @@ test.describe("home, contact & guidance", () => {
     // the visible number animates; once settled it equals the screen-reader number
     for (const item of await stats.getByRole("listitem").all()) {
       const finalValue: string = await item.locator(".sr-only").innerText();
-      await expect(item.locator("[aria-hidden=true]").first()).toHaveText(finalValue);
+      await expect(item.locator("[data-stat-value]")).toHaveText(finalValue);
     }
+  });
+
+  test("stat cards link to their pages", async ({ page }) => {
+    await page.goto("/home");
+    await page.getByRole("list", { name: "At a glance" }).getByRole("link", { name: /Certificates/ }).click();
+    await expect(page).toHaveURL(/\/certificates$/);
   });
 
   test("each page ends with a Next card that leads through the site", async ({ page }) => {
@@ -381,6 +427,14 @@ test.describe("home, contact & guidance", () => {
     await expect(footer.getByRole("link")).toHaveCount(7);
     await footer.getByRole("link", { name: "Experience", exact: true }).click();
     await expect(page).toHaveURL(/\/experience$/);
+  });
+
+  test("certificates: subtitle counts them, cards say where to verify", async ({ page }) => {
+    await page.goto("/certificates");
+    await expect(page.getByText(/^\d+ certificates from \d+ platforms, newest first$/)).toBeVisible();
+    const card = page.getByRole("link", { name: /AWS Essential Training for Developers/ });
+    await expect(card).toContainText("Verify on linkedin.com");
+    await expect(card).not.toContainText("https://");
   });
 
   test("certificates: 12 at first, Show all reveals every match", async ({ page }) => {

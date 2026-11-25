@@ -13,6 +13,7 @@ Personal portfolio of Karthi – Senior Data Scientist (AI/ML), with a backgroun
 - **Brand-colored icons** – every skill logo uses its original color, certificate platforms show their own icon
 - **Contact form** – sends email through EmailJS, with spam protection
 - **SEO & sharing** – page titles per route, meta description, link-preview image, sitemap and robots.txt
+- **Page not found** – mistyped or old links show a 404 page with links to every page (kept out of search results)
 - **Fast** – each page is loaded only when opened, fonts are bundled with the site, screenshots load as small WebP thumbnails
 - **Responsive** – works on mobile, tablet and desktop
 
@@ -34,7 +35,8 @@ npm run dev
 ```
 
 Other scripts: `npm run build` (production build into `dist/`), `npm run preview` (serve the build), `npm run lint`,
-`npm run test:e2e` (build + browser tests with Playwright, using your installed Google Chrome).
+`npm run test:e2e` (build + browser tests with Playwright, using your installed Google Chrome),
+`npm run screenshots` (build + retake the README screenshots below and the "Personal Portfolio" project images).
 
 The browser tests in `e2e/` also run in GitHub Actions before every deploy, on desktop and mobile screen sizes.
 

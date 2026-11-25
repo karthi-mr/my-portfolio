@@ -41,6 +41,8 @@ export interface SkillCardType {
   category: Category;
 }
 
+// The Skills page shows one group per category, in the order the categories first appear here
+// (strongest areas first; AI/ML, which I'm learning, last). Skills inside a group keep this order too.
 export const skills: SkillCardType[] = [
   { name: 'Java', Icon: FaJava, category: 'Backend' },
   { name: 'Python', Icon: SiPython, category: 'Backend' },
@@ -61,8 +63,6 @@ export const skills: SkillCardType[] = [
   { name: 'React', Icon: SiReact, category: 'Frontend' },
   { name: 'Angular', Icon: SiAngular, category: 'Frontend' },
 
-  { name: 'IBM Watson NLP', Icon: Brain, category: 'AI/ML' },
-
   { name: 'PostgreSQL', Icon: SiPostgresql, category: 'Database' },
   { name: 'MySql', Icon: SiMysql, category: 'Database' },
 
@@ -74,4 +74,6 @@ export const skills: SkillCardType[] = [
   { name: 'Postman', Icon: SiPostman, category: 'Tools' },
   { name: 'Swagger', Icon: SiSwagger, category: 'Tools' },
   { name: 'Maven', Icon: SiApachemaven, category: 'Tools' },
+
+  { name: 'IBM Watson NLP', Icon: Brain, category: 'AI/ML' },
 ];
